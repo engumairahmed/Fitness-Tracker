@@ -1,11 +1,19 @@
 
-import './index.css'
+import './App.css'
+import { Footer } from './Components/Interface/Footer'
+import { Navbar } from './Components/Interface/Navbar'
+import { Router } from './Router'
+
 
 function App() {
 
+
   return (
     <>
-     <h1>This is a Sample for FitClave</h1>
+    <Navbar></Navbar>
+    <Router></Router>
+    <Footer></Footer>
+  
     </>
   )
 }
