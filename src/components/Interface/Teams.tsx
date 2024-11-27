@@ -100,7 +100,7 @@ export const Teams = () => {
                     </div>
 
                     
-                    {/* <div className="bg-white rounded-lg shadow-md overflow-hidden hover:scale-[1.02] transition-all" data-aos="fade-left" data-aos-delay="400">
+                    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:scale-[1.02] transition-all" data-aos="fade-right" data-aos-delay="400">
                         <div className="bg-[#31c48d] h-32"></div>
                         <img src="https://readymadeui.com/team-2.webp" className="w-36 h-36 border-4 border-white rounded-full -mt-[72px] shadow-xl inline-block" />
 
@@ -136,9 +136,9 @@ export const Teams = () => {
                                 </button>
                             </div>
                         </div>
-                    </div> */}
+                    </div>
 
-                    {/* <div className="bg-white rounded-lg shadow-md overflow-hidden hover:scale-[1.02] transition-all" data-aos="fade-right" data-aos-delay="400">
+                    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:scale-[1.02] transition-all" data-aos="fade-left" data-aos-delay="700">
                         <div className="bg-[#31c48d] h-32"></div>
                         <img src="https://readymadeui.com/team-3.webp" className="w-36 h-36 border-4 border-white rounded-full -mt-[72px] shadow-xl inline-block" />
 
@@ -174,9 +174,9 @@ export const Teams = () => {
                                 </button>
                             </div>
                         </div>
-                    </div> */}
+                    </div>
 
-                    {/* <div className="bg-white rounded-lg shadow-md overflow-hidden hover:scale-[1.02] transition-all" data-aos="fade-left" data-aos-delay="600">
+                    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:scale-[1.02] transition-all" data-aos="fade-right" data-aos-delay="800">
                         <div className="bg-[#31c48d] h-32"></div>
                         <img src="https://readymadeui.com/team-1.webp" className="w-36 h-36 border-4 border-white rounded-full -mt-[72px] shadow-xl inline-block" />
 
@@ -212,9 +212,9 @@ export const Teams = () => {
                                 </button>
                             </div>
                         </div>
-                    </div> */}
+                    </div>
 
-                    {/* <div className="bg-white rounded-lg shadow-md overflow-hidden hover:scale-[1.02] transition-all" data-aos="fade-right" data-aos-delay="600">
+                    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:scale-[1.02] transition-all" data-aos="fade-left" data-aos-delay="1100">
                         <div className="bg-[#31c48d] h-32"></div>
                         <img src="https://readymadeui.com/team-2.webp" className="w-36 h-36 border-4 border-white rounded-full -mt-[72px] shadow-xl inline-block" />
 
@@ -250,7 +250,7 @@ export const Teams = () => {
                                 </button>
                             </div>
                         </div>
-                    </div>  */}
+                    </div> 
 
         
 

@@ -1,6 +1,6 @@
 import React from 'react'
-import { Values } from './Values'
-import { Mission } from './Mission'
+// import { Values } from './Values'
+// import { Mission } from './Mission'
 
 export const About = () => {
   return (
@@ -45,8 +45,8 @@ export const About = () => {
         
       </div>
     </div>
-    <Mission></Mission>
-    <Values></Values>
+    {/* <Mission></Mission>
+    <Values></Values> */}
     </div>
   )
 }
