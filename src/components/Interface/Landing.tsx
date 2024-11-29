@@ -1,8 +1,7 @@
-import React from 'react';
-import { Features } from './Features';
+
+
 import { About } from './About';
-import { Team } from './Team';
-import { Contactus } from './Contactus';
+import { Features } from './Features';
 import { Teams } from './Teams';
 
 export const Landing = () => {
@@ -23,7 +22,7 @@ export const Landing = () => {
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-[#004d40] via-[#004d40b3] to-[#004d40] opacity-92 z-0"></div>
 
         <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-center text-[#fff] z-10 px-4">
-          {/* Main Content Section */}
+       
           <div className="text-left max-w-4xl mx-auto text-center">
           <h1 className="lg:text-6xl md:text-6xl text-4xl text-[#fff] font-bold mb-6 md:!leading-[80px]">
               Transform your fitness journey <br />

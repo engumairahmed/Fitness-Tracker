@@ -1,11 +1,11 @@
-import React from 'react'
+
 import { Route, Routes } from 'react-router-dom'
-import { Landing } from './Components/Interface/Landing'
-import { Features } from './Components/Interface/Features'
-import { About } from './Components/Interface/About'
-import { Contactus } from './Components/Interface/Contactus'
-import { Teams } from './Components/Interface/Teams'
-import { Values } from './Components/Interface/Values'
+import { Landing } from './components/Interface/Landing'
+import { About } from './components/Interface/About'
+import { Values } from './components/Interface/Values'
+import { Features } from './components/Interface/Features'
+import { Teams } from './components/Interface/Teams'
+import { Contactus } from './components/Interface/Contactus'
 export const Router = () => {
   return (
     <div>

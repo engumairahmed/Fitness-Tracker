@@ -1,6 +1,7 @@
-import React from 'react'
-// import { Values } from './Values'
-// import { Mission } from './Mission'
+
+import { TiTick } from "react-icons/ti"
+import { Values } from "./Values"
+
 
 export const About = () => {
   return (
@@ -11,26 +12,26 @@ export const About = () => {
             </h1>
       <div className="max-w-7xl mx-auto flex flex-col-reverse md:flex-row items-center space-x-10">
    
-        {/* Text Section */}
+      
         <div className="md:w-1/2 text-center md:text-left">
           <p className="text-lg text-gray-700 mb-6">
             Welcome to the future of fitness tracking! At FitClave, we believe fitness is not just a goal—it's a lifestyle. Our mission is to empower individuals to lead healthier lives by offering an innovative platform for tracking workouts, nutrition, and progress effortlessly.
           </p>
           <ul className="space-y-4 text-left text-gray-600">
             <li className="flex items-center">
-              <span className="mr-2 text-[#67C3A2]">✔</span> Fitness Tracking: Plan, organize, and monitor workouts with personalized routines tailored to your goals.
+            <TiTick className="mr-2 text-[#67C3A2] text-3xl"></TiTick>Fitness Tracking: Plan, organize, and monitor workouts with personalized routines tailored to your goals.
             </li>
             <li className="flex items-center">
-              <span className="mr-2 text-[#67C3A2]">✔</span> Nutrition Monitoring: Keep track of your daily meals and maintain a balanced calorie and nutrient intake.
+            <TiTick className="mr-2 text-[#67C3A2] text-3xl"></TiTick> Nutrition Monitoring: Keep track of your daily meals and maintain a balanced calorie and nutrient intake.
             </li>
             <li className="flex items-center">
-              <span className="mr-2 text-[#67C3A2]">✔</span> Progress Visualization: Celebrate milestones with clear, intuitive graphs and insights that show your fitness journey.
+            <TiTick className="mr-2 text-[#67C3A2] text-3xl"></TiTick> Progress Visualization: Celebrate milestones with clear, intuitive graphs and insights that show your fitness journey.
             </li>
             <li className="flex items-center">
-              <span className="mr-2 text-[#67C3A2]">✔</span> Seamless Accessibility: Whether on a desktop or mobile device, FitClave keeps you connected to your goals anytime, anywhere.Whether on a desktop or mobile device, FitClave keeps you connected to your goals anytime, anywhere.
+            <TiTick className="mr-2 text-[#67C3A2] text-3xl"></TiTick> Seamless Accessibility: Whether on a desktop or mobile device, FitClave keeps you connected to your goals anytime, anywhere.
             </li>
             <li className="flex items-center">
-              <span className="mr-2 text-[#67C3A2]">✔</span> Customizable Features: Alerts, reminders, themes, and more—designed to suit your unique fitness needs.
+            <TiTick className="mr-2 text-[#67C3A2] text-3xl"></TiTick>Customizable Features: Alerts, reminders, themes, and more—designed to suit your unique fitness needs.
             </li>
           </ul>
         </div>
@@ -45,8 +46,7 @@ export const About = () => {
         
       </div>
     </div>
-    {/* <Mission></Mission>
-    <Values></Values> */}
+   <Values></Values>
     </div>
   )
 }

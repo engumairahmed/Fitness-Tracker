@@ -1,7 +1,7 @@
 
 import './App.css'
-import { Footer } from './Components/Interface/Footer'
-import { Navbar } from './Components/Interface/Navbar'
+import { Footer } from './components/Interface/Footer'
+import { Navbar } from './components/Interface/Navbar'
 import { Router } from './Router'
 
 
