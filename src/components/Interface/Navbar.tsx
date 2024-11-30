@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { RxCross1 } from "react-icons/rx";
 import { Link } from "react-router-dom";
-// import './Navbar.css'
 
 export const Navbar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuOpen(prev => !prev);
+  };
+
   return (
     <header className="shadow-md py-3 px-5 sm:px-10 bg-white font-[sans-serif] min-h-[60px] tracking-wide relative z-50 border-b border-gray-200">
       <div className="flex items-center justify-between w-full">
@@ -14,69 +21,45 @@ export const Navbar = () => {
           />
         </a>
 
-        <nav className="hidden lg:flex items-center space-x-8">
-          <Link
-            to="/"
-            className="hover:text-[#31C48D] text-[#31C48D] transition-colors duration-300 font-medium"
-          >
-            Home
-          </Link>
-          <Link
-            to={"/about"}
-            className="text-gray-600 hover:text-[#31C48D] transition-colors duration-300 font-medium"
-          >
-            About
-          </Link>
-          <Link
-            to="/feature"
-            className="text-gray-600 hover:text-[#31C48D] transition-colors duration-300 font-medium"
-          >
-            Features
-          </Link>
-          <Link
-            to={"/team"}
-            className="text-gray-600 hover:text-[#31C48D] transition-colors duration-300 font-medium"
-          >
-            Team
-          </Link>
-          <a
-            href="#"
-            className="text-gray-600 hover:text-[#31C48D] transition-colors duration-300 font-medium"
-          >
-            Blog
-          </a>
-          <Link
-            to={"/contactus"}
-            className="text-gray-600 hover:text-[#31C48D] transition-colors duration-300 font-medium"
-          >
-            Contact
-          </Link>
+        <nav className="hidden lg:flex items-center space-x-8 ">
+          <div className={`lg:flex space-x-5 ${menuOpen ? 'block' : 'hidden'} lg:!block`}>
+            <Link to="/" onClick={toggleMenu} className="hover:text-[#31C48D] text-[#31C48D] transition-colors duration-300 font-medium">Home</Link>
+            <Link to="/about" onClick={toggleMenu} className="text-gray-600 hover:text-[#31C48D] transition-colors duration-300 font-medium">About</Link>
+            <Link to="/feature" onClick={toggleMenu} className="text-gray-600 hover:text-[#31C48D] transition-colors duration-300 font-medium">Features</Link>
+            <Link to="/team" onClick={toggleMenu} className="text-gray-600 hover:text-[#31C48D] transition-colors duration-300 font-medium">Team</Link>
+            <a href="#" onClick={toggleMenu} className="text-gray-600 hover:text-[#31C48D] transition-colors duration-300 font-medium">Blog</a>
+            <Link to="/contactus" onClick={toggleMenu} className="text-gray-600 hover:text-[#31C48D] transition-colors duration-300 font-medium">Contact</Link>
+          </div>
         </nav>
 
         <div className="hidden lg:flex space-x-4">
-          <button className="px-6 py-4 text-[15px] text-white bg-[#31C48D] border-none rounded-[15px] shadow-md hover:bg-[#31C48D] hover:text-white active:bg-[#31C48D] active:shadow-sm active:translate-y-[4px] transition-all duration-300">
-            Login
-          </button>
-          <button className="px-6 py-4 text-[15px]  text-white bg-[#31C48D] border-none rounded-[15px] shadow-md hover:bg-[#31C48D] hover:text-white active:bg-[#31C48D] active:shadow-sm active:translate-y-[4px] transition-all duration-300">
-            Sign Up
-          </button>
+          <button className="px-6 py-4 text-[15px] text-white bg-[#31C48D] border-none rounded-[15px] shadow-md hover:bg-[#31C48D] active:bg-[#31C48D] transition-all duration-300">Login</button>
+          <button className="px-6 py-4 text-[15px] text-white bg-[#31C48D] border-none rounded-[15px] shadow-md hover:bg-[#31C48D] active:bg-[#31C48D] transition-all duration-300">Sign Up</button>
         </div>
 
-        <button className="lg:hidden text-gray-700">
-          <svg
-            className="w-7 h-7"
-            fill="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fillRule="evenodd"
-              d="M3 6h18M3 12h18m-9 6h9"
-              clipRule="evenodd"
-            ></path>
-          </svg>
+        <button id="toggleOpen" className="lg:hidden" onClick={toggleMenu}>
+          <GiHamburgerMenu className="text-[#31C48D] w-7 h-7" />
         </button>
       </div>
+
+  {/* /Mobile View */}
+      {menuOpen && (
+        <div className="lg:hidden fixed top-0 left-0 w-[250px] h-full bg-white shadow-md p-6 z-50">
+          <div className="flex justify-end">
+            <button onClick={toggleMenu} className="text-[#31C48D]">
+            <RxCross1 className="w-7 h-7" />
+            </button>
+          </div>
+          <nav className="flex flex-col space-y-4">
+            <Link to="/" onClick={toggleMenu} className="hover:text-[#31C48D] text-[#31C48D] transition-colors duration-300 font-medium">Home</Link>
+            <Link to="/about" onClick={toggleMenu} className="text-gray-600 hover:text-[#31C48D] transition-colors duration-300 font-medium">About</Link>
+            <Link to="/feature" onClick={toggleMenu} className="text-gray-600 hover:text-[#31C48D] transition-colors duration-300 font-medium">Features</Link>
+            <Link to="/team" onClick={toggleMenu} className="text-gray-600 hover:text-[#31C48D] transition-colors duration-300 font-medium">Team</Link>
+            <a href="#" onClick={toggleMenu } className="text-gray-600 hover:text-[#31C48D] transition-colors duration-300 font-medium">Blog</a>
+            <Link to="/contactus" onClick={toggleMenu} className="text-gray-600 hover:text-[#31C48D] transition-colors duration-300 font-medium">Contact</Link>
+          </nav>
+        </div>
+      )}
     </header>
   );
 };
