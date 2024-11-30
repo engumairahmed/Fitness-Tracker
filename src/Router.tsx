@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom'
 import { Landing } from './components/Interface/Landing'
 import { Contactus } from './components/Interface/Contactus'
 import { About } from './components/Interface/About'
-import { Values } from './Components/Interface/Values'
+import { Values } from './components/Interface/Values'
 import { Features } from './components/Interface/Features'
 import { Teams } from './components/Interface/Teams'
 export const Router = () => {

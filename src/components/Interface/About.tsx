@@ -1,6 +1,6 @@
 
 import { TiTick } from "react-icons/ti"
-import { Values } from "./Values"
+import { Values } from './Values'
 
 
 export const About = () => {
