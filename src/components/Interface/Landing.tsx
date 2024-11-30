@@ -1,8 +1,8 @@
+import { About } from "./About";
+import { Features } from "./Features";
+import { Teams } from "./Teams";
 
 
-import { About } from './About';
-import { Features } from './Features';
-import { Teams } from './Teams';
 
 export const Landing = () => {
   return (

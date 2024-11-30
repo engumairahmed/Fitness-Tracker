@@ -1,4 +1,4 @@
-import React from "react";
+
 import { MdMail } from "react-icons/md";
 import { FaPhoneAlt, FaUser } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";

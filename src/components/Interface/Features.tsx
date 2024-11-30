@@ -1,4 +1,4 @@
-import React from "react";
+
 import { FaRunning } from "react-icons/fa";
 import { FaNutritionix, FaLock } from "react-icons/fa";
 import { PiChartLineUp } from "react-icons/pi";

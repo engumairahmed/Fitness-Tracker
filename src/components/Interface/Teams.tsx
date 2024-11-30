@@ -1,4 +1,4 @@
-import React, { useEffect} from 'react'
+import { useEffect} from 'react'
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -28,7 +28,7 @@ export const Teams = () => {
 
                         <div className="p-6">
                             <h4 className="text-gray-800 text-base font-extrabold">Umair Ahmed</h4>
-                            <p className="text-gray-600 text-xs mt-1">Backend Developer & Lead</p>
+                            <p className="text-gray-600 text-xs mt-1">Team Lead, Full-stack developer</p>
                             <p className="text-gray-600 mt-4 text-sm">Leads the backend development of our fitness tracker. He ensures that the system's architecture is scalable and secure, and he works on building the APIs that support the app’s core functionalities. His expertise allows us to manage large sets of fitness data and deliver real-time updates to users seamlessly.</p>
 
                             <div className="space-x-4 mt-6">

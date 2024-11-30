@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { FaRegLightbulb, FaLeaf, FaRegHandshake } from "react-icons/fa";
 import { FaRegSquareCheck } from "react-icons/fa6";
 import { IoKeyOutline } from 'react-icons/io5';
