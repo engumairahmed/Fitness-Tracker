@@ -21,7 +21,7 @@ export const Teams = () => {
        
         </div>
 
-                <div className="grid lg:grid-cols-2 sm:grid-cols-2 gap-8 max-sm:justify-center text-center mt-12">
+                <div className="grid lg:grid-cols-2 sm:grid-cols-2 gap-8 max-sm:justify-center text-center mt-12 overflow-hidden overflow-x-hidden">
                 <div className="bg-white rounded-lg shadow-md overflow-hidden hover:scale-[1.02] transition-all"  data-aos="fade-right" data-aos-delay="100">
                         <div className="bg-[#31c48d] h-32"></div>
                         <img src="https://readymadeui.com/team-1.webp" className="w-36 h-36 border-4 border-white rounded-full -mt-[72px] shadow-xl inline-block" />
@@ -288,6 +288,8 @@ export const Teams = () => {
                             </div>
                         </div>
                     </div> 
+                   
+
 
         
 

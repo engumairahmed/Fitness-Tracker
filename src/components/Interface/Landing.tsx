@@ -7,7 +7,7 @@ import { Teams } from "./Teams";
 export const Landing = () => {
   return (
     <div>
-      <div className="relative w-full h-screen overflow-hidden">
+      <div className="relative w-full h-screen overflow-hidden overflow-x-hidden">
         <video
           autoPlay
           muted

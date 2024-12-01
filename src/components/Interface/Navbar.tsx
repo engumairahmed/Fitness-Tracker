@@ -44,19 +44,25 @@ export const Navbar = () => {
 
   {/* /Mobile View */}
       {menuOpen && (
-        <div className="lg:hidden fixed top-0 left-0 w-[250px] h-full bg-white shadow-md p-6 z-50">
+        <div className="lg:hidden fixed top-0 left-0 w-full h-full bg-white shadow-md p-6 z-50">
           <div className="flex justify-end">
             <button onClick={toggleMenu} className="text-[#31C48D]">
             <RxCross1 className="w-7 h-7" />
             </button>
           </div>
-          <nav className="flex flex-col space-y-4">
+          <nav className="flex flex-col space-y-4 text-center">
             <Link to="/" onClick={toggleMenu} className="hover:text-[#31C48D] text-[#31C48D] transition-colors duration-300 font-medium">Home</Link>
+            <div className="border-b border-gray-300 my-2"></div>
             <Link to="/about" onClick={toggleMenu} className="text-gray-600 hover:text-[#31C48D] transition-colors duration-300 font-medium">About</Link>
+            <div className="border-b border-gray-300 my-2"></div>
             <Link to="/feature" onClick={toggleMenu} className="text-gray-600 hover:text-[#31C48D] transition-colors duration-300 font-medium">Features</Link>
+            <div className="border-b border-gray-300 my-2"></div>
             <Link to="/team" onClick={toggleMenu} className="text-gray-600 hover:text-[#31C48D] transition-colors duration-300 font-medium">Team</Link>
+            <div className="border-b border-gray-300 my-2"></div>
             <a href="#" onClick={toggleMenu } className="text-gray-600 hover:text-[#31C48D] transition-colors duration-300 font-medium">Blog</a>
+            <div className="border-b border-gray-300 my-2"></div>
             <Link to="/contactus" onClick={toggleMenu} className="text-gray-600 hover:text-[#31C48D] transition-colors duration-300 font-medium">Contact</Link>
+           
           </nav>
         </div>
       )}

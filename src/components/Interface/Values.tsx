@@ -9,7 +9,7 @@ export const Values = () => {
   return (
     <div>
       <div className="max-w-3xl mx-auto text-center">
-        <h2 className="text-5xl font-bold mb-4 px-4 py-5 text-[#31C48D]">FitClave Mission</h2>
+      <h2 className="md:text-5xl text-4xl font-bold mb-6 text-[#31C48D]">FitClave Mission</h2>
         <p className="text-lg text-center text-black font-sans">
           Our mission is to empower individuals to take control of their fitness journey 
           with ease and confidence. We aim to provide a comprehensive platform that integrates 
