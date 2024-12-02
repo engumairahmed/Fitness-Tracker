@@ -1,20 +1,62 @@
-
 import { MdMail } from "react-icons/md";
 import { FaPhoneAlt, FaUser } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { FiFacebook, FiLinkedin, FiInstagram } from "react-icons/fi";
 import { MdEmail, MdMessage } from "react-icons/md";
 import { RiSendPlaneFill } from "react-icons/ri";
+import * as Yup from "yup";
+import { useFormik } from "formik";
 export const Contactus = () => {
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+  const schema = Yup.object({
+    firstname: Yup.string()
+      .required("First name is required")
+      .min(2, "First name must be at least 2 characters long"),
+
+    lastname: Yup.string()
+      .required("Last name is required")
+      .min(2, "Last name must be at least 2 characters long"),
+
+    phoneno: Yup.string()
+      .matches(/^[0-9]{10}$/, "Phone number must be 11 digits")
+      .required("Phone number is required"),
+
+    email: Yup.string()
+      .required("Email is required")
+      .matches(emailRegex, "Invalid email address"),
+
+    message: Yup.string()
+      .required("Message is required")
+      .min(10, "Message must be at least 10 characters long"),
+
+    subject: Yup.string().required("please select the subject"),
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      firstname: "",
+      lastname: "",
+      phoneno: "",
+      email: "",
+      message: "",
+      subject: "",
+    },
+    validationSchema: schema,
+    onSubmit: (values) => {
+      console.log(values);
+    },
+  });
   return (
     <div>
       <div className="max-w-5xl max-lg:max-w-3xl mx-auto bg-white my-6 font-[sans-serif] mt-10">
         <div className="text-center px-6">
-        <h2 className="md:text-5xl text-4xl font-bold mb-6 text-[#31C48D]">
+          <h2 className="md:text-5xl text-4xl font-bold mb-6 text-[#31C48D]">
             Contact Us
           </h2>
           <p className="text-sm text-gray-500 mt-4">
-          Have questions about achieving your fitness goals? We’re here to help you every step of the way!
+            Have questions about achieving your fitness goals? We’re here to
+            help you every step of the way!
           </p>
         </div>
 
@@ -71,62 +113,110 @@ export const Contactus = () => {
           </div>
 
           <div className="p-4 lg:col-span-2">
-            <form>
+            <form onSubmit={formik.handleSubmit}>
               <div className="grid sm:grid-cols-2 gap-8">
-                <div className="relative flex items-center">
+                <div className="relative flex flex-col items-center">
                   <input
                     type="text"
+                    name="firstname"
                     placeholder="First Name"
                     className="px-2 py-3 bg-white w-full text-sm text-gray-800 border-b-2 border-[#67c3a2] focus:border-[#67c3a2] outline-none"
+                    value={formik.values.firstname}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                   />
-                <FaUser className="w-[18px] h-[18px] absolute right-2 text-[#67c3a2]"/>
+                  <FaUser className="w-[18px] h-[18px] absolute right-2 top-3 text-[#67c3a2]" />
+                  {formik.touched.firstname && formik.errors.firstname && (
+                    <div className="text-red-500 text-xs text-right">
+                      {formik.errors.firstname}
+                    </div>
+                  )}
                 </div>
 
-                <div className="relative flex items-center">
+                <div className="relative flex flex-col items-center">
                   <input
                     type="text"
+                    name="lastname"
                     placeholder="Last Name"
                     className="px-2 py-3 bg-white w-full text-sm text-gray-800 border-b-2 border-[#67c3a2] focus:border-[#67c3a2] outline-none"
+                    value={formik.values.lastname}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                   />
-                    <FaUser className="w-[18px] h-[18px] absolute right-2 text-[#67c3a2]"/>
+                  <FaUser className="w-[18px] h-[18px] absolute right-2 top-3 text-[#67c3a2]" />
+                  {formik.touched.lastname && formik.errors.lastname && (
+                    <div className="text-red-500 text-xs">
+                      {formik.errors.lastname}
+                    </div>
+                  )}
                 </div>
 
-                <div className="relative flex items-center">
+                <div className="relative flex flex-col items-center">
                   <input
-                    type="number"
+                    type="text"
+                    name="phoneno"
                     placeholder="Phone No."
                     className="px-2 py-3 bg-white text-black w-full text-sm text-gray-800 border-b-2 border-[#67c3a2] focus:border-[#67c3a2] outline-none"
+                    value={formik.values.phoneno}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                   />
-                   <FaPhoneAlt className="w-[18px] h-[18px] absolute right-2 text-[#67c3a2]" />
+                  <FaPhoneAlt className="w-[18px] h-[18px] absolute right-2 top-3 text-[#67c3a2]" />
+                  {formik.touched.phoneno && formik.errors.phoneno && (
+                    <div className="text-red-500 text-xs">
+                      {formik.errors.phoneno}
+                    </div>
+                  )}
                 </div>
 
-                <div className="relative flex items-center">
+                <div className="relative flex flex-col items-center">
                   <input
                     type="email"
+                    name="email"
                     placeholder="Email"
                     className="px-2 py-3 bg-white text-black w-full text-sm text-gray-800 border-b-2 border-[#67c3a2] focus:border-[#67c3a2] outline-none"
+                    value={formik.values.email}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                   />
-                <MdEmail className="w-[19px] h-[19px] absolute right-2 text-[#67c3a2]"/>
+                  <MdEmail className="w-[19px] h-[19px] absolute right-2 top-3 text-[#67c3a2]" />
+                  {formik.touched.email && formik.errors.email && (
+                    <div className="text-red-500 text-xs">
+                      {formik.errors.email}
+                    </div>
+                  )}
                 </div>
 
-                <div className="relative flex items-center sm:col-span-2">
+                <div className="relative flex flex-col items-center sm:col-span-2">
                   <textarea
                     placeholder="Write Message"
+                    name="message"
                     className="px-2 pt-3 bg-white text-black w-full text-sm text-gray-800 border-b-2 border-[#67c3a2] focus:border-[#67c3a2] outline-none"
-                  ></textarea>
-                  <MdMessage className="w-[18px] h-[18px] absolute right-2 text-[#67c3a2]" />
+                    value={formik.values.message}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  <MdMessage className="w-[18px] h-[18px] absolute right-2 top-3 text-[#67c3a2]" />
+                  {formik.touched.message && formik.errors.message && (
+                    <div className="text-red-500 text-xs">
+                      {formik.errors.message}
+                    </div>
+                  )}
                 </div>
 
-                <div className="col-span-full">
+                <div className="col-span-full flex flex-col">
                   <h6 className="text-sm text-gray-800">Select Subject</h6>
                   <div className="flex max-lg:flex-col gap-6 mt-4">
                     <div className="flex items-center">
                       <input
                         id="radio1"
                         type="radio"
-                        name="value1"
+                        name="subject"
+                        value="General Inquiry" // Set the value of this option
                         className="hidden peer"
-                        checked
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        checked={formik.values.subject === "General Inquiry"}
                       />
                       <label
                         htmlFor="radio1"
@@ -143,8 +233,12 @@ export const Contactus = () => {
                       <input
                         id="radio2"
                         type="radio"
-                        name="value1"
+                        name="subject"
+                        value="Technical Support" // Set the value of this option
                         className="hidden peer"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        checked={formik.values.subject === "Technical Support"}
                       />
                       <label
                         htmlFor="radio2"
@@ -161,8 +255,14 @@ export const Contactus = () => {
                       <input
                         id="radio3"
                         type="radio"
-                        name="value1"
+                        name="subject"
+                        value="Webapplication Feedback" // Set the value of this option
                         className="hidden peer"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        checked={
+                          formik.values.subject === "Webapplication Feedback"
+                        }
                       />
                       <label
                         htmlFor="radio3"
@@ -175,14 +275,20 @@ export const Contactus = () => {
                       </p>
                     </div>
                   </div>
+
+                  {formik.touched.subject && formik.errors.subject && (
+                    <div className="text-red-500 text-xs mt-2 text-center">
+                      {formik.errors.subject}
+                    </div>
+                  )}
                 </div>
               </div>
 
               <button
-                type="button"
+                type="submit"
                 className="mt-12 flex items-center justify-center text-sm lg:ml-auto max-lg:w-full rounded-lg px-4 py-3 tracking-wide text-white bg-[#31c48d] hover:bg-[#67C3A2]"
               >
-              <RiSendPlaneFill className="text-white w-[16px] h-[16px] mr-2"/>
+                <RiSendPlaneFill className="text-white w-[16px] h-[16px] mr-2" />
                 Send Message
               </button>
             </form>
