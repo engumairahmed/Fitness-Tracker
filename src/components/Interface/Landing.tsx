@@ -1,13 +1,15 @@
 import { About } from "./About";
 import { Features } from "./Features";
+import { Footer } from "./Footer";
+import { Navbar } from "./Navbar";
 import { Teams } from "./Teams";
 
 
 
 export const Landing = () => {
   return (
-    <div>
-      <div className="relative w-full h-screen overflow-hidden overflow-x-hidden">
+    <div>      
+      <div className="relative w-full h-screen overflow-hidden">
         <video
           autoPlay
           muted
@@ -23,7 +25,7 @@ export const Landing = () => {
 
         <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-center text-[#fff] z-10 px-4">
        
-          <div className="text-left max-w-4xl mx-auto text-center">
+          <div className="max-w-4xl mx-auto text-center">
           <h1 className="lg:text-6xl md:text-6xl text-4xl text-[#fff] font-bold mb-6 md:!leading-[80px]">
               Transform your fitness journey <br />
               with our FitClave Fitness 
