@@ -14,6 +14,7 @@ import DashboardLayout from './components/Dashboard/Layout'
 import Home from './components/Home'
 import NotFound from './components/Notfound'
 import DashboardHome from './components/Dashboard/Home'
+import NutritionMonitor from './components/Dashboard/NutritionMonitor'
 
 
 function App() {
@@ -39,8 +40,9 @@ function App() {
         {/* Dashboard Routes */}
 
         <Route path='/dashboard' element={<DashboardLayout />}>
-          <Route path='*' element={<NotFound/>}></Route>
           <Route index element={<DashboardHome/>}></Route>
+          <Route path='*' element={<NotFound/>}></Route>
+          <Route path='nutri-mon' element={<NutritionMonitor/>}></Route>
         </Route>
 
       </Routes>

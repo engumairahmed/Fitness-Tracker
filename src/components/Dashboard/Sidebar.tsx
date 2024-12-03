@@ -36,7 +36,7 @@ const Sidebar = () => {
                 </span>
               </Link>                                </li>
             <li>
-              <Link className="text-[#333] text-sm flex items-center hover:text-[#67C3A2] transition-all" to={'/NutritionTracker'}>
+              <Link className="text-[#333] text-sm flex items-center hover:text-[#67C3A2] transition-all" to={'/dashboard/nutri-mon'}>
                 <IoMdNutrition className="w-7 h-5 " />
                 <span> Nutrition Tracker</span>
               </Link>
