@@ -40,7 +40,7 @@ export const Footer = () => {
               <li><Link to={'/values'} className="hover:text-[#67C3A2]">Fitclave Mission and Values</Link></li>
               <li><Link to={'/team'} className="hover:text-[#67C3A2]">Fitclave Team</Link></li>
               <li><Link to={'/feature'} className="hover:text-[#67C3A2]">Fitclave Tracker Features</Link></li>
-              <li><Link to={'/feature'} className="hover:text-[#67C3A2]">Frequently Asked Questions</Link></li>
+              <li><Link to={'/faq'} className="hover:text-[#67C3A2]">Frequently Asked Questions</Link></li>
             </ul>
           </div>
         </div>

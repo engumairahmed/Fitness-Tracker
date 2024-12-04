@@ -16,6 +16,7 @@ import NotFound from './components/Notfound'
 import DashboardHome from './components/Dashboard/Home'
 import NutritionMonitor from './components/Dashboard/NutritionMonitor'
 import { Nutrition } from './components/Interface/Nutrition'
+import { FAQ } from './components/Interface/Faq'
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
           <Route path='/feature' element={<Features></Features>}></Route>
           <Route path='/nutrition' element={<Nutrition></Nutrition>}></Route>
           <Route path='/team' element={<Teams></Teams>}></Route>
+          <Route path='/faq' element={<FAQ></FAQ>}></Route>
           <Route path='/contactus' element={<Contactus></Contactus>}></Route>
         </Route>
 
