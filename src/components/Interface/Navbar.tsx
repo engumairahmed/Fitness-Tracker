@@ -34,8 +34,8 @@ export const Navbar = () => {
         </nav>
 
         <div className="hidden lg:flex space-x-4">
-          <button className="px-6 py-4 text-[15px] text-white bg-[#31C48D] border-none rounded-[15px] shadow-md hover:bg-[#31C48D] active:bg-[#31C48D] transition-all duration-300">Login</button>
-          <button className="px-6 py-4 text-[15px] text-white bg-[#31C48D] border-none rounded-[15px] shadow-md hover:bg-[#31C48D] active:bg-[#31C48D] transition-all duration-300">Sign Up</button>
+          <Link to={'/login'} className="px-6 py-4 text-[15px] text-white bg-[#31C48D] border-none rounded-[15px] shadow-md hover:bg-[#31C48D] active:bg-[#31C48D] transition-all duration-300">Login</Link>
+          <Link to={'/sign'} className="px-6 py-4 text-[15px] text-white bg-[#31C48D] border-none rounded-[15px] shadow-md hover:bg-[#31C48D] active:bg-[#31C48D] transition-all duration-300">Sign Up</Link>
         </div>
 
         <button id="toggleOpen" className="lg:hidden" onClick={toggleMenu}>

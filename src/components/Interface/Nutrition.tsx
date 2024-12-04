@@ -19,7 +19,7 @@ export const Nutrition = () => {
         <img
           src="/Nutritionpic.jpg"
           alt="Fitness Tracker"
-          className="w-auto h-[250px] object-cover rounded-lg shadow-lg"
+          className="w-full max-w-[500px] h-auto object-contain rounded-lg shadow-lg"
         />
       </div>
       <p className="text-lg text-[#333] mt-4 font-sans font-bold">

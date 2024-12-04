@@ -17,6 +17,11 @@ import DashboardHome from './components/Dashboard/Home'
 import NutritionMonitor from './components/Dashboard/NutritionMonitor'
 import { Nutrition } from './components/Interface/Nutrition'
 import { FAQ } from './components/Interface/Faq'
+import { SignUp } from './components/Auth/signup'
+import { Login } from './components/Auth/login'
+import { ForgotPassword } from './components/Auth/forget'
+import ResetPassword from './components/Auth/reset'
+import EmailVerification from './components/Auth/verify'
 
 
 function App() {
@@ -26,6 +31,11 @@ function App() {
     <>
       <Routes>
         {/* Authentication Routes */}
+        <Route path='/sign' element={<SignUp></SignUp>}></Route>
+        <Route path='/login' element={<Login></Login>}></Route>
+        <Route path='/forget-password' element={<ForgotPassword></ForgotPassword>}></Route>
+        <Route path='/reset-password' element={<ResetPassword></ResetPassword>}></Route>
+        <Route path='/email-verification' element={<EmailVerification></EmailVerification>}></Route>
 
         {/* Landing page Interface Routes */}
 
