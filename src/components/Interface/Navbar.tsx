@@ -3,6 +3,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { RxCross1 } from "react-icons/rx";
 import { Link } from "react-router-dom";
 
+
 export const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -27,7 +28,7 @@ export const Navbar = () => {
             <Link to="/about" onClick={toggleMenu} className="text-gray-600 hover:text-[#31C48D] transition-colors duration-300 font-medium">About</Link>
             <Link to="/feature" onClick={toggleMenu} className="text-gray-600 hover:text-[#31C48D] transition-colors duration-300 font-medium">Features</Link>
             <Link to="/team" onClick={toggleMenu} className="text-gray-600 hover:text-[#31C48D] transition-colors duration-300 font-medium">Team</Link>
-            <a href="#" onClick={toggleMenu} className="text-gray-600 hover:text-[#31C48D] transition-colors duration-300 font-medium">Blog</a>
+            <Link to="/nutrition" onClick={toggleMenu} className="text-gray-600 hover:text-[#31C48D] transition-colors duration-300 font-medium">Nutrition</Link>
             <Link to="/contactus" onClick={toggleMenu} className="text-gray-600 hover:text-[#31C48D] transition-colors duration-300 font-medium">Contact</Link>
           </div>
         </nav>
@@ -59,7 +60,7 @@ export const Navbar = () => {
             <div className="border-b border-gray-300 my-2"></div>
             <Link to="/team" onClick={toggleMenu} className="text-gray-600 hover:text-[#31C48D] transition-colors duration-300 font-medium">Team</Link>
             <div className="border-b border-gray-300 my-2"></div>
-            <a href="#" onClick={toggleMenu } className="text-gray-600 hover:text-[#31C48D] transition-colors duration-300 font-medium">Blog</a>
+            <Link to="/nutrition" onClick={toggleMenu } className="text-gray-600 hover:text-[#31C48D] transition-colors duration-300 font-medium">Nutrition</Link>
             <div className="border-b border-gray-300 my-2"></div>
             <Link to="/contactus" onClick={toggleMenu} className="text-gray-600 hover:text-[#31C48D] transition-colors duration-300 font-medium">Contact</Link>
            

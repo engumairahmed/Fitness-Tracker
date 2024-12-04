@@ -74,7 +74,7 @@ export const Contactus = () => {
                 <MdMail className="text-white w-[16px] h-[16px]" />
                 <a
                   href="javascript:void(0)"
-                  className="text-white text-sm text-white ml-4"
+                  className="text-white text-sm ml-4"
                 >
                   info@example.com
                 </a>
@@ -83,7 +83,7 @@ export const Contactus = () => {
                 <FaPhoneAlt className="text-white w-[16px] h-[16px]" />
                 <a
                   href="javascript:void(0)"
-                  className="text-white text-sm text-white ml-4"
+                  className="text-white text-sm ml-4"
                 >
                   +158 996 888
                 </a>
@@ -92,7 +92,7 @@ export const Contactus = () => {
                 <FaLocationDot className="text-white w-[16px] h-[16px]" />
                 <a
                   href="javascript:void(0)"
-                  className="text-white text-sm text-white ml-4"
+                  className="text-white text-sm ml-4"
                 >
                   123 Street 256 House
                 </a>
@@ -156,7 +156,7 @@ export const Contactus = () => {
                     type="text"
                     name="phoneno"
                     placeholder="Phone No."
-                    className="px-2 py-3 bg-white text-black w-full text-sm text-gray-800 border-b-2 border-[#67c3a2] focus:border-[#67c3a2] outline-none"
+                    className="px-2 py-3 bg-white text-black w-full text-sm  border-b-2 border-[#67c3a2] focus:border-[#67c3a2] outline-none"
                     value={formik.values.phoneno}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
@@ -174,7 +174,7 @@ export const Contactus = () => {
                     type="email"
                     name="email"
                     placeholder="Email"
-                    className="px-2 py-3 bg-white text-black w-full text-sm text-gray-800 border-b-2 border-[#67c3a2] focus:border-[#67c3a2] outline-none"
+                    className="px-2 py-3 bg-white text-black w-full text-sm  border-b-2 border-[#67c3a2] focus:border-[#67c3a2] outline-none"
                     value={formik.values.email}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
@@ -191,7 +191,7 @@ export const Contactus = () => {
                   <textarea
                     placeholder="Write Message"
                     name="message"
-                    className="px-2 pt-3 bg-white text-black w-full text-sm text-gray-800 border-b-2 border-[#67c3a2] focus:border-[#67c3a2] outline-none"
+                    className="px-2 pt-3 bg-white text-black w-full text-sm border-b-2 border-[#67c3a2] focus:border-[#67c3a2] outline-none"
                     value={formik.values.message}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
@@ -205,7 +205,7 @@ export const Contactus = () => {
                 </div>
 
                 <div className="col-span-full flex flex-col">
-                  <h6 className="text-sm text-gray-800">Select Subject</h6>
+                  <h6 className="text-sm text-gray-400">Select Subject</h6>
                   <div className="flex max-lg:flex-col gap-6 mt-4">
                     <div className="flex items-center">
                       <input
