@@ -11,7 +11,7 @@ export const Nutrition = () => {
     });
   }, []);
   return (
-    <div className="text-center px-6">
+    <div className="text-center px-6 overflow-hidden overflow-x-hidden">
       <h2 className="md:text-5xl text-4xl font-sans font-bold mb-6 text-[#31C48D] mt-10">
         Your Essential Guide to Nutrition and Macronutrients
       </h2>
