@@ -1,19 +1,13 @@
-import AOS from "aos";
-import "aos/dist/aos.css";
+
 import { useEffect } from "react";
+import { Micronutrients } from "./Micronutrients";
 
 export const Nutrition = () => {
-  useEffect(() => {
-    AOS.init({
-      duration: 400,
-      easing: "ease-in-out",
-      once: true,
-    });
-  }, []);
+ 
   return (
     <div className="text-center px-6 overflow-hidden overflow-x-hidden">
       <h2 className="md:text-5xl text-4xl font-sans font-bold mb-6 text-[#31C48D] mt-10">
-        Your Essential Guide to Nutrition and Macronutrients
+        Your Essential Guide to Macronutrients and Micronutrients
       </h2>
       <div className="flex justify-center items-center md:w-1/2 mx-auto mb-10 md:mb-0 mt-4">
         <img
@@ -34,8 +28,6 @@ export const Nutrition = () => {
       <div className="flex flex-col md:flex-row items-center justify-between px-6 md:px-16 py-10">
         <div
           className="md:w-1/2 flex justify-center mb-6 md:mb-0"
-          data-aos="fade-right"
-          data-aos-delay="250"
         >
           <img
             src="/ProtienPic.jpg"
@@ -89,8 +81,7 @@ export const Nutrition = () => {
         </div>
         <div
           className="md:w-1/2 flex justify-center mb-6 md:mb-0"
-          data-aos="fade-left"
-          data-aos-delay="550"
+
         >
           <img
             src="/CarbsPic.jpg"
@@ -103,8 +94,6 @@ export const Nutrition = () => {
       <div className="flex flex-col md:flex-row items-center justify-between px-6 md:px-16 py-10">
         <div
           className="md:w-1/2 flex justify-center mb-6 md:mb-0"
-          data-aos="fade-right"
-          data-aos-delay="850"
         >
           <img
             src="/FatsPic.jpg"
@@ -139,6 +128,7 @@ export const Nutrition = () => {
           </p>
         </div>
       </div>
+      <Micronutrients></Micronutrients>
     </div>
   );
 };

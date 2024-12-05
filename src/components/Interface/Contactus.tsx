@@ -6,6 +6,7 @@ import { MdEmail, MdMessage } from "react-icons/md";
 import { RiSendPlaneFill } from "react-icons/ri";
 import * as Yup from "yup";
 import { useFormik } from "formik";
+import { Link } from "react-router-dom";
 export const Contactus = () => {
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
@@ -100,15 +101,15 @@ export const Contactus = () => {
             </ul>
 
             <ul className="flex flex-wrap gap-2 mt-16">
-              <li className="flex items-center justify-center w-[40px] h-[40px] rounded-full bg-white hover:bg-blue-800 transition">
+              <Link to={"http://facebook.com"}  className="flex items-center justify-center w-[40px] h-[40px] rounded-full bg-white hover:bg-blue-900 transition">
                 <FiFacebook className="text-[#67c3a2] w-[18px] h-[18px] " />
-              </li>
-              <li className="flex items-center justify-center w-[40px] h-[40px] rounded-full bg-white hover:bg-[#0077b5] transition">
+              </Link>
+              <Link to={"http://linkedin.com"} className="flex items-center justify-center w-[40px] h-[40px] rounded-full bg-white hover:bg-[#0077b5] transition">
                 <FiLinkedin className="text-[#67c3a2] w-[18px] h-[18px] " />
-              </li>
-              <li className="flex items-center justify-center w-[40px] h-[40px] rounded-full bg-white transition hover:bg-gradient-to-r hover:from-purple-500 hover:via-pink-500 hover:to-orange-500">
+              </Link>
+              <Link to={"http://instagram.com"} className="flex items-center justify-center w-[40px] h-[40px] rounded-full bg-white transition hover:bg-gradient-to-r hover:from-purple-500 hover:via-pink-500 hover:to-orange-500">
                 <FiInstagram className="text-[#67c3a2] w-[18px] h-[18px] " />
-              </li>
+              </Link>
             </ul>
           </div>
 

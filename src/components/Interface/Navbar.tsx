@@ -24,7 +24,7 @@ export const Navbar = () => {
 
         <nav className="hidden lg:flex items-center space-x-8 ">
           <div className={`lg:flex space-x-5 ${menuOpen ? 'block' : 'hidden'} lg:!block`}>
-            <Link to="/" onClick={toggleMenu} className="hover:text-[#31C48D] text-[#31C48D] transition-colors duration-300 font-medium">Home</Link>
+            <Link to="/" onClick={toggleMenu} className="text-gray-600 hover:text-[#31C48D] transition-colors duration-300 font-medium">Home</Link>
             <Link to="/about" onClick={toggleMenu} className="text-gray-600 hover:text-[#31C48D] transition-colors duration-300 font-medium">About</Link>
             <Link to="/feature" onClick={toggleMenu} className="text-gray-600 hover:text-[#31C48D] transition-colors duration-300 font-medium">Features</Link>
             <Link to="/team" onClick={toggleMenu} className="text-gray-600 hover:text-[#31C48D] transition-colors duration-300 font-medium">Team</Link>
