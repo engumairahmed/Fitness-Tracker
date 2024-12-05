@@ -9,6 +9,7 @@ import { IoAccessibility } from "react-icons/io5";
 import { IoLogOut } from "react-icons/io5"
 import { Link } from "react-router-dom";
 import Home from "./Home";
+import Profile from "./Profile";
 
 const Sidebar = () => {
   return (

@@ -1,6 +1,7 @@
 import React from 'react'
 import Sidebar from './Sidebar'
 import Home from './Home'
+import Profile from './Profile'
 import { Outlet } from 'react-router-dom'
 
 const DashboardLayout = () => {
