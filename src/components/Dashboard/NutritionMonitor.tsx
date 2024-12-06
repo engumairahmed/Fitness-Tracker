@@ -48,7 +48,10 @@ const NutritionMonitor = () => {
 
   return (
     <>
-      <BreadCrumb name="— Nutrition Monitor" />
+      <BreadCrumb name="Nutrition Monitor" route='/dashboard/nutri-mon' nestedRoute={{
+          name: "Account",
+          route: "/account",
+        }}/>
 
       {/* Nutrition Monitor Container (Aligned to the left side) */}
       <div className="container mt-8 flex justify-start w-1/2">

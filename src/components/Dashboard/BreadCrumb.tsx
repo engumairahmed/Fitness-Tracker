@@ -1,18 +1,30 @@
+import { Link } from "react-router-dom";
 
-interface props{
-    name:string;
+interface props {
+  name: string;
+  route: string;
+  nestedRoute?: {
+      name: string;
+      route: string;
+    };
 }
 
-const BreadCrumb = (props:props) => {
+const BreadCrumb = (props: props) => {
   return (
     <div className="p-4 bg-[#31C48D] text-white rounded-lg shadow-lg">
-        <h1 className="text-2xl md:text-3xl font-bold">
-          Dashboard {props.name}
-        </h1>
-        <p className="mt-2 font-bold">
-          
-        </p>
+      <div className="text-2xl md:text-3xl font-bold">
+        <Link to={"/dashboard"}><span className="text-2xl md:text-3xl font-bold">Dashboard</span></Link>
+        <span>{" —>"}</span>
+        <Link to={props.route}>{props.name}</Link>
+        {props.nestedRoute && (            
+            <Link to={props.nestedRoute.route}>
+              <span>{" —>"}</span>
+              {props.nestedRoute.name}
+            </Link>
+        )}
+
       </div>
+    </div>
   )
 }
 
