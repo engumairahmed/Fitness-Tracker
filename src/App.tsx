@@ -22,6 +22,7 @@ import { Login } from './components/Auth/login'
 import { ForgotPassword } from './components/Auth/forget'
 import ResetPassword from './components/Auth/reset'
 import EmailVerification from './components/Auth/verify'
+import Profile from './components/Dashboard/Profile'
 
 
 function App() {
@@ -57,6 +58,7 @@ function App() {
           <Route index element={<DashboardHome/>}></Route>
           <Route path='*' element={<NotFound/>}></Route>
           <Route path='nutri-mon' element={<NutritionMonitor/>}></Route>
+          <Route path='profile' element={<Profile></Profile>}></Route>
         </Route>
 
       </Routes>
