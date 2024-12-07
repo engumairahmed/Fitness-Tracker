@@ -31,7 +31,7 @@ const Sidebar = () => {
               </Link>
             </li>
             <li>
-              <Link className="text-[#333] text-sm flex items-center hover:text-[#67C3A2] transition-all" to={'/WorkoutPlanner'}>
+              <Link className="text-[#333] text-sm flex items-center hover:text-[#67C3A2] transition-all" to={'/dashboard/workoutform'}>
                 <IoMdFitness className="w-7 h-5 " />
                 <span>Workout Planner
                 </span>
