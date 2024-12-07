@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import BreadCrumb from './BreadCrumb';
+import { FaRegPlusSquare } from 'react-icons/fa';
 
 type Exercise = {
   exercise_name: string;
@@ -281,7 +282,7 @@ const WorkoutForm = () => {
                 onClick={addExercise}
                 className="w-full bg-green-500 text-white p-3 rounded-lg hover:bg-green-600"
               >
-                Add Exercise +
+                Add Exercise +<FaRegPlusSquare size={20} />
               </button>
             </div>
 
