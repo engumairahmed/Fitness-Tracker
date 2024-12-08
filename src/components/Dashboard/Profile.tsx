@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { FaCloudUploadAlt } from "react-icons/fa";
+
 
 const Profile = () => {
 
@@ -35,23 +37,22 @@ const Profile = () => {
                     <div className="flex flex-col md:flex-row items-center md:items-start">
                         {/* Profile Picture */}
                         <div className="flex-shrink-0 mb-6 md:mb-0 md:mr-8">
-                            <img
-                                src={profile.profilePicture}
-                                alt="Profile"
-                                className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover border-4 border-[#31C48D]"
-                            />
-                            {isEditing && (
-                                <div className="mt-4">
-                                    <label className="block text-sm font-medium text-gray-700">
-                                        Upload New Picture
-                                    </label>
-                                    <input
-                                        type="file"
-                                        className="mt-2 w-full text-sm text-gray-500 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-[#31C48D] file:text-white hover:file:bg-[#67C3A2]"
-                                    />
-                                </div>
-                            )}
+                            {/* Avatar Section */}
+                            <div className="w-32 h-32 md:w-40 md:h-40  rounded-full flex items-center justify-center border-4 border-[#31C48D]">
+                                <FaCloudUploadAlt className='w-10 h-10 text-[#67C3A2]' />
+
+                            </div>
+                            <div className="mt-4">
+                                <label className="block text-sm font-medium text-gray-700">
+                                    Upload New Picture
+                                </label>
+                                <input
+                                    type="file"
+                                    className="mt-2 w-full text-sm text-gray-500 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-[#31C48D] file:text-white hover:file:bg-[#67C3A2]"
+                                />
+                            </div>
                         </div>
+
 
                         {/* Profile Details */}
                         <div className="flex-1">
