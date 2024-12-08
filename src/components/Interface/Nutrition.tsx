@@ -26,15 +26,6 @@ export const Nutrition = () => {
       </p>
 
       <div className="flex flex-col md:flex-row items-center justify-between px-6 md:px-16 py-10">
-        <div
-          className="md:w-1/2 flex justify-center mb-6 md:mb-0"
-        >
-          <img
-            src="/ProtienPic.jpg"
-            alt="Fitness Tracker"
-            className="w-[500px] h-[350px] object-cover rounded-lg shadow-md"
-          />
-        </div>
 
         <div className="md:w-1/2 text-left">
           <h3 className="text-2xl font-bold text-[#31C48D] mt-2 mb-4">
@@ -55,6 +46,15 @@ export const Nutrition = () => {
             quinoa, nuts (almonds, peanuts), seeds (chia, flax) are best
             examples of protein.
           </p>
+        </div>
+        <div
+          className="md:w-1/2 flex justify-center mb-6 md:mb-0"
+        >
+          <img
+            src="/ProtienPic.jpg"
+            alt="Fitness Tracker"
+            className="w-[500px] h-[350px] object-cover rounded-lg shadow-md"
+          />
         </div>
       </div>
 
@@ -92,15 +92,6 @@ export const Nutrition = () => {
       </div>
 
       <div className="flex flex-col md:flex-row items-center justify-between px-6 md:px-16 py-10">
-        <div
-          className="md:w-1/2 flex justify-center mb-6 md:mb-0"
-        >
-          <img
-            src="/FatsPic.jpg"
-            alt="Fitness Tracker"
-            className="w-[500px] h-[350px] object-cover rounded-lg shadow-md"
-          />
-        </div>
         <div className="md:w-1/2 text-left">
           <h3 className="text-2xl font-bold text-[#31C48D] mt-2 mb-4">Fats</h3>
           <p className="text-lg text-[#333] mb-4">
@@ -126,6 +117,15 @@ export const Nutrition = () => {
             oil). Full-fat dairy products such as cheese, whole milk, and cream
             are the best examples of fats.
           </p>
+        </div>
+        <div
+          className="md:w-1/2 flex justify-center mb-6 md:mb-0"
+        >
+          <img
+            src="/FatsPic.jpg"
+            alt="Fitness Tracker"
+            className="w-[500px] h-[350px] object-cover rounded-lg shadow-md"
+          />
         </div>
       </div>
       <Micronutrients></Micronutrients>

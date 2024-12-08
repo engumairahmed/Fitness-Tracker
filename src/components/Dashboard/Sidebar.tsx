@@ -13,10 +13,9 @@ import Profile from "./Profile";
 
 const Sidebar = () => {
   return (
-
-    <nav className="bg-white shadow-xl h-screen fixed top-0 left-0 min-w-[250px] py-6 px-4 font-[sans-serif] overflow-auto">
-      <div className="relative flex flex-col h-full">
-        <div className="flex flex-wrap items-center cursor-pointer relative">
+    <nav className=" w-[200px]  flex-shrink-0">
+    <div className="flex flex-col h-full">
+      <div className="flex items-center justify-center py-4">
           <Link className="text-center" to={"/"}><img src="/FitClave.png" alt="logo"
             className='w-[150px] inline' />
           </Link>
@@ -31,7 +30,7 @@ const Sidebar = () => {
               </Link>
             </li>
             <li>
-              <Link className="text-[#333] text-sm flex items-center hover:text-[#67C3A2] transition-all" to={'/WorkoutPlanner'}>
+              <Link className="text-[#333] text-sm flex items-center hover:text-[#67C3A2] transition-all" to={'/dashboard/workoutform'}>
                 <IoMdFitness className="w-7 h-5 " />
                 <span>Workout Planner
                 </span>
@@ -66,7 +65,7 @@ const Sidebar = () => {
               </Link>
             </li>
             <li>
-              <Link className="text-[#333] text-sm flex items-center hover:text-[#67C3A2] transition-all" to={'/Profile'}>
+              <Link to="/dashboard/profile" className="text-[#333] text-sm flex items-center hover:text-[#67C3A2] transition-all">
                 <IoAccessibility className="w-7 h-5 " />
                 <span>Profile</span>
               </Link>

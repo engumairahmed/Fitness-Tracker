@@ -60,6 +60,13 @@ export const Micronutrients = () => {
       </div>
 
       <div className="flex flex-col md:flex-row items-center justify-between px-6 md:px-16 py-10">
+      <div className="md:w-1/2 flex justify-center mb-6 md:mb-0">
+          <img
+            src="/minerals_pic.jpg"
+            alt="Fitness Tracker"
+            className="w-[500px] h-[350px] object-cover rounded-lg shadow-md"
+          />
+        </div>
         <div className="md:w-1/2 text-left">
           <h3 className="text-2xl font-bold text-[#31C48D] mt-2 mb-4">
             Minerals
@@ -73,13 +80,6 @@ export const Micronutrients = () => {
             <li>Minerals are essential for structural, regulatory, and metabolic functions in the body.</li>
             <li>A balanced diet containing fruits, vegetables, whole grains, dairy, lean proteins, and nuts/seeds typically provides all the necessary minerals.</li>
           </ul>
-        </div>
-        <div className="md:w-1/2 flex justify-center mb-6 md:mb-0">
-          <img
-            src="/minerals_pic.jpg"
-            alt="Fitness Tracker"
-            className="w-[500px] h-[350px] object-cover rounded-lg shadow-md"
-          />
         </div>
       </div>
     </div>

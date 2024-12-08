@@ -21,7 +21,13 @@ import { Login } from './components/Auth/login'
 import { ForgotPassword } from './components/Auth/forget'
 import ResetPassword from './components/Auth/reset'
 import EmailVerification from './components/Auth/verify'
+
 import MessageVerification from './components/Auth/msg'
+
+import WorkoutForm from './components/Dashboard/WorkoutForm'
+import Profile from './components/Dashboard/Profile'
+
+
 
 
 function App() {
@@ -50,6 +56,7 @@ function App() {
           <Route path='/team' element={<Teams></Teams>}></Route>
           <Route path='/faq' element={<FAQ></FAQ>}></Route>
           <Route path='/contactus' element={<Contactus></Contactus>}></Route>
+          
         </Route>
 
         {/* Dashboard Routes */}
@@ -58,6 +65,8 @@ function App() {
           <Route index element={<DashboardHome/>}></Route>
           <Route path='*' element={<NotFound/>}></Route>
           <Route path='nutri-mon' element={<NutritionMonitor/>}></Route>
+          <Route path='workoutform' element ={<WorkoutForm/>}></Route>
+          <Route path='profile' element={<Profile></Profile>}></Route>
         </Route>
 
       </Routes>
