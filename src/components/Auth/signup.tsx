@@ -1,7 +1,8 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-// import "./App.css";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import { BiLogoFacebook } from "react-icons/bi";
 import { IoLogoGoogleplus } from "react-icons/io";
 import { FaLinkedinIn } from "react-icons/fa";
@@ -9,50 +10,33 @@ import { IoPerson } from "react-icons/io5";
 import { AiOutlineMail } from "react-icons/ai";
 import { BsPersonLock } from "react-icons/bs";
 
-export const  SignUp= () => {
+export const SignUp = () => {
   const navigate = useNavigate();
 
-  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    navigate("/login");
-  };
-
-  const handleFormSignUp = () => {
-    navigate("/login");
-  };
-
-  const formVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
-  };
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      email: "",
+      password: "",
+    },
+    validationSchema: Yup.object({
+      name: Yup.string().required("Name is required"),
+      email: Yup.string()
+        .email("Invalid email address")
+        .required("Email is required"),
+      password: Yup.string()
+        .min(6, "Password must be at least 6 characters")
+        .required("Password is required"),
+    }),
+    onSubmit: (values) => {
+      console.log(values); // Replace this with your API call logic
+      navigate("/login");
+    },
+  });
 
   const buttonHover = {
     scale: 1.1,
     transition: { duration: 0.2 },
-  };
-
-  const containerStyle: React.CSSProperties = {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    height: "200px",
-    position: "relative",
-  };
-
-  const circleStyle: React.CSSProperties = {
-    width: "30%",
-    height: "210%",
-    borderRadius: "50%",
-    backgroundColor: "yellow",
-    marginTop: "57%",
-    marginLeft: "-10%",
-  };
-
-  const triangleStyle: React.CSSProperties = {
-    width: 0,
-    height: 0,
-    borderLeft: "250px solid transparent",
-    borderBottom: "300px solid red",
   };
 
   return (
@@ -68,18 +52,20 @@ export const  SignUp= () => {
       >
         <div className="absolute inset-0 bg-green-500 bg-opacity-70 rounded-lg m-0"></div>
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5, duration: 1 }}
+          initial={{ opacity: 0, x: 100 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1 }}
           className="relative z-10"
         >
-          <h1 className="text-5xl font-bold text-white">Welcome Back</h1>
+          <h1 className="text-5xl font-bold text-white" style={{ lineHeight: "2rem" }}>
+            Welcome Back
+          </h1>
           <p className="text-lg text-white">
             To keep connected with us please <br /> login with your personal info.
           </p>
           <motion.button
             whileHover={buttonHover}
-            onClick={handleFormSignUp}
+            onClick={() => navigate("/login")}
             className="rounded-[2.375rem] border-2 border-seagreen px-12 py-2 text-sm font-semibold text-white hover:bg-seagreen"
             style={{ marginTop: 40 }}
           >
@@ -89,13 +75,7 @@ export const  SignUp= () => {
       </div>
 
       {/* Form Section */}
-      <motion.div
-        initial="hidden"
-        animate="visible"
-        variants={formVariants}
-        className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 m-0"
-      >
-        {/* Logo Section */}
+      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 m-0">
         <div className="flex justify-center mb-8">
           <img
             src="/public/FitClave.png"
@@ -117,13 +97,19 @@ export const  SignUp= () => {
             className="mt-6 flex justify-center gap-4"
           >
             <div className="flex items-center justify-center h-12 w-12 rounded-full border border-gray-300">
-              <BiLogoFacebook className="h-6 w-6 text-black-600" />
+              <Link to={"https://www.facebook.com"}>
+                <BiLogoFacebook className="h-6 w-6 text-black-600" />
+              </Link>
             </div>
             <div className="flex items-center justify-center h-12 w-12 rounded-full border border-gray-300">
-              <IoLogoGoogleplus className="h-6 w-6 text-black-600" />
+              <Link to={"https://www.google.com"}>
+                <IoLogoGoogleplus className="h-6 w-6 text-black-600" />
+              </Link>
             </div>
             <div className="flex items-center justify-center h-12 w-12 rounded-full border border-gray-300">
-              <FaLinkedinIn className="h-6 w-6 text-black-500" />
+              <Link to={"https://www.linkedin.com"}>
+                <FaLinkedinIn className="h-6 w-6 text-black-500" />
+              </Link>
             </div>
           </motion.div>
         </div>
@@ -132,10 +118,8 @@ export const  SignUp= () => {
         </h5>
         <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
           <motion.form
-            action="#"
-            method="POST"
             className="space-y-6"
-            onSubmit={handleFormSubmit}
+            onSubmit={formik.handleSubmit}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
@@ -143,14 +127,18 @@ export const  SignUp= () => {
             <motion.div whileHover={{ scale: 1.05 }} className="relative mt-2">
               <IoPerson className="absolute inset-y-4 left-3 flex items-center text-gray-500 text-lg" />
               <input
-                id="Name"
-                name="Name"
+                id="name"
+                name="name"
                 type="text"
                 placeholder="Enter your name"
-                required
-                autoComplete="name"
-                className="block w-full border-gray-300 py-4 pl-10 pr-3 text-gray-900 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-600 sm:text-sm bg-gray-100"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.name}
+                className="block w-full border-gray-300 py-4 pl-10 pr-3 text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none sm:text-sm bg-gray-100"
               />
+              {formik.touched.name && formik.errors.name && (
+                <p className="text-red-500 text-sm mt-1">{formik.errors.name}</p>
+              )}
             </motion.div>
             <motion.div whileHover={{ scale: 1.05 }} className="relative mt-2">
               <AiOutlineMail className="absolute inset-y-4 left-3 flex items-center text-gray-500 text-lg" />
@@ -159,39 +147,45 @@ export const  SignUp= () => {
                 name="email"
                 type="email"
                 placeholder="Enter your email"
-                required
-                autoComplete="email"
-                className="block w-full border-gray-300 py-4 pl-10 pr-3 text-gray-900 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-600 sm:text-sm bg-gray-100"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.email}
+                className="block w-full border-gray-300 py-4 pl-10 pr-3 text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none sm:text-sm bg-gray-100"
               />
+              {formik.touched.email && formik.errors.email && (
+                <p className="text-red-500 text-sm mt-1">{formik.errors.email}</p>
+              )}
             </motion.div>
             <motion.div whileHover={{ scale: 1.05 }} className="relative mt-2">
-              <BsPersonLock
-                className="absolute inset-y-4 left-3 flex items-center text-gray-500 text-lg"
-              />
+              <BsPersonLock className="absolute inset-y-4 left-3 flex items-center text-gray-500 text-lg" />
               <input
                 id="password"
                 name="password"
                 type="password"
                 placeholder="Enter your password"
-                required
-                autoComplete="current-password"
-                className="block w-full border-gray-300 py-4 pl-10 pr-3 text-gray-900 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-600 sm:text-sm bg-gray-100"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.password}
+                className="block w-full border-gray-300 py-4 pl-10 pr-3 text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none sm:text-sm bg-gray-100"
               />
+              {formik.touched.password && formik.errors.password && (
+                <p className="text-red-500 text-sm mt-1">{formik.errors.password}</p>
+              )}
             </motion.div>
             <motion.div
               whileHover={buttonHover}
               className="flex justify-center"
             >
               <button
+                type="submit"
                 className="rounded-[2.375rem] border-2 border-seagreen px-14 py-3 text-sm font-semibold text-green hover:bg-seagreen"
-                style={{ marginLeft: 30 }}
               >
                 Sign Up
               </button>
             </motion.div>
           </motion.form>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 };

@@ -1,21 +1,33 @@
-import React, { useState } from "react";
+import React from "react";
+import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { AiOutlineMail } from "react-icons/ai";
+import * as Yup from "yup";
 
 export default function EmailVerification() {
     const navigate = useNavigate();
-    const [code, setCode] = useState<string>("");
 
-    const handleFormSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        if (code === "123456") {
-            alert("Email verified successfully!");
-            navigate("/dashboard");
-        } else {
-            alert("Invalid verification code. Please try again.");
-        }
-    };
+    // Validation Schema using Yup
+    const validationSchema = Yup.object({
+        code: Yup.string()
+            .length(6, "Code must be exactly 6 characters.")
+            .required("Verification code is required."),
+    });
+
+    // Formik setup
+    const formik = useFormik({
+        initialValues: { code: "" },
+        validationSchema,
+        onSubmit: (values) => {
+            if (values.code === "123456") {
+                alert("Email verified successfully!");
+                navigate("/dashboard");
+            } else {
+                alert("Invalid verification code. Please try again.");
+            }
+        },
+    });
 
     const handleResendCode = () => {
         alert("A new verification code has been sent to your email.");
@@ -29,12 +41,7 @@ export default function EmailVerification() {
     return (
         <div className="flex flex-col md:flex-row min-h-screen bg-white-50">
             {/* Left Section - Form */}
-            <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8 }}
-                className="flex flex-1 justify-center items-center bg-white p-4"
-            >
+            <div className="flex flex-1 justify-center items-center bg-white p-4">
                 <div className="w-full max-w-md p-6 rounded-lg bg-white shadow-lg">
                     <div className="flex justify-center mb-8">
                         <img
@@ -53,10 +60,8 @@ export default function EmailVerification() {
                         Enter the verification code sent to your email address.
                     </h6>
                     <motion.form
-                        action="#"
-                        method="POST"
                         className="space-y-6"
-                        onSubmit={handleFormSubmit}
+                        onSubmit={formik.handleSubmit}
                     >
                         <motion.div whileHover={{ scale: 1.05 }} className="relative mt-2">
                             <AiOutlineMail className="absolute inset-y-4 left-3 flex items-center text-gray-500 text-lg" />
@@ -65,11 +70,20 @@ export default function EmailVerification() {
                                 name="code"
                                 type="text"
                                 placeholder="Enter your verification code"
-                                required
-                                value={code}
-                                onChange={(e) => setCode(e.target.value)}
-                                className="block w-full border-gray-300 py-4 pl-10 pr-3 text-gray-900 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-600 sm:text-sm bg-gray-100 rounded-md"
+                                className={`block w-full border-gray-300 py-4 pl-10 pr-3 text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none sm:text-sm bg-gray-100 ${
+                                    formik.touched.code && formik.errors.code
+                                        ? "border-red-500"
+                                        : ""
+                                }`}
+                                value={formik.values.code}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
                             />
+                            {formik.touched.code && formik.errors.code ? (
+                                <p className="text-red-500 text-sm mt-2">
+                                    {formik.errors.code}
+                                </p>
+                            ) : null}
                         </motion.div>
                         <motion.div whileHover={buttonHover} className="flex justify-center">
                             <button
@@ -91,21 +105,26 @@ export default function EmailVerification() {
                         </motion.div>
                     </motion.form>
                 </div>
-            </motion.div>
+            </div>
             {/* Right Section - Illustration */}
-            <motion.div
-                initial={{ opacity: 0, x: 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8 }}
+            <div
                 className="flex flex-1 items-center justify-center bg-green-500 p-4"
                 style={{ backgroundColor: "#53d7af" }}
             >
-                <img
+                <motion.img
                     src="https://img.freepik.com/free-vector/verify-concept-illustration_114360-5475.jpg?w=740&t=st=1733186944~exp=1733190544~hmac=ef2db70f7a347e62e94649073c43b5aaae9ee8d2247a8c713f22be63c00bce26"
-                    alt="Email Verification Illustration"
-                    className="max-w-full h-auto rounded-lg shadow-lg md:w-3/4"
+                    alt="Forgot Password Illustration"
+                    className="max-w-full h-auto rounded-lg shadow-lg md:w-3/4 w-2/3"
+                    animate={{
+                        y: [0, -10, 0], // Floating effect
+                    }}
+                    transition={{
+                        repeat: Infinity,
+                        duration: 2,
+                        ease: "easeInOut",
+                    }}
                 />
-            </motion.div>
+            </div>
         </div>
     );
 }

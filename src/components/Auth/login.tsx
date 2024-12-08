@@ -1,32 +1,42 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { Formik, Field, Form, ErrorMessage } from "formik";
+import * as Yup from "yup";
 import { BiLogoFacebook } from "react-icons/bi";
 import { IoLogoGoogleplus } from "react-icons/io";
 import { FaLinkedinIn } from "react-icons/fa";
 import { AiOutlineMail } from "react-icons/ai";
 import { BsPersonLock } from "react-icons/bs";
 
-
 export const Login = () => {
     const navigate = useNavigate();
 
-    const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+    const initialValues = {
+        email: "",
+        password: "",
+    };
+
+    const validationSchema = Yup.object({
+        email: Yup.string()
+            .email("Invalid email address")
+            .required("Email is required"),
+        password: Yup.string()
+            .min(6, "Password must be at least 6 characters")
+            .required("Password is required"),
+    });
+
+    const handleFormSubmit = (values: { email: string; password: string }) => {
+        console.log("Form Submitted", values);
         navigate("/faq");
     };
 
     const handleForgotPassword = () => {
-        navigate("/forget");
+        navigate("/forget-password");
     };
 
     const handleFormSignIn = () => {
         navigate("/sign");
-    };
-
-    const formVariants = {
-        hidden: { opacity: 0, y: 50 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
     };
 
     const buttonHover = {
@@ -37,13 +47,8 @@ export const Login = () => {
     return (
         <div className="flex min-h-screen flex-col lg:flex-row justify-center bg-white-500 m-0">
             {/* Form Section */}
-            <motion.div
-                initial="hidden"
-                animate="visible"
-                variants={formVariants}
-                className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 m-0"
-            >
-                <div className="flex justify-center mb-8">
+            <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 m-0 ">
+                <div className="flex justify-center mb-8 ">
                     <img
                         src="/public/FitClave.png"
                         alt="Logo"
@@ -64,13 +69,13 @@ export const Login = () => {
                         className="mt-6 flex justify-center gap-4"
                     >
                         <div className="flex items-center justify-center h-12 w-12 rounded-full border border-gray-300">
-                            <BiLogoFacebook className="h-6 w-6 text-black-600" />
+                            <Link to={"https://www.facebook.com"}><BiLogoFacebook className="h-6 w-6 text-black-600" /></Link>
                         </div>
                         <div className="flex items-center justify-center h-12 w-12 rounded-full border border-gray-300">
-                            <IoLogoGoogleplus className="h-6 w-6 text-black-600" />
+                            <Link to={"https://www.google.com"}><IoLogoGoogleplus className="h-6 w-6 text-black-600" /></Link>
                         </div>
                         <div className="flex items-center justify-center h-12 w-12 rounded-full border border-gray-300">
-                            <FaLinkedinIn className="h-6 w-6 text-black-500" />
+                            <Link to={"https://www.linkedin.com"}><FaLinkedinIn className="h-6 w-6 text-black-500" /></Link>
                         </div>
                     </motion.div>
                 </div>
@@ -78,67 +83,72 @@ export const Login = () => {
                     Use your email for Registration!
                 </h5>
                 <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <motion.form
-                        action="#"
-                        method="POST"
-                        className="space-y-6"
+                    <Formik
+                        initialValues={initialValues}
+                        validationSchema={validationSchema}
                         onSubmit={handleFormSubmit}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 1 }}
                     >
-                        <motion.div whileHover={{ scale: 1.05 }} className="relative mt-2">
-                            <AiOutlineMail className="absolute inset-y-4 left-3 flex items-center text-gray-500 text-lg" />
-                            <input
-                                id="email"
-                                name="email"
-                                type="email"
-                                placeholder="Enter your email"
-                                required
-                                autoComplete="email"
-                                className="block w-full border-gray-300 py-4 pl-10 pr-3 text-gray-900 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-600 sm:text-sm bg-gray-100"
-                            />
-                        </motion.div>
-                        <motion.div whileHover={{ scale: 1.05 }} className="relative mt-2">
-                            <BsPersonLock
-                                className="absolute inset-y-4 left-3 flex items-center text-gray-500 text-lg"
-                            />
-                            <input
-                                id="password"
-                                name="password"
-                                type="password"
-                                placeholder="Enter your password"
-                                required
-                                autoComplete="current-password"
-                                className="block w-full border-gray-300 py-4 pl-10 pr-3 text-gray-900 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-600 sm:text-sm bg-gray-100"
-                            />
-                        </motion.div>
-                        <div className="text-center mt-4 bg-white border-gray-300 rounded-md ">
-                            <button
-                                type="button"
-                                onClick={handleForgotPassword}
-                                className="text-sm font-medium text-indigo-600 hover:underline"
-                                style={{ color: "black" }}
-                            >
-                                FORGET YOUR PASSWORD?
-                            </button>
-                        </div>
-                        <motion.div
-                            whileHover={buttonHover}
-                            className="flex justify-center"
-                        >
-                            <button
-                                type="submit"
-                                className="rounded-[2.375rem] border-2 border-seagreen px-14 py-3 text-sm font-semibold text-green hover:bg-seagreen"
-                                style={{ marginLeft: 30 }}
-                            >
-                                SIGN IN
-                            </button>
-                        </motion.div>
-                    </motion.form>
+                        {({ errors, touched }) => (
+                            <Form className="space-y-6">
+                                <motion.div whileHover={{ scale: 1.05 }} className="relative mt-2">
+                                    <AiOutlineMail className="absolute inset-y-4 left-3 flex items-center text-gray-500 text-lg" />
+                                    <Field
+                                        name="email"
+                                        type="email"
+                                        placeholder="Enter your email"
+                                        className={`block w-full border-gray-300 py-4 pl-10 pr-3 text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none sm:text-sm bg-gray-100 ${
+                                            errors.email && touched.email ? "border-red-500" : ""
+                                        }`}
+                                    />
+                                    <ErrorMessage
+                                        name="email"
+                                        component="div"
+                                        className="text-red-500 text-sm mt-1"
+                                    />
+                                </motion.div>
+                                <motion.div whileHover={{ scale: 1.05 }} className="relative mt-2">
+                                    <BsPersonLock className="absolute inset-y-4 left-3 flex items-center text-gray-500 text-lg" />
+                                    <Field
+                                        name="password"
+                                        type="password"
+                                        placeholder="Enter your password"
+                                        className={`block w-full border-gray-300 py-4 pl-10 pr-3 text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none sm:text-sm bg-gray-100 ${
+                                            errors.password && touched.password ? "border-red-500" : ""
+                                        }`}
+                                    />
+                                    <ErrorMessage
+                                        name="password"
+                                        component="div"
+                                        className="text-red-500 text-sm mt-1"
+                                    />
+                                </motion.div>
+                                <div className="text-center mt-4 bg-white border-gray-300 rounded-md">
+                                    <button
+                                        type="button"
+                                        onClick={handleForgotPassword}
+                                        className="text-sm font-medium text-indigo-600 hover:underline"
+                                        style={{ color: "black" }}
+                                    >
+                                        FORGET YOUR PASSWORD?
+                                    </button>
+                                </div>
+                                <motion.div
+                                    whileHover={buttonHover}
+                                    className="flex justify-center"
+                                >
+                                    <button
+                                        type="submit"
+                                        className="rounded-[2.375rem] border-2 border-seagreen px-14 py-3 text-sm font-semibold text-green hover:bg-seagreen"
+                                        style={{ marginLeft: 30 }}
+                                    >
+                                        SIGN IN
+                                    </button>
+                                </motion.div>
+                            </Form>
+                        )}
+                    </Formik>
                 </div>
-            </motion.div>
-
+            </div>
             {/* Image Section */}
             <div
                 className="relative lg:w-2/5 flex flex-col justify-center items-center p-6 rounded-lg text-center space-y-4 bg-cover bg-center m-0"

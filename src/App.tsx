@@ -21,6 +21,7 @@ import { Login } from './components/Auth/login'
 import { ForgotPassword } from './components/Auth/forget'
 import ResetPassword from './components/Auth/reset'
 import EmailVerification from './components/Auth/verify'
+import MessageVerification from './components/Auth/msg'
 
 
 function App() {
@@ -35,9 +36,10 @@ function App() {
         <Route path='/forget-password' element={<ForgotPassword></ForgotPassword>}></Route>
         <Route path='/reset-password' element={<ResetPassword></ResetPassword>}></Route>
         <Route path='/email-verification' element={<EmailVerification></EmailVerification>}></Route>
+        <Route path='/msg' element={<MessageVerification></MessageVerification>}></Route>
 
         {/* Landing page Interface Routes */}
-
+        
         <Route path='/' element={<Home />}>
           <Route path='*' element={<NotFound/>}></Route>
           <Route index element={<Landing />}></Route>
