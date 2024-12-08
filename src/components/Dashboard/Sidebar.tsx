@@ -13,7 +13,6 @@ import Profile from "./Profile";
 
 const Sidebar = () => {
   return (
-<div className="flex flex-row h-screen overflow-y-auto">
     <nav className=" w-[200px]  flex-shrink-0">
     <div className="flex flex-col h-full">
       <div className="flex items-center justify-center py-4">
@@ -88,7 +87,6 @@ const Sidebar = () => {
         </div>
       </div>
     </nav>
-    </div>
 
 
   )

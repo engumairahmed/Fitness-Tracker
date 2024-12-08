@@ -5,8 +5,6 @@ const DashboardHome = () => {
     <>
 
       
-   {/* Main Content */}
-   <div className="flex-1 p-4">
       {/* Heading Section */}
 
       <div className="p-4 bg-[#31C48D] text-white rounded-lg shadow-lg">
@@ -35,7 +33,6 @@ const DashboardHome = () => {
                             </div>
                         </div>
                     </div>
-      </div>
     </>
   )
 }
