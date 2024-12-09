@@ -13,7 +13,7 @@ import Profile from "./Profile";
 
 const Sidebar = () => {
   return (
-    <nav className=" w-[200px]  flex-shrink-0">
+    <nav className="w-[200px] bg-white shadow-xl flex-shrink-0 h-full fixed">
     <div className="flex flex-col h-full">
       <div className="flex items-center justify-center py-4">
           <Link className="text-center" to={"/"}><img src="/FitClave.png" alt="logo"
