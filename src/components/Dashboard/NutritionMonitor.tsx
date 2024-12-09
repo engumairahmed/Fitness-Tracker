@@ -184,9 +184,9 @@ const NutritionMonitor: React.FC = () => {
 
   return (
     <>
-    <BreadCrumb name=": Nutrition Tracker" route='/dashboard/nutri-mon' />
-    <div className="max-w-4xl mx-auto bg-white p-6 rounded shadow">
-      <h1 className="text-lg font-semibold mb-4">Nutrition Monitor</h1>
+    <BreadCrumb  name=": Your Personalized Nutrition Guide" route='/dashboard/nutri-mon' />
+    <div className="max-w-4xl mt-10 mx-auto bg-white p-6 rounded shadow">
+      <h1 className="text-lg text-center font-bold mb-4">Nutrition Monitor</h1>
 
       <select
         value={selectedMeal}
@@ -213,7 +213,7 @@ const NutritionMonitor: React.FC = () => {
           <h3 className="text-xl font-semibold mt-6">{meal.charAt(0).toUpperCase() + meal.slice(1)}</h3>
           <button
             onClick={() => handleClearMeal(meal)}
-            className="bg-red-500 text-white px-4 py-2 rounded mt-2"
+            className="bg-[#31C48D] text-white px-4 py-2 rounded mt-2"
           >
             Clear {meal.charAt(0).toUpperCase() + meal.slice(1)}
           </button>
@@ -248,7 +248,7 @@ const NutritionMonitor: React.FC = () => {
       ))}
 
       {/* Total Daily Nutritional Breakdown Table */}
-      <h2 className="text-lg font-semibold mt-6">Total Daily Nutritional Breakdown</h2>
+      <h2 className="text-lg text-center font-bold mt-7">Total Daily Nutritional Breakdown</h2>
       <table className="border-collapse border border-gray-300 w-full mt-2">
         <thead>
           <tr className="bg-gray-100">
@@ -285,7 +285,7 @@ const NutritionMonitor: React.FC = () => {
       </table>
 
       {/* Total Calories Table */}
-      <h2 className="text-lg font-semibold mt-6">Total Calories Eaten Today</h2>
+      <h2 className="text-lg text-center font-bold mt-7">Total Calories Eaten Today</h2>
       <table className="border-collapse border border-gray-300 w-full mt-2">
         <thead>
           <tr className="bg-gray-100">
