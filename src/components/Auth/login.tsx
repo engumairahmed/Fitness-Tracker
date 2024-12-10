@@ -50,7 +50,7 @@ export const Login = () => {
             <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 m-0 ">
                 <div className="flex justify-center mb-8 ">
                     <img
-                        src="/public/FitClave.png"
+                        src="/FitClave.png"
                         alt="Logo"
                         className="h-14 w-auto"
                     />

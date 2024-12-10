@@ -26,12 +26,15 @@ import MessageVerification from './components/Auth/msg'
 
 import WorkoutForm from './components/Dashboard/WorkoutForm'
 import Profile from './components/Dashboard/Profile'
+import ProtectedRoute from './utils/ProtectedRoutes'
+import { injectStyle } from "react-toastify/dist/inject-style";
 
 
 
 
 function App() {
 
+  injectStyle();
 
   return (
     <>
@@ -61,7 +64,10 @@ function App() {
 
         {/* Dashboard Routes */}
 
-        <Route path='/dashboard' element={<DashboardLayout />}>
+        <Route path='/dashboard' element={
+                     <DashboardLayout />
+
+          }>
           <Route index element={<DashboardHome/>}></Route>
           <Route path='*' element={<NotFound/>}></Route>
           <Route path='nutri-mon' element={<NutritionMonitor/>}></Route>

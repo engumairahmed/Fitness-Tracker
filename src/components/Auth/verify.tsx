@@ -42,7 +42,7 @@ export default function EmailVerification() {
                 <div className="w-full max-w-md p-6 rounded-lg bg-white shadow-lg">
                     <div className="flex justify-center mb-8">
                         <img
-                            src="/public/FitClave.png"
+                            src="/FitClave.png"
                             alt="Logo"
                             className="h-14 w-auto"
                         />

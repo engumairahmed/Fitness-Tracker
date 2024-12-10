@@ -9,9 +9,61 @@ import { FaLinkedinIn } from "react-icons/fa";
 import { IoPerson } from "react-icons/io5";
 import { AiOutlineMail } from "react-icons/ai";
 import { BsPersonLock } from "react-icons/bs";
+import Cookies from "js-cookie";
+import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+
+interface GoogleProfile {
+  profileObj: {
+    name: string;
+    email: string;
+  };
+}
 
 export const SignUp = () => {
+
+  const URL = import.meta.env.VITE_SERVER_URL;
+
   const navigate = useNavigate();
+
+  const handleGoogleLogin = async (codeResponse:GoogleProfile) => {
+    try {
+      const { name, email } = codeResponse.profileObj; // Extract user info from Google response
+      const response = await axios.post(`${URL}/register-with-google`, { name, email, password: "dummyPassword", role: "retailer" })
+        .then(
+          (res) => {
+            console.log(res.data.verificationToken);
+            
+            Cookies.set("authToken", res.data.verificationToken, { expires: 1 }); // Store JWT token
+            toast.success("Google login successful!");
+            navigate("/dashboard");
+          }
+        )
+        .catch(
+          (err)=>{
+            console.log(err);
+            
+            toast.error("Google login failed. Please try again.", { theme: "dark" });
+          }
+        );
+
+    } catch (error) {
+      handleError(error);
+    }
+  };
+
+ const handleError = (error: unknown): void => {
+  if (axios.isAxiosError(error) && error.response) {
+    formik.setErrors({
+      ...formik.errors,
+      email: error.response.data.msg || "An error occurred",
+    });
+  } else if (axios.isAxiosError(error) && error.request) {
+    toast.error("No response received from the server.", { theme: "dark" });
+  } else {
+    toast.error("Something went wrong.", { theme: "dark" });
+  }
+};
 
   const formik = useFormik({
     initialValues: {
@@ -29,8 +81,28 @@ export const SignUp = () => {
         .required("Password is required"),
     }),
     onSubmit: (values) => {
-      console.log(values); // Replace this with your API call logic
-      navigate("/login");
+      axios
+      .post(`${URL}/auth/register`, values)
+      .then(() => {
+        toast.success("Success Notification !");
+        setTimeout(() => {
+          navigate("/email-verification");
+        }, 1000);
+      })
+      .catch((error) => {
+        if (error.response) {
+          formik.setErrors({
+            ...formik.errors,
+            email: error.response.data.msg,
+          });
+        } else if (error.request) {
+          toast.error("No response received from the server.", {
+            theme: "dark",
+          });
+        } else {
+          toast.error("Something went wrong.", { theme: "dark" });
+        }
+      });
     },
   });
 
@@ -71,14 +143,15 @@ export const SignUp = () => {
           >
             Sign In
           </motion.button>
-        </motion.div>
+        </motion.div>      
       </div>
 
+        <ToastContainer position="top-left"/>
       {/* Form Section */}
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 m-0">
         <div className="flex justify-center mb-8">
           <img
-            src="/public/FitClave.png"
+            src="/FitClave.png"
             alt="Logo"
             className="h-14 w-auto"
           />
