@@ -7,7 +7,7 @@ const DashboardHome = () => {
       
       {/* Heading Section */}
 
-      <div className="p-4 bg-[#31C48D] text-white rounded-lg shadow-lg">
+      <div className="p-6 ml-5 bg-[#31C48D] text-white rounded-lg shadow-lg">
                         <h1 className="text-2xl md:text-3xl font-bold">
                             Welcome to Your Dashboard—Your Fitness Story Begins Now! 💪
                         </h1>
@@ -17,7 +17,7 @@ const DashboardHome = () => {
                     </div>
 
       {/* Widgets Section */}
-      <div className="mt-10">
+      <div className="mt-10 ml-5">
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                             <div className="p-7 bg-white hover:text-[#67C3A2] border border-transparent hover:border-[#31C48D]   shadow rounded-lg">
                                 <h2 className="text-lg md:text-xl font-bold">Recent Workouts</h2>

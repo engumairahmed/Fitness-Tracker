@@ -1,6 +1,13 @@
 
 import { Link } from 'react-router-dom'
 export const Footer = () => {
+
+  const scrollToTop = () => {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+};
   return (
     <div>
       <footer className="bg-gray-50 px-4 sm:px-10 py-12 mt-28">
@@ -29,7 +36,7 @@ export const Footer = () => {
             <h4 className="text-xl font-semibold mb-6 text-[#31C48D]">Resources</h4>
             <ul className="space-y-4">
               <li><a href="javascript:void(0)" className="hover:text-[#67C3A2]">Fitclave Articles</a></li>
-              <li><Link to={'/nutrition'} className="hover:text-[#67C3A2]">Nutrition Guides</Link></li>
+              <li><Link to={'/nutrition'} className="hover:text-[#67C3A2]" onClick={()=>{scrollToTop()}}>Nutrition Guides</Link></li>
               <li><a href="javascript:void(0)" className="hover:text-[#67C3A2]">Exercise Videos</a></li>
               <li><a href="javascript:void(0)" className="hover:text-[#67C3A2]">Workouts for Beginners</a></li>
             </ul>
@@ -37,10 +44,10 @@ export const Footer = () => {
           <div>
             <h4 className="text-xl font-semibold mb-4 text-[#31C48D]">About Us</h4>
             <ul className="space-y-4">
-              <li><Link to={'/values'} className="hover:text-[#67C3A2]">Fitclave Mission and Values</Link></li>
-              <li><Link to={'/team'} className="hover:text-[#67C3A2]">Fitclave Team</Link></li>
-              <li><Link to={'/feature'} className="hover:text-[#67C3A2]">Fitclave Tracker Features</Link></li>
-              <li><Link to={'/faq'} className="hover:text-[#67C3A2]">Frequently Asked Questions</Link></li>
+              <li><Link to={'/values'} className="hover:text-[#67C3A2]" onClick={()=>{scrollToTop()}}>Fitclave Mission and Values</Link></li>
+              <li><Link to={'/team'} className="hover:text-[#67C3A2]" onClick={()=>{scrollToTop()}}>Fitclave Team</Link></li>
+              <li><Link to={'/feature'} className="hover:text-[#67C3A2]" onClick={()=>{scrollToTop()}}>Fitclave Tracker Features</Link></li>
+              <li><Link to={'/faq'} className="hover:text-[#67C3A2]" onClick={()=>{scrollToTop()}}>Frequently Asked Questions</Link></li>
             </ul>
           </div>
         </div>
