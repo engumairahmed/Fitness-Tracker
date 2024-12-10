@@ -65,7 +65,7 @@ export default function MessageVerification() {
                 className="flex flex-1 items-center justify-center p-4"style={{backgroundColor:"#53d7af"}}
             >
                 <motion.img
-                    src="https://img.freepik.com/free-vector/security-otp-concept-illustration_114360-7521.jpg?w=740"
+                    src="3675555.jpg"
                     alt="Verification Illustration"
                     className="max-w-full h-auto rounded-lg shadow-lg md:w-3/4 w-2/3"
                     animate={{

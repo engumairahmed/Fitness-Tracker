@@ -46,11 +46,11 @@ export const SignUp = () => {
         className="relative lg:w-2/5 flex flex-col justify-center items-center p-6 rounded-lg text-center space-y-4 bg-cover bg-center m-0"
         style={{
           backgroundImage:
-            "url('https://t3.ftcdn.net/jpg/05/78/57/84/360_F_578578454_Kr1qKNMUHYvIEwzzZM3o8o7XErZHVakv.jpg')",
+            "url('Tablet login-bro.png')",
           color: "#31C48D",
         }}
       >
-        <div className="absolute inset-0 bg-green-500 bg-opacity-70 rounded-lg m-0"></div>
+        <div className="absolute inset-0 bg-green-300 bg-opacity-70 rounded-lg m-0"></div>
         <motion.div
           initial={{ opacity: 0, x: 100 }}
           animate={{ opacity: 1, x: 0 }}
@@ -66,7 +66,7 @@ export const SignUp = () => {
           <motion.button
             whileHover={buttonHover}
             onClick={() => navigate("/login")}
-            className="rounded-[2.375rem] border-2 border-seagreen px-12 py-2 text-sm font-semibold text-white hover:bg-seagreen"
+            className="rounded-[2.375rem] border-2 border-seagreen px-12 py-2 text-sm font-semibold text-white hover:bg-white hover:text-green-300"
             style={{ marginTop: 40 }}
           >
             Sign In
@@ -86,7 +86,7 @@ export const SignUp = () => {
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2
             className="text-center font-bold tracking-tight text-gray-900"
-            style={{ fontSize: "2.5rem", lineHeight: "2rem", color: "#67C3A2" }}
+            style={{ fontSize: "2.5rem", lineHeight: "2rem", color: "green-300" }}
           >
             Create Account
           </h2>
@@ -96,17 +96,17 @@ export const SignUp = () => {
             transition={{ duration: 0.5 }}
             className="mt-6 flex justify-center gap-4"
           >
-            <div className="flex items-center justify-center h-12 w-12 rounded-full border border-gray-300">
+            <div className="flex items-center justify-center h-12 w-12 rounded-full border border-gray-300 hover:bg-blue-300">
               <Link to={"https://www.facebook.com"}>
                 <BiLogoFacebook className="h-6 w-6 text-black-600" />
               </Link>
             </div>
-            <div className="flex items-center justify-center h-12 w-12 rounded-full border border-gray-300">
+            <div className="flex items-center justify-center h-12 w-12 rounded-full border border-gray-300 hover:bg-yellow-300">
               <Link to={"https://www.google.com"}>
                 <IoLogoGoogleplus className="h-6 w-6 text-black-600" />
               </Link>
             </div>
-            <div className="flex items-center justify-center h-12 w-12 rounded-full border border-gray-300">
+            <div className="flex items-center justify-center h-12 w-12 rounded-full border border-gray-300 hover:bg-blue-300">
               <Link to={"https://www.linkedin.com"}>
                 <FaLinkedinIn className="h-6 w-6 text-black-500" />
               </Link>
@@ -178,7 +178,7 @@ export const SignUp = () => {
             >
               <button
                 type="submit"
-                className="rounded-[2.375rem] border-2 border-seagreen px-14 py-3 text-sm font-semibold text-green hover:bg-seagreen"
+                className="rounded-[2.375rem] border-2 border-seagreen px-14 py-3 text-sm font-semibold text-green hover:bg-green-300 hover:text-white"
               >
                 Sign Up
               </button>

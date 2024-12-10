@@ -33,18 +33,11 @@ export const ForgotPassword = () => {
         <div className="flex flex-col md:flex-row min-h-screen">
             {/* Right Section - Image */}
             <div className="flex flex-1 items-center justify-center bg-green-300">
-                <motion.img
-                    src="https://img.freepik.com/free-vector/forgot-password-concept-illustration_114360-1095.jpg?t=st=1733185793~exp=1733189393~hmac=ec674621672aa2a887d2a349c2cd1aae53375e4212fefa681c86c55d91ea7637&w=740"
+                <img
+                    src="Reset password.gif"
                     alt="Forgot Password Illustration"
                     className="max-w-full h-auto rounded-lg shadow-lg md:w-3/4 w-2/3"
-                    animate={{
-                        y: [0, -10, 0],
-                    }}
-                    transition={{
-                        repeat: Infinity,
-                        duration: 2,
-                        ease: "easeInOut",
-                    }}
+                   
                 />
             </div>
 

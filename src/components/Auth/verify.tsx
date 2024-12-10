@@ -11,8 +11,7 @@ export default function EmailVerification() {
     // Validation Schema using Yup
     const validationSchema = Yup.object({
         code: Yup.string()
-            .length(6, "Code must be exactly 6 characters.")
-            .required("Verification code is required."),
+            .required("Email is required."),
     });
 
     // Formik setup
@@ -29,9 +28,7 @@ export default function EmailVerification() {
         },
     });
 
-    const handleResendCode = () => {
-        alert("A new verification code has been sent to your email.");
-    };
+   
 
     const buttonHover = {
         scale: 1.1,
@@ -57,7 +54,7 @@ export default function EmailVerification() {
                         Email Verification
                     </h2>
                     <h6 className="text-sm text-gray-500 text-center mb-9">
-                        Enter the verification code sent to your email address.
+                    Please check your email for a verification link. Click the link to verify your account and continue.
                     </h6>
                     <motion.form
                         className="space-y-6"
@@ -69,7 +66,7 @@ export default function EmailVerification() {
                                 id="code"
                                 name="code"
                                 type="text"
-                                placeholder="Enter your verification code"
+                                placeholder="Enter your Email"
                                 className={`block w-full border-gray-300 py-4 pl-10 pr-3 text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none sm:text-sm bg-gray-100 ${
                                     formik.touched.code && formik.errors.code
                                         ? "border-red-500"
@@ -91,30 +88,24 @@ export default function EmailVerification() {
                                 className="rounded-full border-2 px-10 py-3 text-sm font-semibold text-white bg-green-500 hover:bg-green-600"
                                 style={{ backgroundColor: "#53d7af" }}
                             >
-                                VERIFY
+                                Resend Verfication Email
                             </button>
                         </motion.div>
-                        <motion.div whileHover={buttonHover} className="flex justify-center mt-4">
-                            <button
-                                type="button"
-                                onClick={handleResendCode}
-                                className="rounded-full border-2 border-gray-500 px-10 py-3 text-sm font-semibold text-gray-700 hover:bg-gray-300"
-                            >
-                                RESEND CODE
-                            </button>
-                        </motion.div>
+                        <h6 className="text-sm text-gray-500 text-center mb-9">Didn't receive the email? Check your spam folder or try again.</h6>
                     </motion.form>
                 </div>
             </div>
             {/* Right Section - Illustration */}
             <div
-                className="flex flex-1 items-center justify-center bg-green-500 p-4"
-                style={{ backgroundColor: "#53d7af" }}
+                className="flex flex-1 items-center justify-center bg-green-300 p-4"
+                style={{ backgroundColor: "#53d7af" 
+                    
+                }}
             >
                 <motion.img
-                    src="https://img.freepik.com/free-vector/verify-concept-illustration_114360-5475.jpg?w=740&t=st=1733186944~exp=1733190544~hmac=ef2db70f7a347e62e94649073c43b5aaae9ee8d2247a8c713f22be63c00bce26"
+                    src="Fingerprint-bro.png"
                     alt="Forgot Password Illustration"
-                    className="max-w-full h-auto rounded-lg shadow-lg md:w-3/4 w-2/3"
+                    className="max-w-full h-auto rounded-lg "
                     animate={{
                         y: [0, -10, 0], // Floating effect
                     }}
