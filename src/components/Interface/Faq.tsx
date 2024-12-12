@@ -64,7 +64,7 @@ export const FAQ = () => {
         }}
       >
         <div className="mb-8 text-center">
-          <h2 className="text-3xl md:text-6xl font-bold text-gray-800" style={{ color: '#53d7af' }}>
+          <h2 className="text-2xl md:text-6xl font-bold text-gray-800" style={{ color: '#31c4ad' }}>
             Questions? Look Here!
           </h2>
           <h5 className="text-sm md:text-base mt-2">

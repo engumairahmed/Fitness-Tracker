@@ -9,7 +9,7 @@ import { Values } from './components/Interface/Values'
 import { Features } from './components/Interface/Features'
 import { Teams } from './components/Interface/Teams'
 import { Contactus } from './components/Interface/Contactus'
-import DashboardLayout from './components/Dashboard/Layout'
+
 import Home from './components/Home'
 import NotFound from './components/Notfound'
 import DashboardHome from './components/Dashboard/Home'
@@ -26,8 +26,10 @@ import MessageVerification from './components/Auth/msg'
 
 import WorkoutForm from './components/Dashboard/WorkoutForm'
 import Profile from './components/Dashboard/Profile'
+import { Analytics } from './components/Dashboard/Analytics'
 import ProtectedRoute from './utils/ProtectedRoutes'
 import { injectStyle } from "react-toastify/dist/inject-style";
+import DashboardLayout from './components/Dashboard/Layout'
 
 
 
@@ -73,6 +75,7 @@ function App() {
           <Route path='nutri-mon' element={<NutritionMonitor/>}></Route>
           <Route path='workoutform' element ={<WorkoutForm/>}></Route>
           <Route path='profile' element={<Profile></Profile>}></Route>
+          <Route path='analytics' element={<Analytics></Analytics>}></Route>
         </Route>
 
       </Routes>

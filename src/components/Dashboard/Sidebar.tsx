@@ -48,7 +48,7 @@ const Sidebar = () => {
               </Link>
             </li>
             <li>
-              <Link className="text-[#333] text-sm flex items-center hover:text-[#67C3A2] transition-all" to={'/Analytics'}>
+              <Link className="text-[#333] text-sm flex items-center hover:text-[#67C3A2] transition-all" to={'/dashboard/analytics'}>
                 <MdAnalytics className="w-7 h-5 " />
                 <span>Analytics</span>
               </Link>
@@ -65,7 +65,7 @@ const Sidebar = () => {
               </Link>
             </li>
             <li>
-              <Link to="/dashboard/profile" className="text-[#333] text-sm flex items-center hover:text-[#67C3A2] transition-all">
+              <Link className="text-[#333] text-sm flex items-center hover:text-[#67C3A2] transition-all" to="/dashboard/profile">
                 <IoAccessibility className="w-7 h-5 " />
                 <span>Profile</span>
               </Link>

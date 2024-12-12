@@ -169,19 +169,19 @@ export const SignUp = () => {
             transition={{ duration: 0.5 }}
             className="mt-6 flex justify-center gap-4"
           >
-            <div className="flex items-center justify-center h-12 w-12 rounded-full border border-gray-300 hover:bg-blue-300">
+            <div className="flex items-center justify-center h-12 w-12 rounded-full border bg-white hover:bg-blue-900 transition">
               <Link to={"https://www.facebook.com"}>
-                <BiLogoFacebook className="h-6 w-6 text-black-600" />
+                <BiLogoFacebook className="h-6 w-6 text-black-600 hover:text-[#fff]" />
               </Link>
             </div>
             <div className="flex items-center justify-center h-12 w-12 rounded-full border border-gray-300 hover:bg-yellow-300">
               <Link to={"https://www.google.com"}>
-                <IoLogoGoogleplus className="h-6 w-6 text-black-600" />
+                <IoLogoGoogleplus className="h-6 w-6 text-black-600 group-hover:text-transparent bg-clip-text " />
               </Link>
             </div>
             <div className="flex items-center justify-center h-12 w-12 rounded-full border border-gray-300 hover:bg-blue-300">
               <Link to={"https://www.linkedin.com"}>
-                <FaLinkedinIn className="h-6 w-6 text-black-500" />
+                <FaLinkedinIn className="h-6 w-6 text-black-500 hover:text-[#fff]" />
               </Link>
             </div>
           </motion.div>
