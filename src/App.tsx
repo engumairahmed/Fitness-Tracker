@@ -26,7 +26,7 @@ import MessageVerification from './components/Auth/msg'
 
 import WorkoutForm from './components/Dashboard/WorkoutForm'
 import Profile from './components/Dashboard/Profile'
-import { Analytics } from './components/Dashboard/Analytics'
+// import { Analytics } from './components/Dashboard/Analytics'
 import ProtectedRoute from './utils/ProtectedRoutes'
 import { injectStyle } from "react-toastify/dist/inject-style";
 import DashboardLayout from './components/Dashboard/Layout'
@@ -67,7 +67,7 @@ function App() {
         {/* Dashboard Routes */}
 
         <Route path='/dashboard' element={
-                     <DashboardLayout />
+            <ProtectedRoute><DashboardLayout /></ProtectedRoute>
 
           }>
           <Route index element={<DashboardHome/>}></Route>
@@ -75,7 +75,7 @@ function App() {
           <Route path='nutri-mon' element={<NutritionMonitor/>}></Route>
           <Route path='workoutform' element ={<WorkoutForm/>}></Route>
           <Route path='profile' element={<Profile></Profile>}></Route>
-          <Route path='analytics' element={<Analytics></Analytics>}></Route>
+          {/* <Route path='analytics' element={<Analytics></Analytics>}></Route> */}
         </Route>
 
       </Routes>

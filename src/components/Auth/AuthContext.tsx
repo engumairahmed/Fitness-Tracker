@@ -29,8 +29,10 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+
   const [authToken, setToken] = useState<string | null>(null);
   const [decodedToken, setDecodedToken] = useState<DecodedToken | null>(null);
+  
 
   useEffect(() => {
     const token = Cookies.get('authToken');
@@ -108,6 +110,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setToken(null);
     googleLogout();
     Cookies.remove('authToken');
+
   };
 
   const isAuthenticated = !!authToken;

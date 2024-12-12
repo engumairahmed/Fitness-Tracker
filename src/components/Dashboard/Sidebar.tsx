@@ -7,11 +7,18 @@ import { MdAnalytics } from "react-icons/md";
 import { IoSettings } from "react-icons/io5";
 import { IoAccessibility } from "react-icons/io5";
 import { IoLogOut } from "react-icons/io5"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Home from "./Home";
 import Profile from "./Profile";
+import { useAuth } from "../Auth/AuthContext";
 
 const Sidebar = () => {
+  const {logout}=useAuth();
+  const navigate=useNavigate();
+  const handleLogout = () => {
+     logout();
+     navigate('/');
+  }
   return (
     <nav className="w-[200px] bg-white shadow-xl flex-shrink-0 h-full fixed">
     <div className="flex flex-col h-full">
@@ -71,10 +78,10 @@ const Sidebar = () => {
               </Link>
             </li>
             <li>
-              <Link className="text-[#333] text-sm flex items-center hover:text-[#67C3A2] transition-all" to={'/Logout'}>
+              <button className="text-[#333] text-sm flex items-center hover:text-[#67C3A2] transition-all" onClick={logout}>
                 <IoLogOut className="w-7 h-5 " />
                 <span>Logout</span>
-              </Link>
+              </button>
             </li>
           </ul>
           <div className="flex flex-wrap items-center cursor-pointer border-t py-8 mt-8">

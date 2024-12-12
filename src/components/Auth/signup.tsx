@@ -12,13 +12,8 @@ import { BsPersonLock } from "react-icons/bs";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
-
-interface GoogleProfile {
-  profileObj: {
-    name: string;
-    email: string;
-  };
-}
+import { DecodedToken, GoogleUserProfile } from "../../utils/Types";
+import { useGoogleLogin } from "@react-oauth/google";
 
 export const SignUp = () => {
 
@@ -26,17 +21,38 @@ export const SignUp = () => {
 
   const navigate = useNavigate();
 
-  const handleGoogleLogin = async (codeResponse:GoogleProfile) => {
+  const googleLogin = useGoogleLogin({
+    onSuccess: async (codeResponse) => {
+
+      console.log(codeResponse)
+
+      try {
+        const response = await axios.get<GoogleUserProfile>('https://www.googleapis.com/oauth2/v3/userinfo', {
+          headers: {
+            Authorization: `Bearer ${codeResponse.access_token}`,
+          },
+        });
+  
+        const userProfile: GoogleUserProfile = response.data;
+        console.log('User Profile:', userProfile);
+        handleGoogleLogin(userProfile)
+      } catch (error) {
+        console.error('Error fetching user profile:', error);
+      }
+    },
+    onError: () => console.log("Login Failed"),
+  });
+
+  const handleGoogleLogin = async (codeResponse:GoogleUserProfile) => {
     try {
-      const { name, email } = codeResponse.profileObj; // Extract user info from Google response
-      const response = await axios.post(`${URL}/register-with-google`, { name, email, password: "dummyPassword", role: "retailer" })
+      const { name, email, picture } = codeResponse;
+      const response = await axios.post(`${URL}/auth/register-with-google`, { name, email, password: "dummyPassword", role: "user", picture })
         .then(
-          (res) => {
-            console.log(res.data.verificationToken);
-            
-            Cookies.set("authToken", res.data.verificationToken, { expires: 1 }); // Store JWT token
+          (res) => {            
+            console.log(res)
+            Cookies.set("authToken", res.data.token, { expires: 1 });
             toast.success("Google login successful!");
-            navigate("/dashboard");
+            // navigate("/dashboard");
           }
         )
         .catch(
@@ -108,7 +124,7 @@ export const SignUp = () => {
 
   const buttonHover = {
     scale: 1.1,
-    transition: { duration: 0.2 },
+    transition: { duration: 0.3 },
   };
 
   return (
@@ -169,19 +185,19 @@ export const SignUp = () => {
             transition={{ duration: 0.5 }}
             className="mt-6 flex justify-center gap-4"
           >
-            <div className="flex items-center justify-center h-12 w-12 rounded-full border bg-white hover:bg-blue-900 transition">
-              <Link to={"https://www.facebook.com"}>
-                <BiLogoFacebook className="h-6 w-6 text-black-600 hover:text-[#fff]" />
+            <div >
+              <Link className="flex items-center justify-center h-12 w-12 rounded-full border border-gray-300 transition-all duration-500 hover:bg-[#0564ff]" to={"https://www.facebook.com"}>
+                <BiLogoFacebook className="h-6 w-6 text-black-500"/>
               </Link>
             </div>
-            <div className="flex items-center justify-center h-12 w-12 rounded-full border border-gray-300 hover:bg-yellow-300">
-              <Link to={"https://www.google.com"}>
-                <IoLogoGoogleplus className="h-6 w-6 text-black-600 group-hover:text-transparent bg-clip-text " />
-              </Link>
+            <div>
+              <button className="flex items-center justify-center h-12 w-12 rounded-full border transition-all duration-500 border-gray-300 hover:bg-yellow-300" onClick={()=>googleLogin()}>
+                <IoLogoGoogleplus className="h-6 w-6 text-black-500" />
+              </button>
             </div>
-            <div className="flex items-center justify-center h-12 w-12 rounded-full border border-gray-300 hover:bg-blue-300">
+            <div className="flex items-center justify-center h-12 w-12 rounded-full border transition-all duration-500 border-gray-300 hover:bg-[#0b66be]">
               <Link to={"https://www.linkedin.com"}>
-                <FaLinkedinIn className="h-6 w-6 text-black-500 hover:text-[#fff]" />
+                <FaLinkedinIn className="h-5 w-5 text-black-500" />
               </Link>
             </div>
           </motion.div>
