@@ -30,9 +30,7 @@ import Profile from './components/Dashboard/Profile'
 import ProtectedRoute from './utils/ProtectedRoutes'
 import { injectStyle } from "react-toastify/dist/inject-style";
 import DashboardLayout from './components/Dashboard/Layout'
-import PrivacyPolicy from './components/Interface/PrivacyPolicy'
-
-
+// import PrivacyPolicy from './components/Interface/PrivacyPolicy'
 
 
 

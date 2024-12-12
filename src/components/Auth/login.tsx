@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Formik, Field, Form, ErrorMessage } from "formik";
@@ -11,10 +11,14 @@ import { BsPersonLock } from "react-icons/bs";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { toast, ToastContainer } from "react-toastify";
+import { MoonLoader, SyncLoader } from "react-spinners";
+
 
 export const Login = () => {
 
   const URL = import.meta.env.VITE_SERVER_URL;
+
+  const [isLoading,setIsLoading] = useState(false);
 
     const navigate = useNavigate();
 
@@ -33,7 +37,8 @@ export const Login = () => {
   });
 
     const handleFormSubmit = (values: { email: string; password: string }) => {
-        console.log("Form Submitted", values);
+        // console.log("Form Submitted", values);
+        setIsLoading(true);
         axios
             .post(`${URL}/auth/login`, values)
             .then((result) => {
@@ -41,12 +46,13 @@ export const Login = () => {
                 console.log(token)
                 Cookies.set("authToken", token, { expires: 1 });
                 setTimeout(() => {
+                setIsLoading(false);
                 navigate("/dashboard");
                 }, 500);
             })
             .catch((error) => {
         console.log(error);
-
+                setIsLoading(false);
         if (error.response.status === 404) {
           toast.error(error.response.data.msg, { theme: "dark" });
         //   formik.setErrors({
@@ -178,7 +184,7 @@ export const Login = () => {
                                         className="rounded-[2.375rem] border-2 border-seagreen px-14 py-3 text-sm font-semibold text-green hover:bg-green-300 hover:text-white"
                                         style={{ marginLeft: 30 }}
                                     >
-                                        SIGN IN
+                                        {isLoading ? <SyncLoader size={12}/> : "SIGN IN"}
                                     </button>
                                 </motion.div>
                             </Form>
