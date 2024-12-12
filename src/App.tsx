@@ -30,6 +30,10 @@ import Profile from './components/Dashboard/Profile'
 import ProtectedRoute from './utils/ProtectedRoutes'
 import { injectStyle } from "react-toastify/dist/inject-style";
 import DashboardLayout from './components/Dashboard/Layout'
+import PrivacyPolicy from './components/Interface/PrivacyPolicy'
+
+
+
 
 
 
@@ -60,6 +64,7 @@ function App() {
           <Route path='/nutrition' element={<Nutrition></Nutrition>}></Route>
           <Route path='/team' element={<Teams></Teams>}></Route>
           <Route path='/faq' element={<FAQ></FAQ>}></Route>
+          {/* <Route path='/privacypolicy' element={<PrivacyPolicy></PrivacyPolicy>}></Route> */}
           <Route path='/contactus' element={<Contactus></Contactus>}></Route>
           
         </Route>
@@ -75,6 +80,7 @@ function App() {
           <Route path='nutri-mon' element={<NutritionMonitor/>}></Route>
           <Route path='workoutform' element ={<WorkoutForm/>}></Route>
           <Route path='profile' element={<Profile></Profile>}></Route>
+         
           {/* <Route path='analytics' element={<Analytics></Analytics>}></Route> */}
         </Route>
 
