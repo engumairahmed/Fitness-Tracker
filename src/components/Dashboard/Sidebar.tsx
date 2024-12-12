@@ -14,11 +14,14 @@ import { useAuth } from "../Auth/AuthContext";
 
 const Sidebar = () => {
   const {logout}=useAuth();
+  
   const navigate=useNavigate();
+
   const handleLogout = () => {
      logout();
      navigate('/');
   }
+
   return (
     <nav className="w-[200px] bg-white shadow-xl flex-shrink-0 h-full fixed">
     <div className="flex flex-col h-full">
@@ -78,7 +81,7 @@ const Sidebar = () => {
               </Link>
             </li>
             <li>
-              <button className="text-[#333] text-sm flex items-center hover:text-[#67C3A2] transition-all" onClick={logout}>
+              <button className="text-[#333] text-sm flex items-center hover:text-[#67C3A2] transition-all" onClick={handleLogout}>
                 <IoLogOut className="w-7 h-5 " />
                 <span>Logout</span>
               </button>
