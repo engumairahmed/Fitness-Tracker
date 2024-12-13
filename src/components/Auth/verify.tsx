@@ -1,30 +1,56 @@
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { AiOutlineMail } from "react-icons/ai";
 import * as Yup from "yup";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 export default function EmailVerification() {
+    
+    const URL = import.meta.env.VITE_SERVER_URL;
+
     const navigate = useNavigate();
+
+    const [isLoading, setIsLoading] = useState(false);
 
     // Validation Schema using Yup
     const validationSchema = Yup.object({
-        code: Yup.string()
-            .required("Email is required."),
+        email: Yup.string()
+        .email("Invalid email address")
+        .required("Email is required"),
     });
 
     // Formik setup
     const formik = useFormik({
-        initialValues: { code: "" },
+        initialValues: { email: "" },
         validationSchema,
-        onSubmit: (values) => {
-            if (values.code === "123456") {
-                alert("Email verified successfully!");
-                navigate("/dashboard");
-            } else {
-                alert("Invalid verification code. Please try again.");
-            }
+        onSubmit: async (values) => {
+            console.log(values.email);
+            
+            await axios.post(`${URL}/auth/new-verification-link`, values)
+                .then(
+                    (res) => {
+                        toast.success('Verification link has been sent to your email', { autoClose: 2000 })
+                        console.log(res)
+                        setIsLoading(false);
+                    }
+                )
+                .catch(
+                    err => {
+                        console.error(err);
+                        if (err.response && err.response.data) {
+                            const serverErrors = err.response.data.errors || {
+                                email: err.response.data.msg || "An error occurred",
+                            };
+                            formik.setErrors(serverErrors);
+                        } else {
+                            toast.error("Something went wrong. Please try again.");
+                        }
+                        setIsLoading(false);
+                    }
+                )
         },
     });
 
@@ -63,22 +89,22 @@ export default function EmailVerification() {
                         <motion.div whileHover={{ scale: 1.05 }} className="relative mt-2">
                             <AiOutlineMail className="absolute inset-y-4 left-3 flex items-center text-gray-500 text-lg" />
                             <input
-                                id="code"
-                                name="code"
+                                id="email"
+                                name="email"
                                 type="text"
                                 placeholder="Enter your Email"
                                 className={`block w-full border-gray-300 py-4 pl-10 pr-3 text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none sm:text-sm bg-gray-100 ${
-                                    formik.touched.code && formik.errors.code
+                                    formik.touched.email && formik.errors.email
                                         ? "border-red-500"
                                         : ""
                                 }`}
-                                value={formik.values.code}
+                                value={formik.values.email}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                             />
-                            {formik.touched.code && formik.errors.code ? (
+                            {formik.touched.email && formik.errors.email ? (
                                 <p className="text-red-500 text-sm mt-2">
-                                    {formik.errors.code}
+                                    {formik.errors.email}
                                 </p>
                             ) : null}
                         </motion.div>
@@ -88,7 +114,7 @@ export default function EmailVerification() {
                                 className="rounded-full border-2 px-10 py-3 text-sm font-semibold text-white bg-green-500 hover:bg-green-600"
                                 style={{ backgroundColor: "#53d7af" }}
                             >
-                                Resend Verfication Email
+                                 {isLoading ? <></> : "Resend Verfication Email"}
                             </button>
                         </motion.div>
                         <h6 className="text-sm text-gray-500 text-center mb-9">Didn't receive the email? Check your spam folder or try again.</h6>

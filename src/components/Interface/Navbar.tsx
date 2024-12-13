@@ -1,11 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { RxCross1 } from "react-icons/rx";
 import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
+import * as jwtdecode from "jwt-decode"
+import { DecodedToken } from "../../utils/Types";
+import { useAuth } from "../Auth/AuthContext";
+
 
 export const Navbar = () => {
+  const {logout} = useAuth();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [User, setUser] = useState<DecodedToken>();
+
 
   const toggleMenu = () => {
     setMenuOpen((prev) => !prev);
@@ -13,8 +21,19 @@ export const Navbar = () => {
 
   const handleSignOut = () => {
     setIsLoggedIn(false);
+    logout();
   };
+useEffect(() => {
+  const token = Cookies.get('authToken');
+    if (token) {
+      const decoded:DecodedToken = jwtdecode.jwtDecode(token);
+      setUser(decoded);
+      setIsLoggedIn(true);
 
+      console.log(decoded);
+      
+    }
+})
   return (
     <header className="shadow-md py-3 px-5 sm:px-10 bg-white font-[sans-serif] min-h-[60px] tracking-wide relative z-50 border-b border-gray-200">
       <div className="flex items-center justify-between w-full">

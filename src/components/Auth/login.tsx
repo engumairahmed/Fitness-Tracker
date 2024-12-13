@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Formik, Field, Form, ErrorMessage } from "formik";
@@ -8,8 +8,17 @@ import { IoLogoGoogleplus } from "react-icons/io";
 import { FaLinkedinIn } from "react-icons/fa";
 import { AiOutlineMail } from "react-icons/ai";
 import { BsPersonLock } from "react-icons/bs";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { toast, ToastContainer } from "react-toastify";
+import { SyncLoader } from "react-spinners";
 
 export const Login = () => {
+
+    const URL = import.meta.env.VITE_SERVER_URL;
+
+    const [isLoading, setIsLoading] = useState(false);
+
     const navigate = useNavigate();
 
     const initialValues = {
@@ -28,7 +37,40 @@ export const Login = () => {
 
     const handleFormSubmit = (values: { email: string; password: string }) => {
         console.log("Form Submitted", values);
-        navigate("/faq");
+        setIsLoading(true);
+        axios
+            .post(`${URL}/auth/login`, values)
+            .then((result) => {
+                const token = result.data.token;
+                console.log(token)
+                Cookies.set("authToken", token, { expires: 1 });
+                setTimeout(() => {
+                    navigate("/dashboard");
+                }, 500);
+            })
+            .catch((error) => {
+                console.log(error);
+                setIsLoading(false);
+
+                if (error.response.status === 404) {
+                    toast.error(error.response.data.msg, { theme: "dark" });
+                    //   formik.setErrors({
+                    //     ...formik.errors,
+                    //     email: error.response.data.msg,
+                    //   });
+                } else if (error.response.status === 401) {
+                    console.log(error.request);
+                    toast.error(error.response.data.msg, { theme: "dark" });
+                } else if (error.status === 403) {
+                    toast.error(error.response.data.msg, { theme: "dark" });
+                    setTimeout(() => {
+                        navigate("/email-verification");
+                    }, 1000);
+                } else {
+                    console.log("Error", error.message);
+                    toast.error("Something went wrong.", { theme: "dark" });
+                }
+            });
     };
 
     const handleForgotPassword = () => {
@@ -43,6 +85,12 @@ export const Login = () => {
         scale: 1.1,
         transition: { duration: 0.2 },
     };
+
+    useEffect(() => {
+        if (Cookies.get("authToken")) {
+            navigate("/dashboard");
+        }
+    })
 
     return (
         <div className="flex min-h-screen flex-col lg:flex-row justify-center bg-white-500 m-0">
@@ -80,7 +128,7 @@ export const Login = () => {
                     </motion.div>
                 </div>
                 <h5 className="flex items-center justify-center" style={{ paddingTop: 35 }}>
-                    Use your email for Registration!
+                    Use your email for Login!
                 </h5>
                 <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
                     <Formik
@@ -96,9 +144,8 @@ export const Login = () => {
                                         name="email"
                                         type="email"
                                         placeholder="Enter your email"
-                                        className={`block w-full border-gray-300 py-4 pl-10 pr-3 text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none sm:text-sm bg-gray-100 ${
-                                            errors.email && touched.email ? "border-red-500" : ""
-                                        }`}
+                                        className={`block w-full border-gray-300 py-4 pl-10 pr-3 text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none sm:text-sm bg-gray-100 ${errors.email && touched.email ? "border-red-500" : ""
+                                            }`}
                                     />
                                     <ErrorMessage
                                         name="email"
@@ -112,9 +159,8 @@ export const Login = () => {
                                         name="password"
                                         type="password"
                                         placeholder="Enter your password"
-                                        className={`block w-full border-gray-300 py-4 pl-10 pr-3 text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none sm:text-sm bg-gray-100 ${
-                                            errors.password && touched.password ? "border-red-500" : ""
-                                        }`}
+                                        className={`block w-full border-gray-300 py-4 pl-10 pr-3 text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none sm:text-sm bg-gray-100 ${errors.password && touched.password ? "border-red-500" : ""
+                                            }`}
                                     />
                                     <ErrorMessage
                                         name="password"
@@ -141,7 +187,7 @@ export const Login = () => {
                                         className="rounded-[2.375rem] border-2 border-seagreen px-14 py-3 text-sm font-semibold text-green hover:bg-green-300 hover:text-white"
                                         style={{ marginLeft: 30 }}
                                     >
-                                        SIGN IN
+                                        {isLoading ? <SyncLoader size={12} /> : "SIGN IN"}
                                     </button>
                                 </motion.div>
                             </Form>
@@ -178,6 +224,7 @@ export const Login = () => {
                     </motion.button>
                 </motion.div>
             </div>
+            <ToastContainer />
         </div>
     );
 };

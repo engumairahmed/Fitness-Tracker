@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { AiOutlineMail } from "react-icons/ai";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import Cookies from "js-cookie"
 
 export const ForgotPassword = () => {
     const navigate = useNavigate();
@@ -28,6 +29,12 @@ export const ForgotPassword = () => {
         scale: 1.1,
         transition: { duration: 0.2 },
     };
+
+    useEffect(() => {
+        if (Cookies.get("authToken")) {
+            navigate("/dashboard");
+        }
+    })
 
     return (
         <div className="flex flex-col md:flex-row min-h-screen">

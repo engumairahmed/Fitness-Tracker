@@ -7,7 +7,10 @@ import { RiSendPlaneFill } from "react-icons/ri";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
 export const Contactus = () => {
+  const URL = import.meta.env.VITE_SERVER_URL;
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
   const schema = Yup.object({
@@ -19,8 +22,8 @@ export const Contactus = () => {
       .required("Last name is required")
       .min(2, "Last name must be at least 2 characters long"),
 
-    phoneno: Yup.string()
-      .matches(/^[0-9]{10}$/, "Phone number must be 11 digits")
+    phone: Yup.string()
+      .matches(/^[0-9]{11}$/, "Phone number must be 11 digits")
       .required("Phone number is required"),
 
     email: Yup.string()
@@ -38,14 +41,25 @@ export const Contactus = () => {
     initialValues: {
       firstname: "",
       lastname: "",
-      phoneno: "",
+      phone: "",
       email: "",
       message: "",
       subject: "",
     },
     validationSchema: schema,
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: (values, {resetForm }) => {
+      axios.post(`${URL}/contact-us`, {
+        ...values,
+      }).then(() => {
+        toast.success("Message Sent Successfully");
+        setTimeout(() => {
+        }, 1000);
+        resetForm();
+      })
+      .catch((err) => {
+        console.error("Error submitting the form:", err);
+        toast.error("Failed to Sent the Message");
+      })
     },
   });
   return (
@@ -112,7 +126,8 @@ export const Contactus = () => {
               </Link>
             </ul>
           </div>
-
+         
+         
           <div className="p-4 lg:col-span-2">
             <form onSubmit={formik.handleSubmit}>
               <div className="grid sm:grid-cols-2 gap-8">
@@ -155,17 +170,17 @@ export const Contactus = () => {
                 <div className="relative flex flex-col items-center">
                   <input
                     type="text"
-                    name="phoneno"
+                    name="phone"
                     placeholder="Phone No."
                     className="px-2 py-3 bg-white text-black w-full text-sm  border-b-2 border-[#67c3a2] focus:border-[#67c3a2] outline-none"
-                    value={formik.values.phoneno}
+                    value={formik.values.phone}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
                   <FaPhoneAlt className="w-[18px] h-[18px] absolute right-2 top-3 text-[#67c3a2]" />
-                  {formik.touched.phoneno && formik.errors.phoneno && (
+                  {formik.touched.phone && formik.errors.phone && (
                     <div className="text-red-500 text-xs">
-                      {formik.errors.phoneno}
+                      {formik.errors.phone}
                     </div>
                   )}
                 </div>
@@ -296,6 +311,8 @@ export const Contactus = () => {
           </div>
         </div>
       </div>
+      <ToastContainer position="top-right" />
     </div>
+    
   );
 };
