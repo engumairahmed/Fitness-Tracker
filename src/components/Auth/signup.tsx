@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useFormik } from "formik";
@@ -52,7 +52,7 @@ export const SignUp = () => {
             console.log(res)
             Cookies.set("authToken", res.data.token, { expires: 1 });
             toast.success("Google login successful!");
-            // navigate("/dashboard");
+            navigate("/dashboard");
           }
         )
         .catch(
@@ -126,6 +126,12 @@ export const SignUp = () => {
     scale: 1.1,
     transition: { duration: 0.3 },
   };
+
+  useEffect(()=>{
+    if (Cookies.get("authToken")) {
+      navigate("/dashboard");
+    }
+  })
 
   return (
     <div className="flex min-h-screen flex-col lg:flex-row justify-center bg-white-500 m-0">
