@@ -11,16 +11,23 @@ import { Link, useNavigate } from "react-router-dom";
 import Home from "./Home";
 import Profile from "./Profile";
 import { useAuth } from "../Auth/AuthContext";
+import { useState } from "react";
+import { LogoutModal } from "./LogoutModal";
 
 const Sidebar = () => {
-  const {logout}=useAuth();
+  const {logout,getName}=useAuth();
+  const name = getName();
   
-  const navigate=useNavigate();
+  // const navigate=useNavigate();
 
-  const handleLogout = () => {
-     logout();
-     navigate('/');
-  }
+  // const handleLogout = () => {
+  //    logout();
+  //    navigate('/');
+  // }
+
+  const [isModalOpen, setModalOpen] = useState(false);
+  const openModal = () => setModalOpen(true);
+  const closeModal = () => setModalOpen(false);
 
   return (
     <nav className="w-[200px] bg-white shadow-xl flex-shrink-0 h-full fixed">
@@ -81,16 +88,17 @@ const Sidebar = () => {
               </Link>
             </li>
             <li>
-              <button className="text-[#333] text-sm flex items-center hover:text-[#67C3A2] transition-all" onClick={handleLogout}>
+              <button className="text-[#333] text-sm flex items-center hover:text-[#67C3A2] transition-all" onClick={openModal}>
                 <IoLogOut className="w-7 h-5 " />
                 <span>Logout</span>
               </button>
+              {isModalOpen && <LogoutModal onClose={closeModal} />}
             </li>
           </ul>
           <div className="flex flex-wrap items-center cursor-pointer border-t py-8 mt-8">
             <img src='https://readymadeui.com/team-2.webp' className="w-10 h-10 rounded-md border-2 border-white" />
             <div className="ml-4">
-              <p className="text-sm text-[#333] font-semibold">User Account Name</p>
+              <p className="text-sm text-[#333] font-semibold">{name}</p>
               <p className="text-xs text-[#67C3A2] mt-0.5">Active free account</p>
             </div>
           </div>
