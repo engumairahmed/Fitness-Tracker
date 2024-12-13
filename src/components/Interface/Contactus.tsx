@@ -23,7 +23,7 @@ export const Contactus = () => {
       .min(2, "Last name must be at least 2 characters long"),
 
     phone: Yup.string()
-      .matches(/^[0-9]{10}$/, "Phone number must be 11 digits")
+      .matches(/^[0-9]{11}$/, "Phone number must be 11 digits")
       .required("Phone number is required"),
 
     email: Yup.string()
