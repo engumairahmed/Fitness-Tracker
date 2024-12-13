@@ -19,8 +19,8 @@ export interface DecodedToken {
   export interface UserProfile {
     name: string;
     email: string;
-    contact: string;
-    gender: string;
-    dob: string;
-    picture: string;
+    contact?: string;
+    gender?: "Male" | "Female" | "Other" | "undefined";
+    dob?: string;
+    picture?: string;
   }
