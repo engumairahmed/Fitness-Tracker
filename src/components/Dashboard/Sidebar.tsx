@@ -11,13 +11,16 @@ import { Link, useNavigate } from "react-router-dom";
 import Home from "./Home";
 import Profile from "./Profile";
 import { useAuth } from "../Auth/AuthContext";
-import { useState } from "react";
-import { LogoutModal } from "./LogoutModal";
 
-const Sidebar: React.FC = () => {
-  const [isModalOpen, setModalOpen] = useState(false);
-  const openModal = () => setModalOpen(true);
-  const closeModal = () => setModalOpen(false);
+const Sidebar = () => {
+  const {logout}=useAuth();
+  
+  const navigate=useNavigate();
+
+  const handleLogout = () => {
+     logout();
+     navigate('/');
+  }
 
   return (
     <nav className="w-[200px] bg-white shadow-xl flex-shrink-0 h-full fixed">
@@ -78,11 +81,10 @@ const Sidebar: React.FC = () => {
               </Link>
             </li>
             <li>
-              <button className="text-[#333] text-sm flex items-center hover:text-[#67C3A2] transition-all"  onClick={openModal}>
+              <button className="text-[#333] text-sm flex items-center hover:text-[#67C3A2] transition-all" onClick={handleLogout}>
                 <IoLogOut className="w-7 h-5 " />
                 <span>Logout</span>
               </button>
-              {isModalOpen && <LogoutModal onClose={closeModal} />}
             </li>
           </ul>
           <div className="flex flex-wrap items-center cursor-pointer border-t py-8 mt-8">
@@ -95,6 +97,8 @@ const Sidebar: React.FC = () => {
         </div>
       </div>
     </nav>
+
+
   )
 
 }
