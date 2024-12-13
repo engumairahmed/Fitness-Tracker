@@ -12,6 +12,7 @@ import Home from "./Home";
 import Profile from "./Profile";
 import { useAuth } from "../Auth/AuthContext";
 import { useState } from "react";
+
 import { LogoutModal } from "./LogoutModal";
 
 const Sidebar: React.FC = () => {
@@ -88,7 +89,7 @@ const Sidebar: React.FC = () => {
           <div className="flex flex-wrap items-center cursor-pointer border-t py-8 mt-8">
             <img src='https://readymadeui.com/team-2.webp' className="w-10 h-10 rounded-md border-2 border-white" />
             <div className="ml-4">
-              <p className="text-sm text-[#333] font-semibold">User Account Name</p>
+            <p className="text-sm text-[#333] font-semibold">User Account Name</p>
               <p className="text-xs text-[#67C3A2] mt-0.5">Active free account</p>
             </div>
           </div>
