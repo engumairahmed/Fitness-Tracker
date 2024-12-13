@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Formik, Field, Form, ErrorMessage } from "formik";
@@ -11,29 +11,33 @@ import { BsPersonLock } from "react-icons/bs";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { toast, ToastContainer } from "react-toastify";
+import { SyncLoader } from "react-spinners";
 
 export const Login = () => {
 
-  const URL = import.meta.env.VITE_SERVER_URL;
+    const URL = import.meta.env.VITE_SERVER_URL;
+
+    const [isLoading, setIsLoading] = useState(false);
 
     const navigate = useNavigate();
 
-  const initialValues = {
-    email: "",
-    password: "",
-  };
+    const initialValues = {
+        email: "",
+        password: "",
+    };
 
-  const validationSchema = Yup.object({
-    email: Yup.string()
-      .email("Invalid email address")
-      .required("Email is required"),
-    password: Yup.string()
-      .min(6, "Password must be at least 6 characters")
-      .required("Password is required"),
-  });
+    const validationSchema = Yup.object({
+        email: Yup.string()
+            .email("Invalid email address")
+            .required("Email is required"),
+        password: Yup.string()
+            .min(6, "Password must be at least 6 characters")
+            .required("Password is required"),
+    });
 
     const handleFormSubmit = (values: { email: string; password: string }) => {
         console.log("Form Submitted", values);
+        setIsLoading(true);
         axios
             .post(`${URL}/auth/login`, values)
             .then((result) => {
@@ -41,45 +45,46 @@ export const Login = () => {
                 console.log(token)
                 Cookies.set("authToken", token, { expires: 1 });
                 setTimeout(() => {
-                navigate("/dashboard");
+                    navigate("/dashboard");
                 }, 500);
             })
             .catch((error) => {
-        console.log(error);
+                console.log(error);
+                setIsLoading(false);
 
-        if (error.response.status === 404) {
-          toast.error(error.response.data.msg, { theme: "dark" });
-        //   formik.setErrors({
-        //     ...formik.errors,
-        //     email: error.response.data.msg,
-        //   });
-        } else if (error.response.status === 401) {
-          console.log(error.request);
-          toast.error(error.response.data.msg, { theme: "dark" });
-        } else if (error.status === 403) {
-          toast.error(error.response.data.msg, { theme: "dark" });
-          setTimeout(() => {
-            navigate("/email-verification");
-          }, 1000);
-        } else {
-          console.log("Error", error.message);
-          toast.error("Something went wrong.", { theme: "dark" });
-        }
-      });
+                if (error.response.status === 404) {
+                    toast.error(error.response.data.msg, { theme: "dark" });
+                    //   formik.setErrors({
+                    //     ...formik.errors,
+                    //     email: error.response.data.msg,
+                    //   });
+                } else if (error.response.status === 401) {
+                    console.log(error.request);
+                    toast.error(error.response.data.msg, { theme: "dark" });
+                } else if (error.status === 403) {
+                    toast.error(error.response.data.msg, { theme: "dark" });
+                    setTimeout(() => {
+                        navigate("/email-verification");
+                    }, 1000);
+                } else {
+                    console.log("Error", error.message);
+                    toast.error("Something went wrong.", { theme: "dark" });
+                }
+            });
     };
 
-  const handleForgotPassword = () => {
-    navigate("/forget-password");
-  };
+    const handleForgotPassword = () => {
+        navigate("/forget-password");
+    };
 
-  const handleFormSignIn = () => {
-    navigate("/sign");
-  };
+    const handleFormSignIn = () => {
+        navigate("/sign");
+    };
 
-  const buttonHover = {
-    scale: 1.1,
-    transition: { duration: 0.2 },
-  };
+    const buttonHover = {
+        scale: 1.1,
+        transition: { duration: 0.2 },
+    };
 
     return (
         <div className="flex min-h-screen flex-col lg:flex-row justify-center bg-white-500 m-0">
@@ -133,9 +138,8 @@ export const Login = () => {
                                         name="email"
                                         type="email"
                                         placeholder="Enter your email"
-                                        className={`block w-full border-gray-300 py-4 pl-10 pr-3 text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none sm:text-sm bg-gray-100 ${
-                                            errors.email && touched.email ? "border-red-500" : ""
-                                        }`}
+                                        className={`block w-full border-gray-300 py-4 pl-10 pr-3 text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none sm:text-sm bg-gray-100 ${errors.email && touched.email ? "border-red-500" : ""
+                                            }`}
                                     />
                                     <ErrorMessage
                                         name="email"
@@ -149,9 +153,8 @@ export const Login = () => {
                                         name="password"
                                         type="password"
                                         placeholder="Enter your password"
-                                        className={`block w-full border-gray-300 py-4 pl-10 pr-3 text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none sm:text-sm bg-gray-100 ${
-                                            errors.password && touched.password ? "border-red-500" : ""
-                                        }`}
+                                        className={`block w-full border-gray-300 py-4 pl-10 pr-3 text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none sm:text-sm bg-gray-100 ${errors.password && touched.password ? "border-red-500" : ""
+                                            }`}
                                     />
                                     <ErrorMessage
                                         name="password"
@@ -178,7 +181,7 @@ export const Login = () => {
                                         className="rounded-[2.375rem] border-2 border-seagreen px-14 py-3 text-sm font-semibold text-green hover:bg-green-300 hover:text-white"
                                         style={{ marginLeft: 30 }}
                                     >
-                                        SIGN IN
+                                        {isLoading ? <SyncLoader size={12} /> : "SIGN IN"}
                                     </button>
                                 </motion.div>
                             </Form>
@@ -215,7 +218,7 @@ export const Login = () => {
                     </motion.button>
                 </motion.div>
             </div>
-            <ToastContainer/>
+            <ToastContainer />
         </div>
     );
 };
