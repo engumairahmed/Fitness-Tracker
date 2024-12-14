@@ -46,7 +46,7 @@ export const SignUp = () => {
   const handleGoogleLogin = async (codeResponse:GoogleUserProfile) => {
     try {
       const { name, email, picture } = codeResponse;
-      const response = await axios.post(`${URL}/auth/register-with-google`, { name, email, password: "dummyPassword", role: "user", picture })
+      const response = await axios.post(`${URL}auth/register-with-google`, { name, email, password: "dummyPassword", role: "user", picture })
         .then(
           (res) => {            
             console.log(res)

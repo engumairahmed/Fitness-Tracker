@@ -561,7 +561,7 @@ const updateNutritionalValues = (weight: number, quantity: number) => {
 
   return (
     <>
-      <BreadCrumb name=": Your Personalized Nutrition Guide" route='/dashboard/nutri-mon' />
+      <BreadCrumb name="Your Personalized Nutrition Guide" route='/dashboard/nutri-mon' nestedRoute={{name:"test",route:"test"}}/>
       <div className="max-w-4xl mt-10 mx-auto bg-white p-6 rounded shadow">
         <h1 className="text-lg text-center font-bold mb-4">Nutrition Monitor</h1>
 

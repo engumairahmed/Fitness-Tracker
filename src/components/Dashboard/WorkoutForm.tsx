@@ -100,7 +100,7 @@ const WorkoutForm = () => {
 
   return (
     <>
-      <BreadCrumb name=": Workout Planner" route='/dashboard/workoutform'/>
+      <BreadCrumb name="Workout Planner" route='/dashboard/workoutform'/>
       <div className="bg-green-50 flex items-center justify-center min-h-screen py-6">
         <div className="bg-white p-8 rounded-lg shadow-lg max-w-lg w-full">
           <h1 className="text-2xl font-bold text-center mb-3 text-green-600">Create Your Own Workout</h1>
