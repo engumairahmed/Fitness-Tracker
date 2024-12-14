@@ -24,3 +24,19 @@ export interface DecodedToken {
     dob?: string;
     picture?: string;
   }
+
+  export interface Nutrition {
+    name: string;
+    calories: number;
+    carbs: number;
+    fats: number;
+    protein: number;
+    sodium: number;
+    sugar: number;
+    cholesterol: number;
+    vitamins: { [key: string]: number };
+    minerals: { [key: string]: number };
+    quantity: number;
+    weight: number;
+  }
+  
