@@ -20,7 +20,7 @@ export interface DecodedToken {
     name: string;
     email: string;
     contact?: string;
-    gender?: "Male" | "Female" | "Other" | "undefined";
+    gender?: string;
     dob?: string;
     picture?: string;
   }

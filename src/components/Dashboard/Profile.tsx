@@ -9,7 +9,7 @@ import { UserProfile } from "../../utils/Types";
 
 declare global {
   interface Window {
-    cloudinary: any; // Declare cloudinary if it's not defined
+    cloudinary: any;
   }
 }
 
@@ -19,12 +19,12 @@ const Profile = () => {
   const cloudName = import.meta.env.VITE_CLOUD_NAME;
   const uploadPreset = import.meta.env.VITE_UPLOAD_PRESET;
 
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState<boolean>(false);
   const [userData, setUserData] = useState<UserProfile>({
     name: "",
     email: "",
     contact: "",
-    gender: "Male",
+    gender: "",
     dob: "",
     picture: "",
   });
@@ -52,6 +52,7 @@ const Profile = () => {
       .max(new Date(), "Date of birth cannot be in the future"),
     gender: Yup.string()
       .oneOf(["Male", "Female"], "Invalid gender"),
+    picture: Yup.string()
   });
 
   const formik = useFormik<UserProfile>({
@@ -59,11 +60,11 @@ const Profile = () => {
     validationSchema,
     onSubmit: async (values) => {
       console.log("Profile updated:", values);
-      setUserData(values);
+      
       setIsEditing(false);
-      await axios.put(`${serverURL}/profile/update`,
+      await axios.put(`${serverURL}profile/update`,
         {
-          values: values,
+          values,
         },
         {
           headers: {
@@ -72,7 +73,8 @@ const Profile = () => {
         }
       )
         .then(()=>{
-          toast.success('Profile updated successfully', { autoClose: 2000 })
+          toast.success('Profile updated successfully', { autoClose: 2000 });
+          setUserData(values);
         })
         .catch((error)=>{
           toast.error('Failed to update profile' + error, { autoClose: 2000 })
@@ -83,7 +85,7 @@ const Profile = () => {
   const getUserData = async () => {
     const token = Cookies.get('authToken')
     const response = await axios
-      .get(`${serverURL}/profile/info`, {
+      .get(`${serverURL}profile/info`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -91,21 +93,24 @@ const Profile = () => {
       .then((response) => {
         const { name, email, contact, gender, dob, picture } = response.data.user;
 
+        console.log(name, email, contact, gender, dob, picture);
+
         setUserData({
           name: name,
           email: email,
-          contact: contact || "",
-          gender: gender || "undefined",
-          dob: dob || "",
-          picture: picture || ""
+          contact: contact,
+          gender: gender ,
+          dob: dob,
+          picture: picture
         });
 
         formik.setValues({
           name: name,
           email: email,
-          contact: contact || "",
-          gender: gender || "undefined",
-          dob: dob || ""
+          contact: contact,
+          gender: gender,
+          dob: dob,
+          picture: picture
         });
 
         setImagePreview(picture);
@@ -118,7 +123,7 @@ const Profile = () => {
 
   const handleImageUpload = async (imageURL:string) =>{
       await axios.put(
-        `${serverURL}/profile/image`,
+        `${serverURL}profile/image`,
         {
           imageURL: imageURL,
         },
@@ -144,6 +149,7 @@ const Profile = () => {
     if (result && result.event === "success") {
       setImagePreview(result.info.secure_url);
       handleImageUpload(result.info.secure_url)
+      getUserData();
     }
   };
 
@@ -162,7 +168,6 @@ const Profile = () => {
   useEffect(() => {
     getUserData();
     const cldScript = document.getElementById("cloudinaryUploadWidgetScript");
-      // if window is defined and script is not loaded and not in window add script
       if (typeof window !== "undefined" && !loaded && !cldScript) {
         const script = document.createElement("script");
         script.setAttribute("async", "");
@@ -266,6 +271,24 @@ const Profile = () => {
                   )}
                 </div>
 
+                {/* Date of Birth */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">Date of Birth</label>
+                  <input
+                    type="date"
+                    name="dob"
+                    value={formik.values.dob}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    disabled={!isEditing}
+                    className={`mt-2 w-full p-2 border rounded-lg focus:ring-2 focus:ring-[#31C48D] focus:outline-none ${formik.errors.dob && formik.touched.dob ? "border-red-500" : ""
+                      }`}
+                  />
+                  {formik.errors.dob && formik.touched.dob && (
+                    <p className="text-red-500 text-sm mt-1">{formik.errors.dob}</p>
+                  )}
+                </div>
+                
                 {/* Gender */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700">Gender</label>
@@ -297,24 +320,6 @@ const Profile = () => {
                   </div>
                   {formik.errors.gender && formik.touched.gender && (
                     <p className="text-red-500 text-sm mt-1">{formik.errors.gender}</p>
-                  )}
-                </div>
-
-                {/* Date of Birth */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">Date of Birth</label>
-                  <input
-                    type="date"
-                    name="dob"
-                    value={formik.values.dob}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    disabled={!isEditing}
-                    className={`mt-2 w-full p-2 border rounded-lg focus:ring-2 focus:ring-[#31C48D] focus:outline-none ${formik.errors.dob && formik.touched.dob ? "border-red-500" : ""
-                      }`}
-                  />
-                  {formik.errors.dob && formik.touched.dob && (
-                    <p className="text-red-500 text-sm mt-1">{formik.errors.dob}</p>
                   )}
                 </div>
               </div>

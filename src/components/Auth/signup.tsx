@@ -98,7 +98,7 @@ export const SignUp = () => {
     }),
     onSubmit: (values) => {
       axios
-      .post(`${URL}/auth/register`, values)
+      .post(`${URL}auth/register`, values)
       .then(() => {
         toast.success("Success Notification !");
         setTimeout(() => {

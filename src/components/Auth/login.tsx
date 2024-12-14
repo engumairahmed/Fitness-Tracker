@@ -39,7 +39,7 @@ export const Login = () => {
         console.log("Form Submitted", values);
         setIsLoading(true);
         axios
-            .post(`${URL}/auth/login`, values)
+            .post(`${URL}auth/login`, values)
             .then((result) => {
                 const token = result.data.token;
                 console.log(token)
