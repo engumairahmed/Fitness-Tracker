@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import BreadCrumb from './BreadCrumb';
 import { FaRegPlusSquare } from 'react-icons/fa';
 import axios from "axios";
+import Cookies from 'js-cookie'
 
 type Exercise = {
   exercise_name: string;
@@ -12,6 +13,8 @@ type Exercise = {
 };
 
 const WorkoutForm = () => {
+
+  const URL = import.meta.env.VITE_SERVER_URL;
   const [exercises, setExercises] = useState<Exercise[]>([
     {
       exercise_name: '',
@@ -76,7 +79,14 @@ const WorkoutForm = () => {
     };
 
     try {
-      const response = await axios.post('http://localhost:5000/workouts/workouts', workoutData);
+      const response = await axios.post(`${URL}workouts/workouts`, 
+      {        workoutData,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${Cookies.get('authToken')}`,
+        },
+      })
       console.log('Workout created:', response.data);
       alert('Workout created successfully!');
       setExercises([

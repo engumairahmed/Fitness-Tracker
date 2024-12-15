@@ -25,14 +25,16 @@ import MessageVerification from './components/Auth/msg'
 
 import WorkoutForm from './components/Dashboard/WorkoutForm'
 import Profile from './components/Dashboard/Profile'
-import { Analytics } from './components/Dashboard/Analytics'
+// import { Analytics } from './components/Dashboard/Analytics'
 import ProtectedRoute from './utils/ProtectedRoutes'
 import { injectStyle } from "react-toastify/dist/inject-style";
 import DashboardLayout from './components/Dashboard/Layout'
-import PrivacyPolicy from './components/Interface/PrivacyPolicy'
+// import PrivacyPolicy from './components/Interface/PrivacyPolicy'
 
 import WorkoutsList from './components/Dashboard/WorkoutList'
 import { Workout } from './components/Interface/Workout'
+import ProgressMonitor from './components/Dashboard/ProgressMonitor'
+import BodyPartButtons from './components/Dashboard/BodyShape'
 
 
 
@@ -64,7 +66,7 @@ function App() {
           <Route path='/nutrition' element={<Nutrition></Nutrition>}></Route>
           <Route path='/team' element={<Teams></Teams>}></Route>
           <Route path='/faq' element={<FAQ></FAQ>}></Route>
-          <Route path='/privacypolicy' element={<PrivacyPolicy></PrivacyPolicy>}></Route>
+          {/* <Route path='/privacypolicy' element={<PrivacyPolicy></PrivacyPolicy>}></Route> */}
           <Route path='/workout' element={<Workout></Workout>}></Route>
           <Route path='/contactus' element={<Contactus></Contactus>}></Route>
           
@@ -82,8 +84,10 @@ function App() {
           <Route path='workoutform' element ={<WorkoutForm/>}></Route>
           <Route path='workoutlist' element ={<WorkoutsList/>}></Route>
           <Route path='profile' element={<Profile></Profile>}></Route>
+          <Route path='Progress-mon' element={<ProgressMonitor/>}/>
+          {/* <Route path='body-measure' element={<BodyPartButtons/>}></Route> */}
          
-          <Route path='analytics' element={<Analytics></Analytics>}></Route>
+          {/* <Route path='analytics' element={<Analytics></Analytics>}></Route> */}
         </Route>
 
       </Routes>
