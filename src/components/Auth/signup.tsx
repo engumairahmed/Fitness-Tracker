@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useFormik } from "formik";
@@ -12,7 +12,7 @@ import { BsPersonLock } from "react-icons/bs";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
-import { DecodedToken, GoogleUserProfile } from "../../utils/Types";
+import { GoogleUserProfile } from "../../utils/Types";
 import { useGoogleLogin } from "@react-oauth/google";
 
 export const SignUp = () => {
@@ -46,6 +46,7 @@ export const SignUp = () => {
   const handleGoogleLogin = async (codeResponse:GoogleUserProfile) => {
     try {
       const { name, email, picture } = codeResponse;
+      console.log(codeResponse)
       const response = await axios.post(`${URL}auth/register-with-google`, { name, email, password: "dummyPassword", role: "user", picture })
         .then(
           (res) => {            
@@ -160,7 +161,7 @@ export const SignUp = () => {
           <motion.button
             whileHover={buttonHover}
             onClick={() => navigate("/login")}
-            className="rounded-[2.375rem] border-2 border-seagreen px-12 py-2 text-sm font-semibold text-white hover:bg-white hover:text-green-300"
+            className="rounded-[2.375rem] border-2 border-seagreen bg-white text-green-300 px-12 py-2 text-sm font-semibold text-white hover:bg-white hover:text-green-300"
             style={{ marginTop: 40 }}
           >
             Sign In

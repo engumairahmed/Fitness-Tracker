@@ -1,25 +1,87 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Formik, Field, Form, ErrorMessage } from "formik";
+import { Formik, Field, Form, ErrorMessage, useFormikContext } from "formik";
 import * as Yup from "yup";
-import { BiLogoFacebook } from "react-icons/bi";
-import { IoLogoGoogleplus } from "react-icons/io";
-import { FaLinkedinIn } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 import { AiOutlineMail } from "react-icons/ai";
 import { BsPersonLock } from "react-icons/bs";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { toast, ToastContainer } from "react-toastify";
 import { SyncLoader } from "react-spinners";
+import { useGoogleLogin } from "@react-oauth/google";
+import { GoogleUserProfile } from "../../utils/Types";
 
 export const Login = () => {
 
     const URL = import.meta.env.VITE_SERVER_URL;
 
-    const [isLoading, setIsLoading] = useState(false);
-
     const navigate = useNavigate();
+
+
+    const googleLogin = useGoogleLogin({
+        onSuccess: async (codeResponse) => {
+
+            console.log(codeResponse)
+
+            try {
+                const response = await axios.get<GoogleUserProfile>('https://www.googleapis.com/oauth2/v3/userinfo', {
+                    headers: {
+                        Authorization: `Bearer ${codeResponse.access_token}`,
+                    },
+                });
+
+                const userProfile: GoogleUserProfile = response.data;
+                console.log('User Profile:', userProfile);
+                handleGoogleLogin(userProfile)
+            } catch (error) {
+                console.error('Error fetching user profile:', error);
+            }
+        },
+        onError: () => console.log("Login Failed"),
+    });
+
+    const handleGoogleLogin = async (codeResponse: GoogleUserProfile) => {
+        try {
+            const { name, email, picture } = codeResponse;
+            console.log(codeResponse)
+            const response = await axios.post(`${URL}auth/register-with-google`, { name, email, password: "dummyPassword", role: "user", picture })
+                .then(
+                    (res) => {
+                        console.log(res)
+                        Cookies.set("authToken", res.data.token, { expires: 1 });
+                        toast.success("Google login successful!");
+                        navigate("/dashboard");
+                    }
+                )
+                .catch(
+                    (err) => {
+                        console.log(err);
+
+                        toast.error("Google login failed. Please try again.", { theme: "dark" });
+                    }
+                );
+
+        } catch (error) {
+            handleError(error);
+        }
+    };
+
+    const handleError = (error: unknown): void => {
+        const { setErrors } = useFormikContext();
+        if (axios.isAxiosError(error) && error.response) {
+            setErrors({
+                email: error.response.data.msg || "An error occurred",
+            });
+        } else if (axios.isAxiosError(error) && error.request) {
+            toast.error("No response received from the server.", { theme: "dark" });
+        } else {
+            toast.error("Something went wrong.", { theme: "dark" });
+        }
+    };
+
+    const [isLoading, setIsLoading] = useState(false);
 
     const initialValues = {
         email: "",
@@ -110,24 +172,24 @@ export const Login = () => {
                     >
                         Sign In to FitClave
                     </h2>
-                    <motion.div
-                        initial={{ scale: 0.8 }}
-                        animate={{ scale: 1 }}
-                        transition={{ duration: 0.5 }}
-                        className="mt-6 flex justify-center gap-4"
-                    >
-                        <div className="flex items-center justify-center h-12 w-12 rounded-full border border-gray-300 hover:bg-blue-500">
-                            <Link to={"https://www.facebook.com"}><BiLogoFacebook className="h-6 w-6 text-black-600" /></Link>
-                        </div>
-                        <div className="flex items-center justify-center h-12 w-12 rounded-full border border-gray-300 hover:bg-yellow-300">
-                            <Link to={"https://www.google.com"}><IoLogoGoogleplus className="h-6 w-6 text-black-600" /></Link>
-                        </div>
-                        <div className="flex items-center justify-center h-12 w-12 rounded-full border border-gray-300 hover:bg-blue-300">
-                            <Link to={"https://www.linkedin.com"}><FaLinkedinIn className="h-6 w-6 text-black-500" /></Link>
-                        </div>
-                    </motion.div>
+                    <div className="mt-6 flex justify-center gap-4">
+                        <button
+                            type="button"
+                            className="w-full flex items-center justify-center gap-4 py-3 px-6 text-sm font-semibold tracking-wider transition-all duration-500 text-gray-800 border border-gray-300 rounded-full bg-gray-50 hover:bg-gray-300 focus:outline-none"
+                            onClick={() => googleLogin()}
+                        >
+                            <FcGoogle size={22} />
+                            Continue with google
+                        </button>
+                    </div>
+
+                    <div className="my-6 flex items-center gap-1">
+                        <hr className="w-full border-gray-300" />
+                        <p className="text-sm text-gray-800 text-center">OR</p>
+                        <hr className="w-full border-gray-300" />
+                    </div>
                 </div>
-                <h5 className="flex items-center justify-center" style={{ paddingTop: 35 }}>
+                <h5 className="flex items-center justify-center">
                     Use your email for Login!
                 </h5>
                 <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
@@ -184,7 +246,7 @@ export const Login = () => {
                                 >
                                     <button
                                         type="submit"
-                                        className="rounded-[2.375rem] border-2 border-seagreen px-14 py-3 text-sm font-semibold text-green hover:bg-green-300 hover:text-white"
+                                        className="rounded-[2.375rem] border-2 border-seagreen px-14 py-3 text-sm font-semibold text-green hover:bg-[#67C3A2] hover:text-white"
                                         style={{ marginLeft: 30 }}
                                     >
                                         {isLoading ? <SyncLoader size={12} /> : "SIGN IN"}
@@ -197,13 +259,13 @@ export const Login = () => {
             </div>
             {/* Image Section */}
             <div
-                className="relative lg:w-2/5 flex flex-col justify-center items-center p-6 rounded-lg text-center space-y-4 bg-cover bg-center m-0 "
+                className="relative lg:w-2/5 flex flex-col justify-center items-center p-6 rounded-lg text-center space-y-4 bg-cover bg-center bg-gray-500 m-0 "
                 style={{
                     backgroundImage: "url('Tablet login-bro.png')",
-                    color: "#31C48D",
+                    // color: "#67C3A2",
                 }}
             >
-                <div className="absolute inset-0 bg-green-300 bg-opacity-70 rounded-lg m-0"></div>
+                <div className="absolute inset-0 bg-[#67C3A2] bg-opacity-70 rounded-lg m-0"></div>
                 <motion.div
                     initial={{ opacity: 0, x: 100 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -217,7 +279,7 @@ export const Login = () => {
                     <motion.button
                         whileHover={buttonHover}
                         onClick={handleFormSignIn}
-                        className="rounded-[2.375rem] border-2 border-seagreen px-12 py-2 text-sm font-semibold text-white hover:bg-white hover:text-green-300"
+                        className="rounded-[2.375rem] border-2 border-emerald-500 bg-white px-12 py-2 text-sm font-semibold text-emerald-500"
                         style={{ marginTop: 40 }}
                     >
                         SIGN UP
