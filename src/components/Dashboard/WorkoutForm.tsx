@@ -3,6 +3,7 @@ import BreadCrumb from './BreadCrumb';
 import { FaRegPlusSquare } from 'react-icons/fa';
 import axios from "axios";
 import Cookies from 'js-cookie'
+import { toast } from 'react-toastify';
 
 type Exercise = {
   exercise_name: string;
@@ -88,16 +89,16 @@ const WorkoutForm = () => {
         },
       })
       console.log('Workout created:', response.data);
-      alert('Workout created successfully!');
+      toast.success("Workout created successfully")
       setExercises([
         { exercise_name: '', sets: 0, reps: 0, weight_value: 0, weight_unit: 'kg' },
       ]);
       setCustomMuscleGroup('');
       setTargetMuscleGroup('');
-      (e.target as any).reset(); // Clear form fields
+      (e.target as any).reset();
     } catch (error) {
       console.error('Error creating workout:', error);
-      alert('Error creating workout. Please try again.');
+      toast.error("Error creating workout")
     } finally {
       setIsSubmitting(false);
     }
