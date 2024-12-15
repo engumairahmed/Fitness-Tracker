@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import BreadCrumb from './BreadCrumb';
 import { FaRegPlusSquare } from 'react-icons/fa';
+import axios from "axios";
 
 type Exercise = {
   exercise_name: string;
@@ -23,6 +24,7 @@ const WorkoutForm = () => {
 
   const [customMuscleGroup, setCustomMuscleGroup] = useState('');
   const [targetMuscleGroup, setTargetMuscleGroup] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const targetMuscleGroups = [
     'Chest',
@@ -61,8 +63,9 @@ const WorkoutForm = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
     const workoutData = {
       workout_name: (e.target as any).workout_name.value,
@@ -71,31 +74,23 @@ const WorkoutForm = () => {
       difficulty_level: (e.target as any).difficulty_level.value,
       exercises,
     };
-    console.log(workoutData);
-  };
 
-  const handleIncrement = (index: number, field: string) => {
-    const updatedExercises = [...exercises];
-    if (field === 'sets') {
-      updatedExercises[index].sets = updatedExercises[index].sets + 1;
-    } else if (field === 'reps') {
-      updatedExercises[index].reps = updatedExercises[index].reps + 1;
-    } else if (field === 'weight_value') {
-      updatedExercises[index].weight_value = updatedExercises[index].weight_value + 1;
+    try {
+      const response = await axios.post('http://localhost:5000/workouts/workouts', workoutData);
+      console.log('Workout created:', response.data);
+      alert('Workout created successfully!');
+      setExercises([
+        { exercise_name: '', sets: 0, reps: 0, weight_value: 0, weight_unit: 'kg' },
+      ]);
+      setCustomMuscleGroup('');
+      setTargetMuscleGroup('');
+      (e.target as any).reset(); // Clear form fields
+    } catch (error) {
+      console.error('Error creating workout:', error);
+      alert('Error creating workout. Please try again.');
+    } finally {
+      setIsSubmitting(false);
     }
-    setExercises(updatedExercises);
-  };
-
-  const handleDecrement = (index: number, field: string) => {
-    const updatedExercises = [...exercises];
-    if (field === 'sets' && updatedExercises[index].sets > 0) {
-      updatedExercises[index].sets = updatedExercises[index].sets - 1;
-    } else if (field === 'reps' && updatedExercises[index].reps > 0) {
-      updatedExercises[index].reps = updatedExercises[index].reps - 1;
-    } else if (field === 'weight_value' && updatedExercises[index].weight_value > 0) {
-      updatedExercises[index].weight_value = updatedExercises[index].weight_value - 1;
-    }
-    setExercises(updatedExercises);
   };
 
   return (
@@ -165,15 +160,9 @@ const WorkoutForm = () => {
                 required
               >
                 <option value="">Select Difficulty</option>
-                <option value="Beginner" className="text-green-600">
-                  Beginner
-                </option>
-                <option value="Intermediate" className="text-green-600">
-                  Intermediate
-                </option>
-                <option value="Advanced" className="text-green-600">
-                  Advanced
-                </option>
+                <option value="Beginner" className="text-green-600">Beginner</option>
+                <option value="Intermediate" className="text-green-600">Intermediate</option>
+                <option value="Advanced" className="text-green-600">Advanced</option>
               </select>
             </div>
 
@@ -202,56 +191,24 @@ const WorkoutForm = () => {
                   <div className="grid sm:grid-cols-2 gap-6 mb-4">
                     <div>
                       <label className="block font-medium mb-2 text-green-700">Sets</label>
-                      <div className="flex items-center">
-                        <button
-                          type="button"
-                          onClick={() => handleDecrement(index, 'sets')}
-                          
-                        >
-                          
-                        </button>
-                        <input
-                          type="number"
-                          value={exercise.sets}
-                          onChange={(e) => handleExerciseChange(index, 'sets', Math.max(0, Number(e.target.value)))}
-                          className="w-full p-3 border border-green-300 rounded-lg focus:ring-2 focus:ring-green-500"
-                          required
-                        />
-                        <button
-                          type="button"
-                          onClick={() => handleIncrement(index, 'sets')}
-                          
-                        >
-                          
-                        </button>
-                      </div>
+                      <input
+                        type="number"
+                        value={exercise.sets}
+                        onChange={(e) => handleExerciseChange(index, 'sets', Math.max(0, Number(e.target.value)))}
+                        className="w-full p-3 border border-green-300 rounded-lg focus:ring-2 focus:ring-green-500"
+                        required
+                      />
                     </div>
 
                     <div>
                       <label className="block font-medium mb-2 text-green-700">Reps</label>
-                      <div className="flex items-center">
-                        <button
-                          type="button"
-                          onClick={() => handleDecrement(index, 'reps')}
-                          
-                        >
-                          
-                        </button>
-                        <input
-                          type="number"
-                          value={exercise.reps}
-                          onChange={(e) => handleExerciseChange(index, 'reps', Math.max(0, Number(e.target.value)))}
-                          className="w-full p-3 border border-green-300 rounded-lg focus:ring-2 focus:ring-green-500"
-                          required
-                        />
-                        <button
-                          type="button"
-                          onClick={() => handleIncrement(index, 'reps')}
-                          
-                        >
-                          
-                        </button>
-                      </div>
+                      <input
+                        type="number"
+                        value={exercise.reps}
+                        onChange={(e) => handleExerciseChange(index, 'reps', Math.max(0, Number(e.target.value)))}
+                        className="w-full p-3 border border-green-300 rounded-lg focus:ring-2 focus:ring-green-500"
+                        required
+                      />
                     </div>
                   </div>
 
@@ -289,8 +246,9 @@ const WorkoutForm = () => {
             <button
               type="submit"
               className="w-full bg-green-500 text-white p-3 rounded-lg hover:bg-green-600"
+              disabled={isSubmitting}
             >
-              Create Workout
+              {isSubmitting ? 'Submitting...' : 'Create Workout'}
             </button>
           </form>
         </div>

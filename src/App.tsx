@@ -21,7 +21,6 @@ import { Login } from './components/Auth/login'
 import { ForgotPassword } from './components/Auth/forget'
 import ResetPassword from './components/Auth/reset'
 import EmailVerification from './components/Auth/verify'
-
 import MessageVerification from './components/Auth/msg'
 
 import WorkoutForm from './components/Dashboard/WorkoutForm'
@@ -30,6 +29,7 @@ import Profile from './components/Dashboard/Profile'
 import ProtectedRoute from './utils/ProtectedRoutes'
 import { injectStyle } from "react-toastify/dist/inject-style";
 import DashboardLayout from './components/Dashboard/Layout'
+import WorkoutsList from './components/Dashboard/WorkoutList'
 // import PrivacyPolicy from './components/Interface/PrivacyPolicy'
 
 
@@ -79,6 +79,7 @@ function App() {
           <Route path='*' element={<NotFound/>}></Route>
           <Route path='nutri-mon' element={<NutritionMonitor/>}></Route>
           <Route path='workoutform' element ={<WorkoutForm/>}></Route>
+          <Route path='workoutlist' element ={<WorkoutsList/>}></Route>
           <Route path='profile' element={<Profile></Profile>}></Route>
          
           {/* <Route path='analytics' element={<Analytics></Analytics>}></Route> */}
