@@ -84,6 +84,13 @@ useEffect(() => {
               Nutrition
             </Link>
             <Link
+              to="/workout"
+              onClick={toggleMenu}
+              className="text-gray-600 hover:text-[#31C48D] transition-colors duration-300 font-medium"
+            >
+              Workout
+            </Link>
+            <Link
               to="/contactus"
               onClick={toggleMenu}
               className="text-gray-600 hover:text-[#31C48D] transition-colors duration-300 font-medium"
@@ -183,6 +190,14 @@ useEffect(() => {
               className="text-gray-600 hover:text-[#31C48D] transition-colors duration-300 font-medium"
             >
               Nutrition
+            </Link>
+            <div className="border-b border-gray-300 my-2"></div>
+            <Link
+              to="/workout"
+              onClick={toggleMenu}
+              className="text-gray-600 hover:text-[#31C48D] transition-colors duration-300 font-medium"
+            >
+              Workout
             </Link>
             <div className="border-b border-gray-300 my-2"></div>
             <Link

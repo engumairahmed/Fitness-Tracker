@@ -37,8 +37,7 @@ export const Footer = () => {
             <ul className="space-y-4">
               <li><a href="javascript:void(0)" className="hover:text-[#67C3A2]">Fitclave Articles</a></li>
               <li><Link to={'/nutrition'} className="hover:text-[#67C3A2]" onClick={()=>{scrollToTop()}}>Nutrition Guides</Link></li>
-              <li><a href="javascript:void(0)" className="hover:text-[#67C3A2]">Exercise Videos</a></li>
-              <li><a href="javascript:void(0)" className="hover:text-[#67C3A2]">Workouts for Beginners</a></li>
+              <li><Link to={'/workout'} className="hover:text-[#67C3A2]" onClick={()=>{scrollToTop()}}>Workouts for Beginners</Link></li>
             </ul>
           </div>
           <div>
@@ -48,6 +47,7 @@ export const Footer = () => {
               <li><Link to={'/team'} className="hover:text-[#67C3A2]" onClick={()=>{scrollToTop()}}>Fitclave Team</Link></li>
               <li><Link to={'/feature'} className="hover:text-[#67C3A2]" onClick={()=>{scrollToTop()}}>Fitclave Tracker Features</Link></li>
               <li><Link to={'/faq'} className="hover:text-[#67C3A2]" onClick={()=>{scrollToTop()}}>Frequently Asked Questions</Link></li>
+              <li><Link to={'/privacypolicy'} className="hover:text-[#67C3A2]" onClick={()=>{scrollToTop()}}>Privacy Policy</Link></li>
             </ul>
           </div>
         </div>
