@@ -161,7 +161,7 @@ export const SignUp = () => {
           <motion.button
             whileHover={buttonHover}
             onClick={() => navigate("/login")}
-            className="rounded-[2.375rem] border-2 border-seagreen bg-white text-green-300 px-12 py-2 text-sm font-semibold text-white hover:bg-white hover:text-green-300"
+            className="rounded-[2.375rem] border-2 border-seagreen bg-white text-green-300 px-12 py-2 text-sm font-semibold hover:bg-white hover:text-green-300"
             style={{ marginTop: 40 }}
           >
             Sign In
@@ -172,13 +172,13 @@ export const SignUp = () => {
         <ToastContainer position="top-left"/>
       {/* Form Section */}
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 m-0">
-        <div className="flex justify-center mb-8">
+        <Link className="flex justify-center mb-8" to={'/'}>
           <img
             src="/FitClave.png"
             alt="Logo"
             className="h-14 w-auto"
           />
-        </div>
+        </Link>
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2
             className="text-center font-bold tracking-tight text-gray-900"

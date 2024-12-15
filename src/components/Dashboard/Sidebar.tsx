@@ -1,34 +1,48 @@
 
-import { MdDashboard } from "react-icons/md";
-import { IoMdFitness } from "react-icons/io";
-import { IoMdNutrition } from "react-icons/io";
+import { MdDashboard, MdAnalytics } from "react-icons/md";
+import { IoMdFitness, IoMdNutrition } from "react-icons/io";
 import { FaBarsProgress } from "react-icons/fa6";
-import { MdAnalytics } from "react-icons/md";
-import { IoSettings } from "react-icons/io5";
-import { IoAccessibility } from "react-icons/io5";
-import { IoLogOut } from "react-icons/io5"
+import { IoSettings, IoLogOut, IoAccessibility } from "react-icons/io5";
+import { BsPersonBoundingBox } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import Home from "./Home";
 import Profile from "./Profile";
 import { useAuth } from "../Auth/AuthContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LogoutModal } from "./LogoutModal";
 import { ToastContainer } from "react-toastify";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 const Sidebar = () => {
+  const URL = import.meta.env.VITE_SERVER_URL
   const { logout, getName } = useAuth();
   const name = getName();
+  const [isPicture, setPicture] = useState(false)
+  const [pictureUrl, setPictureUrl] = useState('')
 
-  // const navigate=useNavigate();
-
-  // const handleLogout = () => {
-  //    logout();
-  //    navigate('/');
-  // }
+  const getPicture = async () => {
+    await axios.get(`${URL}profile/picture`, {
+      headers: {
+        Authorization: `Bearer ${Cookies.get('authToken')}`,
+      }
+    })
+      .then((response) => {
+        setPicture(true);
+        setPictureUrl(response.data.user.picture);
+      })
+      .catch(() => {
+        setPicture(false);
+      });
+  }
 
   const [isModalOpen, setModalOpen] = useState(false);
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
+
+  useEffect(() => {
+    getPicture()
+  }, [])
 
   return (
     <>
@@ -97,8 +111,9 @@ const Sidebar = () => {
                 {isModalOpen && <LogoutModal onClose={closeModal} />}
               </li>
             </ul>
-            <div className="flex flex-wrap items-center cursor-pointer border-t py-8 mt-8">
-              <img src='https://readymadeui.com/team-2.webp' className="w-10 h-10 rounded-md border-2 border-white" />
+            <div className="flex flex-wrap items-center border-t py-8 mt-8">
+              {isPicture ? <img src={pictureUrl} className="w-10 h-10 rounded-md border-2 border-white" /> : <BsPersonBoundingBox size={30} />}
+
               <div className="ml-4">
                 <p className="text-sm text-[#333] font-semibold">{name}</p>
                 <p className="text-xs text-[#67C3A2] mt-0.5">Active free account</p>
@@ -107,7 +122,7 @@ const Sidebar = () => {
           </div>
         </div>
       </nav>
-      <ToastContainer/>
+      <ToastContainer />
     </>
 
 

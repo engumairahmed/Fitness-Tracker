@@ -28,12 +28,9 @@ useEffect(() => {
     if (token) {
       const decoded:DecodedToken = jwtdecode.jwtDecode(token);
       setUser(decoded);
-      setIsLoggedIn(true);
-
-      console.log(decoded);
-      
+      setIsLoggedIn(true);      
     }
-})
+},[])
   return (
     <header className="shadow-md py-3 px-5 sm:px-10 bg-white font-[sans-serif] min-h-[60px] tracking-wide relative z-50 border-b border-gray-200">
       <div className="flex items-center justify-between w-full">

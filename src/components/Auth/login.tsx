@@ -158,13 +158,13 @@ export const Login = () => {
         <div className="flex min-h-screen flex-col lg:flex-row justify-center bg-white-500 m-0">
             {/* Form Section */}
             <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 m-0 ">
-                <div className="flex justify-center mb-8 ">
+                <Link className="flex justify-center mb-8 " to={'/'}>
                     <img
                         src="/FitClave.png"
                         alt="Logo"
                         className="h-14 w-auto"
                     />
-                </div>
+                </Link>
                 <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                     <h2
                         className="text-center font-bold tracking-tight text-gray-900"
