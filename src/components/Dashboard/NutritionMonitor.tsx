@@ -5,13 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import UpdateFoodForm from './UpdateFoodForm';
 import { Nutrition } from '../../utils/Types';
-
-
-// const navigate = useNavigate();
-
-// const navigateToUpdatePage = (meal: string, food: Nutrition, index: number) => {
-//   navigate('/updatefoodform', { state: { meal, food, index } });
-// };
+import FoodManagement from './FoodManagement';
 
 const predefinedFoods: Nutrition[] = [
   {
@@ -56,9 +50,6 @@ const predefinedFoods: Nutrition[] = [
   }
 ];
 
-
-
-
 const NutritionMonitor: React.FC = () => {
   const navigate = useNavigate();
   const [selectedMeal, setSelectedMeal] = useState<string>('');
@@ -67,7 +58,6 @@ const NutritionMonitor: React.FC = () => {
   const [dinner, setDinner] = useState<Nutrition[]>([]);
   const [snacks, setSnacks] = useState<Nutrition[]>([]);
   const [quantityType, setQuantityType] = useState<'quantity' | 'weight'>('quantity'); // Add state for quantity type
-
 
   const [foodInput, setFoodInput] = useState<Nutrition>({
     name: '',
@@ -78,16 +68,13 @@ const NutritionMonitor: React.FC = () => {
     sodium: 0,
     sugar: 0,
     cholesterol: 0,
-    vitamins: {},
+    vitamins: {}, 
     minerals: {},
     quantity: 1,
     weight: 0,
   });
 
-
   const handleAddFood = () => {
-    // Validate that the food name is not empty and at least one nutritional value is non-zero
-    
     if (
       !foodInput.name.trim() ||
       (foodInput.calories === 0 &&
@@ -126,7 +113,6 @@ const NutritionMonitor: React.FC = () => {
       weight: 0,
     });
   };
-
 
   const handleClearMeal = (meal: string) => {
     if (meal === 'breakfast') setBreakfast([]);
@@ -204,7 +190,6 @@ const NutritionMonitor: React.FC = () => {
                   weight: 0,
                 });
               } else {
-                // Allow custom food name input
                 setFoodInput({ ...foodInput, name: e.target.value });
               }
             }}
@@ -256,11 +241,7 @@ const NutritionMonitor: React.FC = () => {
             type="number"
             value={foodInput.weight}
             onChange={(e) => {
-              const newWeight = Number(e.target.value);
-              setFoodInput({ ...foodInput, weight: newWeight });
-              if (foodInput.quantity) {
-                updateNutritionalValues(newWeight, foodInput.quantity); // Adjust values based on quantity
-              }
+              setFoodInput({ ...foodInput, weight: parseFloat(e.target.value) || 0 });
             }}
             className="border rounded px-2 py-1 w-full"
           />
@@ -275,7 +256,9 @@ const NutritionMonitor: React.FC = () => {
             id="calories"
             type="number"
             value={foodInput.calories}
-            readOnly
+            onChange={(e) =>
+              setFoodInput({ ...foodInput, calories: parseFloat(e.target.value) || 0 })
+            }
             className="border rounded px-2 py-1 w-full"
           />
         </div>
@@ -288,7 +271,9 @@ const NutritionMonitor: React.FC = () => {
             id="carbs"
             type="number"
             value={foodInput.carbs}
-            readOnly
+            onChange={(e) =>
+              setFoodInput({ ...foodInput, carbs: parseFloat(e.target.value) || 0 })
+            }
             className="border rounded px-2 py-1 w-full"
           />
         </div>
@@ -301,7 +286,9 @@ const NutritionMonitor: React.FC = () => {
             id="fats"
             type="number"
             value={foodInput.fats}
-            readOnly
+            onChange={(e) =>
+              setFoodInput({ ...foodInput, fats: parseFloat(e.target.value) || 0 })
+            }
             className="border rounded px-2 py-1 w-full"
           />
         </div>
@@ -314,7 +301,9 @@ const NutritionMonitor: React.FC = () => {
             id="protein"
             type="number"
             value={foodInput.protein}
-            readOnly
+            onChange={(e) =>
+              setFoodInput({ ...foodInput, protein: parseFloat(e.target.value) || 0 })
+            }
             className="border rounded px-2 py-1 w-full"
           />
         </div>
@@ -327,7 +316,9 @@ const NutritionMonitor: React.FC = () => {
             id="sodium"
             type="number"
             value={foodInput.sodium}
-            readOnly
+            onChange={(e) =>
+              setFoodInput({ ...foodInput, sodium: parseFloat(e.target.value) || 0 })
+            }
             className="border rounded px-2 py-1 w-full"
           />
         </div>
@@ -340,7 +331,9 @@ const NutritionMonitor: React.FC = () => {
             id="sugar"
             type="number"
             value={foodInput.sugar}
-            readOnly
+            onChange={(e) =>
+              setFoodInput({ ...foodInput, sugar: parseFloat(e.target.value) || 0 })
+            }
             className="border rounded px-2 py-1 w-full"
           />
         </div>
@@ -353,10 +346,14 @@ const NutritionMonitor: React.FC = () => {
             id="cholesterol"
             type="number"
             value={foodInput.cholesterol}
-            readOnly
+            onChange={(e) =>
+              setFoodInput({ ...foodInput, cholesterol: parseFloat(e.target.value) || 0 })
+            }
             className="border rounded px-2 py-1 w-full"
           />
         </div>
+
+
 
         {/* Vitamins */}
         <div className="col-span-2 grid grid-cols-2 gap-4">
@@ -493,13 +490,21 @@ const NutritionMonitor: React.FC = () => {
     });
   };
 
-  function navigateToUpdatePage(_meal: string, _food: Nutrition, _index: number): void {
-    throw new Error('Function not implemented.');
-  }
+  
+
+  const navigateToUpdatePage = (meal: string, food: Nutrition, index: number) => {
+    navigate('/dashboard/update-food', {
+      state: {
+        meal,  
+        food, 
+        index,  
+      },
+    });
+  };
 
   return (
     <>
-      <BreadCrumb name="Your Personalized Nutrition Guide" route='/dashboard/nutri-mon' nestedRoute={{name:"test",route:"test"}}/>
+      <BreadCrumb name="Your Personalized Nutrition Guide" route='/dashboard/nutri-mon' nestedRoute={{ name: "test", route: "test" }} />
       <div className="max-w-4xl mt-10 mx-auto bg-white p-6 rounded shadow">
         <h1 className="text-lg text-center font-bold mb-4">Nutrition Monitor</h1>
 
@@ -532,9 +537,6 @@ const NutritionMonitor: React.FC = () => {
             >
               Clear {meal.charAt(0).toUpperCase() + meal.slice(1)}
             </button>
-
-
-
 
             <div className="overflow-x-auto mt-4">
               <table className="border-collapse border border-gray-300 w-full rounded-lg shadow-lg overflow-hidden">
@@ -579,8 +581,6 @@ const NutritionMonitor: React.FC = () => {
                 </tbody>
               </table>
             </div>
-
-
           </div>
         ))}
         <h2 className="text-lg text-center font-bold mt-7">Total Daily Nutritional Breakdown</h2>
@@ -611,7 +611,6 @@ const NutritionMonitor: React.FC = () => {
             ))}
           </tbody>
         </table>
-
         {/* Total Calories Table */}
         <h2 className="text-lg text-center font-bold mt-7">Total Calories Eaten Today</h2>
         <table className="border-collapse border border-gray-300 w-full mt-2">
@@ -629,10 +628,9 @@ const NutritionMonitor: React.FC = () => {
           </tbody>
         </table>
       </div>
-      <UpdateFoodForm></UpdateFoodForm>
+      <FoodManagement></FoodManagement>
     </>
   );
 };
 
 export default NutritionMonitor;
-

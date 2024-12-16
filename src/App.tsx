@@ -14,6 +14,7 @@ import Home from './components/Home'
 import NotFound from './components/Notfound'
 import DashboardHome from './components/Dashboard/Home'
 import NutritionMonitor from './components/Dashboard/NutritionMonitor'
+// import UpdateFoodForm from './components/Dashboard/UpdateFoodForm';
 import { Nutrition } from './components/Interface/Nutrition'
 import { FAQ } from './components/Interface/Faq'
 import { SignUp } from './components/Auth/signup'
@@ -33,6 +34,7 @@ import DashboardLayout from './components/Dashboard/Layout'
 
 import WorkoutsList from './components/Dashboard/WorkoutList'
 import { Workout } from './components/Interface/Workout'
+import FoodManagement from './components/Dashboard/FoodManagement'
 // import ProgressMonitor from './components/Dashboard/ProgressMonitor'
 // import BodyPartButtons from './components/Dashboard/BodyShape'
 
@@ -83,7 +85,10 @@ function App() {
           <Route path='nutri-mon' element={<NutritionMonitor/>}></Route>
           <Route path='workoutform' element ={<WorkoutForm/>}></Route>
           <Route path='workoutlist' element ={<WorkoutsList/>}></Route>
+         
           <Route path='profile' element={<Profile></Profile>}></Route>
+          {/* <Route path="update-food" element={<UpdateFoodForm />}></Route> */}
+          {/* <Route path='Progress-mon' element={<ProgressMonitor/>}/> */}
           {/* <Route path='Progress-mon' element={<ProgressMonitor/>}/> */}
           {/* <Route path='body-measure' element={<BodyPartButtons/>}></Route> */}
          
