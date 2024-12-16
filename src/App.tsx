@@ -33,8 +33,8 @@ import DashboardLayout from './components/Dashboard/Layout'
 
 import WorkoutsList from './components/Dashboard/WorkoutList'
 import { Workout } from './components/Interface/Workout'
-import ProgressMonitor from './components/Dashboard/ProgressMonitor'
-import BodyPartButtons from './components/Dashboard/BodyShape'
+// import ProgressMonitor from './components/Dashboard/ProgressMonitor'
+// import BodyPartButtons from './components/Dashboard/BodyShape'
 
 
 
@@ -84,7 +84,7 @@ function App() {
           <Route path='workoutform' element ={<WorkoutForm/>}></Route>
           <Route path='workoutlist' element ={<WorkoutsList/>}></Route>
           <Route path='profile' element={<Profile></Profile>}></Route>
-          <Route path='Progress-mon' element={<ProgressMonitor/>}/>
+          {/* <Route path='Progress-mon' element={<ProgressMonitor/>}/> */}
           {/* <Route path='body-measure' element={<BodyPartButtons/>}></Route> */}
          
           {/* <Route path='analytics' element={<Analytics></Analytics>}></Route> */}

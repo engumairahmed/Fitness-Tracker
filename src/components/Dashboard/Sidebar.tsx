@@ -68,6 +68,12 @@ const Sidebar = () => {
                   <span>Workout Planner
                   </span>
                 </Link>                                </li>
+                <li>
+                <Link className="text-[#333] text-sm flex items-center hover:text-[#67C3A2] transition-all" to={'workoutlist'}>
+                  <IoMdFitness className="w-7 h-5 " />
+                  <span>Workout List
+                  </span>
+                </Link>                                </li>
               <li>
                 <Link className="text-[#333] text-sm flex items-center hover:text-[#67C3A2] transition-all" to={'nutri-mon'}>
                   <IoMdNutrition className="w-7 h-5 " />

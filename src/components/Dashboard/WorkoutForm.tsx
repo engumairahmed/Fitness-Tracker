@@ -14,7 +14,6 @@ type Exercise = {
 };
 
 const WorkoutForm = () => {
-
   const URL = import.meta.env.VITE_SERVER_URL;
   const [exercises, setExercises] = useState<Exercise[]>([
     {
@@ -67,27 +66,28 @@ const WorkoutForm = () => {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     const workoutData = {
-      workout_name: (e.target as any).workout_name.value,
-      description: (e.target as any).description.value,
+      workout_name: e.currentTarget.workout_name.value,
+      description: e.currentTarget.description.value,
       target_muscle_group: customMuscleGroup || targetMuscleGroup,
-      difficulty_level: (e.target as any).difficulty_level.value,
+      difficulty_level: e.currentTarget.difficulty_level.value,
       exercises,
     };
 
     try {
-      const response = await axios.post(`${URL}workouts/workouts`, 
-      {        workoutData,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${Cookies.get('authToken')}`,
-        },
-      })
+      const response = await axios.post(
+        `${URL}workouts/workouts`,
+        workoutData,
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get('authToken')}`,
+          },
+        }
+      );
       console.log('Workout created:', response.data);
       toast.success("Workout created successfully")
       setExercises([
@@ -106,11 +106,15 @@ const WorkoutForm = () => {
 
   return (
     <>
-      <BreadCrumb name="Workout Planner" route='/dashboard/workoutform'/>
+      <BreadCrumb name="Workout Planner" route="/dashboard/workoutform" />
       <div className="bg-green-50 flex items-center justify-center min-h-screen py-6">
         <div className="bg-white p-8 rounded-lg shadow-lg max-w-lg w-full">
-          <h1 className="text-2xl font-bold text-center mb-3 text-green-600">Create Your Own Workout</h1>
-          <p className="text-xl font-bold text-center mb-5 text-green-600">"Your Path to Peak Performance"</p>
+          <h1 className="text-2xl font-bold text-center mb-3 text-green-600">
+            Create Your Own Workout
+          </h1>
+          <p className="text-xl font-bold text-center mb-5 text-green-600">
+            "Your Path to Peak Performance"
+          </p>
           <form onSubmit={handleSubmit}>
             <div className="mb-6">
               <label className="block font-medium mb-2 text-green-700">Workout Name</label>
@@ -171,16 +175,25 @@ const WorkoutForm = () => {
                 required
               >
                 <option value="">Select Difficulty</option>
-                <option value="Beginner" className="text-green-600">Beginner</option>
-                <option value="Intermediate" className="text-green-600">Intermediate</option>
-                <option value="Advanced" className="text-green-600">Advanced</option>
+                <option value="Beginner" className="text-green-600">
+                  Beginner
+                </option>
+                <option value="Intermediate" className="text-green-600">
+                  Intermediate
+                </option>
+                <option value="Advanced" className="text-green-600">
+                  Advanced
+                </option>
               </select>
             </div>
 
             <div className="mb-6">
               <h3 className="text-lg font-medium mb-4 text-green-700">Exercises</h3>
               {exercises.map((exercise, index) => (
-                <div key={index} className="mb-6 border p-4 rounded-lg relative bg-green-50">
+                <div
+                  key={index}
+                  className="mb-6 border p-4 rounded-lg relative bg-green-50"
+                >
                   <button
                     type="button"
                     onClick={() => removeExercise(index)}
@@ -189,11 +202,15 @@ const WorkoutForm = () => {
                     ✖
                   </button>
                   <div className="mb-4">
-                    <label className="block font-medium mb-2 text-green-700">Exercise Name</label>
+                    <label className="block font-medium mb-2 text-green-700">
+                      Exercise Name
+                    </label>
                     <input
                       type="text"
                       value={exercise.exercise_name}
-                      onChange={(e) => handleExerciseChange(index, 'exercise_name', e.target.value)}
+                      onChange={(e) =>
+                        handleExerciseChange(index, 'exercise_name', e.target.value)
+                      }
                       className="w-full p-3 border border-green-300 rounded-lg focus:ring-2 focus:ring-green-500"
                       required
                     />
@@ -205,7 +222,13 @@ const WorkoutForm = () => {
                       <input
                         type="number"
                         value={exercise.sets}
-                        onChange={(e) => handleExerciseChange(index, 'sets', Math.max(0, Number(e.target.value)))}
+                        onChange={(e) =>
+                          handleExerciseChange(
+                            index,
+                            'sets',
+                            Math.max(0, Number(e.target.value))
+                          )
+                        }
                         className="w-full p-3 border border-green-300 rounded-lg focus:ring-2 focus:ring-green-500"
                         required
                       />
@@ -216,7 +239,13 @@ const WorkoutForm = () => {
                       <input
                         type="number"
                         value={exercise.reps}
-                        onChange={(e) => handleExerciseChange(index, 'reps', Math.max(0, Number(e.target.value)))}
+                        onChange={(e) =>
+                          handleExerciseChange(
+                            index,
+                            'reps',
+                            Math.max(0, Number(e.target.value))
+                          )
+                        }
                         className="w-full p-3 border border-green-300 rounded-lg focus:ring-2 focus:ring-green-500"
                         required
                       />
@@ -229,13 +258,21 @@ const WorkoutForm = () => {
                       <input
                         type="number"
                         value={exercise.weight_value}
-                        onChange={(e) => handleExerciseChange(index, 'weight_value', Math.max(0, Number(e.target.value)))}
+                        onChange={(e) =>
+                          handleExerciseChange(
+                            index,
+                            'weight_value',
+                            Math.max(0, Number(e.target.value))
+                          )
+                        }
                         className="w-full p-3 border border-green-300 rounded-lg focus:ring-2 focus:ring-green-500"
                         required
                       />
                       <select
                         value={exercise.weight_unit}
-                        onChange={(e) => handleExerciseChange(index, 'weight_unit', e.target.value as 'kg' | 'lbs')}
+                        onChange={(e) =>
+                          handleExerciseChange(index, 'weight_unit', e.target.value as 'kg' | 'lbs')
+                        }
                         className="ml-3 p-3 border border-green-300 rounded-lg"
                       >
                         <option value="kg">kg</option>
@@ -248,10 +285,12 @@ const WorkoutForm = () => {
               <button
                 type="button"
                 onClick={addExercise}
-                className="w-full bg-green-500 text-white p-3 rounded-lg hover:bg-green-600"
+                className="w-full bg-green-500 text-white p-3 rounded-lg hover:bg-green-600 flex items-center justify-center space-x-2"
               >
-                Add Exercise +<FaRegPlusSquare size={20} />
+                <span>Add Exercise</span>
+                <FaRegPlusSquare size={20} />
               </button>
+
             </div>
 
             <button
