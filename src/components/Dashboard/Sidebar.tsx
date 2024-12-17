@@ -18,21 +18,19 @@ const Sidebar = () => {
   const URL = import.meta.env.VITE_SERVER_URL
   const { logout, getName } = useAuth();
   const name = getName();
-  const [isPicture, setPicture] = useState(false)
   const [pictureUrl, setPictureUrl] = useState('')
 
   const getPicture = async () => {
-    await axios.get(`${URL}profile/picture`, {
+    await axios.get(`${URL}/profile/picture`, {
       headers: {
         Authorization: `Bearer ${Cookies.get('authToken')}`,
       }
     })
       .then((response) => {
-        setPicture(true);
         setPictureUrl(response.data.user.picture);
       })
       .catch(() => {
-        setPicture(false);
+        setPictureUrl('');
       });
   }
 
@@ -122,7 +120,7 @@ const Sidebar = () => {
               </li>
             </ul>
             <div className="flex flex-wrap items-center border-t py-8 mt-8">
-              {isPicture ? <img src={pictureUrl} className="w-10 h-10 rounded-md border-2 border-white" /> : <BsPersonBoundingBox size={30} />}
+              {pictureUrl ? <img src={pictureUrl} className="w-10 h-10 rounded-md border-2 border-white" /> : <BsPersonBoundingBox size={30} />}
 
               <div className="ml-4">
                 <p className="text-sm text-[#333] font-semibold">{name}</p>

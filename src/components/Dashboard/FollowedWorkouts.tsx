@@ -28,7 +28,7 @@ const FollowedWorkouts = () => {
   useEffect(() => {
     const fetchFollowedWorkouts = async () => {
       try {
-        const response = await axios.get(`${URL}workouts/workouts/followed`, {
+        const response = await axios.get(`${URL}/workouts/workouts/followed`, {
           headers: {
             Authorization: `Bearer ${Cookies.get('authToken')}`,
           },
@@ -48,7 +48,7 @@ const FollowedWorkouts = () => {
   const handleUnfollowWorkout = async (workoutId: string) => {
     try {
       const response = await axios.post(
-        `${URL}workouts/workouts/unfollow`,
+        `${URL}/workouts/workouts/unfollow`,
         { workoutId },
         {
           headers: {

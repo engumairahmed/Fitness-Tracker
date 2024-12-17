@@ -62,7 +62,7 @@ const Profile = () => {
       console.log("Profile updated:", values);
       
       setIsEditing(false);
-      await axios.put(`${serverURL}profile/update`,
+      await axios.put(`${serverURL}/profile/update`,
         {
           values,
         },
@@ -85,7 +85,7 @@ const Profile = () => {
   const getUserData = async () => {
     const token = Cookies.get('authToken')
     const response = await axios
-      .get(`${serverURL}profile/info`, {
+      .get(`${serverURL}/profile/info`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -123,7 +123,7 @@ const Profile = () => {
 
   const handleImageUpload = async (imageURL:string) =>{
       await axios.put(
-        `${serverURL}profile/image`,
+        `${serverURL}/profile/image`,
         {
           imageURL: imageURL,
         },

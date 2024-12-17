@@ -97,7 +97,7 @@ const WorkoutForm = () => {
 
     try {
       const response = await axios.post(
-        `${URL}workouts/workouts`,
+        `${URL}/workouts/workouts`,
         workoutData,
         {
           headers: {

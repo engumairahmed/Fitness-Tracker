@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useFormik } from "formik";
@@ -14,12 +14,16 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import { GoogleUserProfile } from "../../utils/Types";
 import { useGoogleLogin } from "@react-oauth/google";
+import { FcGoogle } from "react-icons/fc";
+import { SyncLoader } from "react-spinners";
 
 export const SignUp = () => {
 
   const URL = import.meta.env.VITE_SERVER_URL;
 
   const navigate = useNavigate();
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const googleLogin = useGoogleLogin({
     onSuccess: async (codeResponse) => {
@@ -32,7 +36,7 @@ export const SignUp = () => {
             Authorization: `Bearer ${codeResponse.access_token}`,
           },
         });
-  
+
         const userProfile: GoogleUserProfile = response.data;
         console.log('User Profile:', userProfile);
         handleGoogleLogin(userProfile)
@@ -43,13 +47,13 @@ export const SignUp = () => {
     onError: () => console.log("Login Failed"),
   });
 
-  const handleGoogleLogin = async (codeResponse:GoogleUserProfile) => {
+  const handleGoogleLogin = async (codeResponse: GoogleUserProfile) => {
     try {
       const { name, email, picture } = codeResponse;
       console.log(codeResponse)
-      const response = await axios.post(`${URL}auth/register-with-google`, { name, email, password: "dummyPassword", role: "user", picture })
+      const response = await axios.post(`${URL}/auth/register-with-google`, { name, email, password: "dummyPassword", role: "user", picture })
         .then(
-          (res) => {            
+          (res) => {
             console.log(res)
             Cookies.set("authToken", res.data.token, { expires: 1 });
             toast.success("Google login successful!");
@@ -57,9 +61,8 @@ export const SignUp = () => {
           }
         )
         .catch(
-          (err)=>{
+          (err) => {
             console.log(err);
-            
             toast.error("Google login failed. Please try again.", { theme: "dark" });
           }
         );
@@ -69,18 +72,18 @@ export const SignUp = () => {
     }
   };
 
- const handleError = (error: unknown): void => {
-  if (axios.isAxiosError(error) && error.response) {
-    formik.setErrors({
-      ...formik.errors,
-      email: error.response.data.msg || "An error occurred",
-    });
-  } else if (axios.isAxiosError(error) && error.request) {
-    toast.error("No response received from the server.", { theme: "dark" });
-  } else {
-    toast.error("Something went wrong.", { theme: "dark" });
-  }
-};
+  const handleError = (error: unknown): void => {
+    if (axios.isAxiosError(error) && error.response) {
+      formik.setErrors({
+        ...formik.errors,
+        email: error.response.data.msg || "An error occurred",
+      });
+    } else if (axios.isAxiosError(error) && error.request) {
+      toast.error("No response received from the server.", { theme: "dark" });
+    } else {
+      toast.error("Something went wrong.", { theme: "dark" });
+    }
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -98,28 +101,31 @@ export const SignUp = () => {
         .required("Password is required"),
     }),
     onSubmit: (values) => {
+      setIsLoading(true);
       axios
-      .post(`${URL}auth/register`, values)
-      .then(() => {
-        toast.success("Success Notification !");
-        setTimeout(() => {
-          navigate("/email-verification");
-        }, 1000);
-      })
-      .catch((error) => {
-        if (error.response) {
-          formik.setErrors({
-            ...formik.errors,
-            email: error.response.data.msg,
-          });
-        } else if (error.request) {
-          toast.error("No response received from the server.", {
-            theme: "dark",
-          });
-        } else {
-          toast.error("Something went wrong.", { theme: "dark" });
-        }
-      });
+        .post(`${URL}/auth/register`, values)
+        .then(() => {
+          toast.success("Success Notification !", { delay: 2000 });
+
+          setTimeout(() => {
+            navigate("/login");
+          }, 1000);
+        })
+        .catch((error) => {
+          setIsLoading(false);
+          if (error.response) {
+            formik.setErrors({
+              ...formik.errors,
+              email: error.response.data.msg,
+            });
+          } else if (error.request) {
+            toast.error("No response received from the server.", {
+              theme: "dark",
+            });
+          } else {
+            toast.error("Something went wrong.", { theme: "dark" });
+          }
+        });
     },
   });
 
@@ -128,7 +134,7 @@ export const SignUp = () => {
     transition: { duration: 0.3 },
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     if (Cookies.get("authToken")) {
       navigate("/dashboard");
     }
@@ -142,10 +148,10 @@ export const SignUp = () => {
         style={{
           backgroundImage:
             "url('Tablet login-bro.png')",
-          color: "#31C48D",
+          color: "#67C3A2"
         }}
       >
-        <div className="absolute inset-0 bg-green-300 bg-opacity-70 rounded-lg m-0"></div>
+        <div className="absolute inset-0 bg-[#67C3A2] bg-opacity-70 rounded-lg m-0"></div>
         <motion.div
           initial={{ opacity: 0, x: 100 }}
           animate={{ opacity: 1, x: 0 }}
@@ -161,15 +167,15 @@ export const SignUp = () => {
           <motion.button
             whileHover={buttonHover}
             onClick={() => navigate("/login")}
-            className="rounded-[2.375rem] border-2 border-seagreen bg-white text-green-300 px-12 py-2 text-sm font-semibold hover:bg-white hover:text-green-300"
+            className="rounded-[2.375rem] border-2 border-emerald-500 bg-white text-emerald-500 px-12 py-2 text-sm font-semibold hover:bg-white"
             style={{ marginTop: 40 }}
           >
             Sign In
           </motion.button>
-        </motion.div>      
+        </motion.div>
       </div>
 
-        <ToastContainer position="top-left"/>
+      <ToastContainer position="top-left" />
       {/* Form Section */}
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 m-0">
         <Link className="flex justify-center mb-8" to={'/'}>
@@ -186,33 +192,27 @@ export const SignUp = () => {
           >
             Create Account
           </h2>
-          <motion.div
-            initial={{ scale: 0.8 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.5 }}
-            className="mt-6 flex justify-center gap-4"
-          >
-            <div >
-              <Link className="flex items-center justify-center h-12 w-12 rounded-full border border-gray-300 transition-all duration-500 hover:bg-[#0564ff]" to={"https://www.facebook.com"}>
-                <BiLogoFacebook className="h-6 w-6 text-black-500"/>
-              </Link>
-            </div>
-            <div>
-              <button className="flex items-center justify-center h-12 w-12 rounded-full border transition-all duration-500 border-gray-300 hover:bg-yellow-300" onClick={()=>googleLogin()}>
-                <IoLogoGoogleplus className="h-6 w-6 text-black-500" />
-              </button>
-            </div>
-            <div className="flex items-center justify-center h-12 w-12 rounded-full border transition-all duration-500 border-gray-300 hover:bg-[#0b66be]">
-              <Link to={"https://www.linkedin.com"}>
-                <FaLinkedinIn className="h-5 w-5 text-black-500" />
-              </Link>
-            </div>
-          </motion.div>
+          <div className="mt-6 flex justify-center gap-4">
+            <button
+              type="button"
+              className="w-full flex items-center justify-center gap-4 py-3 px-6 text-sm font-semibold tracking-wider transition-all duration-500 text-gray-800 border border-gray-300 rounded-full bg-gray-50 hover:bg-gray-300 focus:outline-none"
+              onClick={() => googleLogin()}
+            >
+              <FcGoogle size={22} />
+              Continue with google
+            </button>
+          </div>
+
+          <div className="my-6 flex items-center gap-1">
+            <hr className="w-full border-gray-300" />
+            <p className="text-sm text-gray-800 text-center">OR</p>
+            <hr className="w-full border-gray-300" />
+          </div>
         </div>
-        <h5 className="flex items-center justify-center" style={{ paddingTop: 35 }}>
+        <h5 className="flex items-center justify-center">
           Use your email for Registration!
         </h5>
-        <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
+        <div className="mt-1 sm:mx-auto sm:w-full sm:max-w-sm">
           <motion.form
             className="space-y-6"
             onSubmit={formik.handleSubmit}
@@ -276,7 +276,7 @@ export const SignUp = () => {
                 type="submit"
                 className="rounded-[2.375rem] border-2 border-seagreen px-14 py-3 text-sm font-semibold text-green hover:bg-green-300 hover:text-white"
               >
-                Sign Up
+                 {isLoading ? <SyncLoader size={12} /> : "SIGN IN"}
               </button>
             </motion.div>
           </motion.form>

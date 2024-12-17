@@ -5,8 +5,11 @@ import { AiOutlineMail } from "react-icons/ai";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Cookies from "js-cookie"
+import axios from "axios";
+import { toast } from "react-toastify";
 
 export const ForgotPassword = () => {
+    const URL = import.meta.env.VITE_SERVER_URL;
     const navigate = useNavigate();
 
     // Validation Schema
@@ -17,8 +20,15 @@ export const ForgotPassword = () => {
     });
 
     // Handle form submission
-    const handleFormSubmit = (values: { email: string }) => {
-        alert(`Password reset link sent to: ${values.email}`);
+    const handleFormSubmit = async (values: { email: string }) => {
+        // alert(`Password reset link sent to: ${values.email}`);
+        await axios.post(`${URL}/auth/forgot-password`,values)
+        .then((response)=>{
+            toast.success(`Password reset link sent to: ${response.data.msg}`)
+        })
+        .catch((error)=>{
+            toast.error(error.msg)
+        })
     };
 
     const handleBackToLogin = () => {
