@@ -162,7 +162,7 @@ export const SignUp = () => {
           <motion.button
             whileHover={buttonHover}
             onClick={() => navigate("/login")}
-            className="rounded-[2.375rem] border-2 border-emerald-500 bg-white text-emerald-500 px-12 py-2 text-sm font-semibold hover:bg-white hover:text-green-300"
+            className="rounded-[2.375rem] border-2 border-emerald-500 bg-white text-emerald-500 px-12 py-2 text-sm font-semibold hover:bg-white"
             style={{ marginTop: 40 }}
           >
             Sign In
