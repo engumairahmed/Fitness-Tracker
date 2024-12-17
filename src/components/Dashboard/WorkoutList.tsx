@@ -18,6 +18,7 @@ type Workout = {
   target_muscle_group: string;
   difficulty_level: string;
   exercises: Exercise[];
+  isFollowed: boolean; // Indicates if the workout is followed
 };
 
 const WorkoutList = () => {
@@ -44,6 +45,52 @@ const WorkoutList = () => {
 
     fetchWorkouts();
   }, []);
+
+  const handleFollowWorkout = async (workoutId: string) => {
+    try {
+      const response = await axios.post(
+        `${URL}workouts/workouts/follow`,
+        { workoutId },
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get('authToken')}`,
+          },
+        }
+      );
+      toast.success(response.data.message || 'Workout followed successfully!');
+      setWorkouts((prevWorkouts) =>
+        prevWorkouts.map((workout) =>
+          workout._id === workoutId ? { ...workout, isFollowed: true } : workout
+        )
+      );
+    } catch (error) {
+      console.error('Error following workout:', error);
+      toast.error('Error following workout');
+    }
+  };
+
+  const handleUnfollowWorkout = async (workoutId: string) => {
+    try {
+      const response = await axios.post(
+        `${URL}workouts/workouts/unfollow/${workoutId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get('authToken')}`,
+          },
+        }
+      );
+      toast.success(response.data.message || 'Workout unfollowed successfully!');
+      setWorkouts((prevWorkouts) =>
+        prevWorkouts.map((workout) =>
+          workout._id === workoutId ? { ...workout, isFollowed: false } : workout
+        )
+      );
+    } catch (error) {
+      console.error('Error unfollowing workout:', error);
+      toast.error('Error unfollowing workout');
+    }
+  };
 
   if (isLoading) {
     return <p>Loading workouts...</p>;
@@ -75,6 +122,23 @@ const WorkoutList = () => {
                   </li>
                 ))}
               </ul>
+
+              {/* Follow/Unfollow button */}
+              {workout.isFollowed ? (
+                <button
+                  onClick={() => handleUnfollowWorkout(workout._id)}
+                  className="mt-4 w-full p-2 rounded-lg bg-red-500 text-white hover:bg-red-600"
+                >
+                  Unfollow Workout
+                </button>
+              ) : (
+                <button
+                  onClick={() => handleFollowWorkout(workout._id)}
+                  className="mt-4 w-full p-2 rounded-lg bg-green-500 text-white hover:bg-green-600"
+                >
+                  Follow Workout
+                </button>
+              )}
             </div>
           ))}
         </div>
