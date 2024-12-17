@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import BreadCrumb from './BreadCrumb';
 import { FaRegPlusSquare } from 'react-icons/fa';
 import axios from "axios";
-import Cookies from 'js-cookie'
+import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 
 type Exercise = {
@@ -15,18 +15,17 @@ type Exercise = {
 
 const WorkoutForm = () => {
   const URL = import.meta.env.VITE_SERVER_URL;
-  const [exercises, setExercises] = useState<Exercise[]>([
-    {
-      exercise_name: '',
-      sets: 0,
-      reps: 0,
-      weight_value: 0,
-      weight_unit: 'kg',
-    },
-  ]);
+  const [exercises, setExercises] = useState<Exercise[]>([{
+    exercise_name: '',
+    sets: 0,
+    reps: 0,
+    weight_value: 0,
+    weight_unit: 'kg',
+  }]);
 
   const [customMuscleGroup, setCustomMuscleGroup] = useState('');
   const [targetMuscleGroup, setTargetMuscleGroup] = useState('');
+  const [selectedDays, setSelectedDays] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const targetMuscleGroups = [
@@ -42,6 +41,16 @@ const WorkoutForm = () => {
     'Traps',
     'Forearms',
     'Calves',
+  ];
+
+  const daysOfWeek = [
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+    'Sunday',
   ];
 
   const handleExerciseChange = (index: number, field: string, value: string | number) => {
@@ -66,16 +75,24 @@ const WorkoutForm = () => {
     }
   };
 
+  const handleDaySelection = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedValues = Array.from(e.target.selectedOptions, (option) => option.value);
+    console.log(selectedValues); // Log to check if the days are correctly selected
+    setSelectedDays(selectedValues);
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
 
+    // Build workout data
     const workoutData = {
       workout_name: e.currentTarget.workout_name.value,
       description: e.currentTarget.description.value,
-      target_muscle_group: customMuscleGroup || targetMuscleGroup,
+      target_muscle_group: targetMuscleGroup === 'custom' ? customMuscleGroup : targetMuscleGroup,
       difficulty_level: e.currentTarget.difficulty_level.value,
       exercises,
+      day: selectedDays, // Include selected days
     };
 
     try {
@@ -89,16 +106,23 @@ const WorkoutForm = () => {
         }
       );
       console.log('Workout created:', response.data);
-      toast.success("Workout created successfully")
-      setExercises([
-        { exercise_name: '', sets: 0, reps: 0, weight_value: 0, weight_unit: 'kg' },
-      ]);
+      toast.success("Workout created successfully");
+
+      // Reset form
+      setExercises([{
+        exercise_name: '',
+        sets: 0,
+        reps: 0,
+        weight_value: 0,
+        weight_unit: 'kg',
+      }]);
       setCustomMuscleGroup('');
       setTargetMuscleGroup('');
+      setSelectedDays([]);  // Reset selected days
       (e.target as any).reset();
     } catch (error) {
       console.error('Error creating workout:', error);
-      toast.error("Error creating workout")
+      toast.error("Error creating workout");
     } finally {
       setIsSubmitting(false);
     }
@@ -184,6 +208,23 @@ const WorkoutForm = () => {
                 <option value="Advanced" className="text-green-600">
                   Advanced
                 </option>
+              </select>
+            </div>
+
+            <div className="mb-6">
+              <label className="block font-medium mb-2 text-green-700">Day(s)</label>
+              <select
+                name="days"
+                multiple
+                value={selectedDays}
+                onChange={handleDaySelection}
+                className="w-full p-3 border border-green-300 rounded-lg focus:ring-2 focus:ring-green-500"
+              >
+                {daysOfWeek.map((day, index) => (
+                  <option key={index} value={day} className="text-green-600">
+                    {day}
+                  </option>
+                ))}
               </select>
             </div>
 
@@ -290,7 +331,6 @@ const WorkoutForm = () => {
                 <span>Add Exercise</span>
                 <FaRegPlusSquare size={20} />
               </button>
-
             </div>
 
             <button

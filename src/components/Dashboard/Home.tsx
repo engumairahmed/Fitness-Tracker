@@ -1,6 +1,7 @@
 import React , { useState } from 'react'
 import { FiMenu, FiArrowLeft } from "react-icons/fi";
 import FollowedWorkouts from './FollowedWorkouts';
+import WorkoutDay from './WorkoutsPerDay';
 
 
 const DashboardHome = () => {
@@ -47,6 +48,7 @@ const DashboardHome = () => {
       </div>
     </div>
     <FollowedWorkouts></FollowedWorkouts>
+    <WorkoutDay></WorkoutDay>
     </>
   )
 }

@@ -22,15 +22,17 @@ type Workout = {
   isFollowed: boolean; // Indicates if the workout is followed
 };
 
-const WorkoutList = () => {
+const WorkoutDay = () => {
   const URL = import.meta.env.VITE_SERVER_URL;
   const [workouts, setWorkouts] = useState<Workout[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  const currentDay = new Date().toLocaleString('en-US', { weekday: 'long' });
+
   useEffect(() => {
-    const fetchWorkouts = async () => {
+    const fetchWorkoutsByDay = async () => {
       try {
-        const response = await axios.get(`${URL}workouts/workouts`, {
+        const response = await axios.get(`${URL}workouts/workouts/day/${currentDay}`, {
           headers: {
             Authorization: `Bearer ${Cookies.get('authToken')}`,
           },
@@ -38,14 +40,14 @@ const WorkoutList = () => {
         setWorkouts(response.data);
       } catch (error) {
         console.error('Error fetching workouts:', error);
-        toast.error('Error fetching workouts');
+        toast.error('Error fetching workouts for today');
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchWorkouts();
-  }, []);
+    fetchWorkoutsByDay();
+  }, [URL, currentDay]);
 
   const handleFollowWorkout = async (workoutId: string) => {
     try {
@@ -94,13 +96,11 @@ const WorkoutList = () => {
   };
 
   const handleDeleteWorkout = async (workoutId: string) => {
-    
     const isConfirmed = window.confirm('Are you sure you want to delete this workout?');
-    
     if (!isConfirmed) {
-      return; 
+      return;
     }
-  
+
     try {
       const response = await axios.delete(`${URL}workouts/workouts/${workoutId}`, {
         headers: {
@@ -116,31 +116,32 @@ const WorkoutList = () => {
       toast.error('Error deleting workout');
     }
   };
-  
 
   if (isLoading) {
-    return <p>Loading workouts...</p>;
+    return <p>Loading workouts for {currentDay}...</p>;
   }
 
   return (
-    <div className="bg-white p-8 rounded-lg shadow-lg max-w-4xl w-full mx-auto">
-      <h1 className="text-2xl font-bold text-center mb-6 text-green-600">My Workouts</h1>
+    <div className="bg-white p-4 rounded-lg shadow-lg max-w-md w-full mx-auto mt-5 ml-9">
+      <h1 className="text-xl font-semibold text-center mb-4 text-green-600">
+        Workouts for {currentDay}
+      </h1>
       {workouts.length === 0 ? (
-        <p className="text-center text-gray-500">You haven't created any workouts yet.</p>
+        <p className="text-center text-gray-500">No workouts for {currentDay}.</p>
       ) : (
         <div>
           {workouts.map((workout) => (
-            <div key={workout._id} className="mb-6 border p-4 rounded-lg bg-green-50">
-              <h2 className="text-xl font-bold text-green-700">{workout.workout_name}</h2>
+            <div key={workout._id} className="mb-4 border p-4 rounded-lg bg-green-50">
+              <h2 className="text-lg font-bold text-green-700">{workout.workout_name}</h2>
               <p className="text-sm text-gray-600">{workout.description}</p>
               <p className="mt-2 text-green-600">Target Muscle Group: {workout.target_muscle_group}</p>
               <p className="text-green-600">Difficulty Level: {workout.difficulty_level}</p>
-              <p className="text-green-600">Day: {workout.day.join(', ')}</p> {/* Displaying days as a comma-separated string */}
+              <p className="text-green-600">Day: {workout.day.join(', ')}</p>
 
-              <h3 className="mt-4 text-lg font-medium text-green-700">Exercises</h3>
+              <h3 className="mt-2 text-md font-medium text-green-700">Exercises</h3>
               <ul>
                 {workout.exercises.map((exercise, index) => (
-                  <li key={index} className="mt-2">
+                  <li key={index} className="mt-1">
                     <p className="font-semibold">{exercise.exercise_name}</p>
                     <p>Sets: {exercise.sets} | Reps: {exercise.reps}</p>
                     <p>
@@ -150,27 +151,11 @@ const WorkoutList = () => {
                 ))}
               </ul>
 
-              {/* Follow/Unfollow button */}
-              {workout.isFollowed ? (
-                <button
-                  onClick={() => handleUnfollowWorkout(workout._id)}
-                  className="mt-4 w-full p-2 rounded-lg bg-red-500 text-white hover:bg-red-600"
-                >
-                  Unfollow Workout
-                </button>
-              ) : (
-                <button
-                  onClick={() => handleFollowWorkout(workout._id)}
-                  className="mt-4 w-full p-2 rounded-lg bg-green-500 text-white hover:bg-green-600"
-                >
-                  Follow Workout
-                </button>
-              )}
-
+           
               {/* Delete button */}
               <button
                 onClick={() => handleDeleteWorkout(workout._id)}
-                className="mt-4 w-full p-2 rounded-lg bg-red-500 text-white hover:bg-red-600"
+                className="w-full mt-2 p-2 rounded-lg bg-red-500 text-white hover:bg-red-600"
               >
                 Delete Workout
               </button>
@@ -182,4 +167,4 @@ const WorkoutList = () => {
   );
 };
 
-export default WorkoutList;
+export default WorkoutDay;

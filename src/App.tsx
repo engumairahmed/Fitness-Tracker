@@ -36,6 +36,7 @@ import WorkoutsList from './components/Dashboard/WorkoutList'
 import { Workout } from './components/Interface/Workout'
 import FoodManagement from './components/Dashboard/FoodManagement'
 import FollowedWorkouts from './components/Dashboard/FollowedWorkouts'
+import WorkoutDay from './components/Dashboard/WorkoutsPerDay'
 // import ProgressMonitor from './components/Dashboard/ProgressMonitor'
 // import BodyPartButtons from './components/Dashboard/BodyShape'
 
@@ -87,6 +88,7 @@ function App() {
           <Route path='workoutform' element ={<WorkoutForm/>}></Route>
           <Route path='workoutlist' element ={<WorkoutsList/>}></Route>
           <Route path='followedworkout' element ={<FollowedWorkouts/>}></Route>
+          <Route path='workoutdays' element ={<WorkoutDay/>}></Route>
          
           <Route path='profile' element={<Profile></Profile>}></Route>
           {/* <Route path="update-food" element={<UpdateFoodForm />}></Route> */}
