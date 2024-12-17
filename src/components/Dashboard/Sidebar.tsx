@@ -2,6 +2,12 @@
 import { MdDashboard, MdAnalytics } from "react-icons/md";
 import { IoMdFitness, IoMdNutrition } from "react-icons/io";
 import { FaBarsProgress } from "react-icons/fa6";
+import { MdAnalytics } from "react-icons/md";
+import { IoSettings } from "react-icons/io5";
+import { IoAccessibility } from "react-icons/io5";
+import { IoLogOut } from "react-icons/io5"
+import { FiMenu, FiArrowLeft } from "react-icons/fi";
+
 import { IoSettings, IoLogOut, IoAccessibility } from "react-icons/io5";
 import { BsPersonBoundingBox } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
