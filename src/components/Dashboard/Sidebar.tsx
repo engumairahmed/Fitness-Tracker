@@ -82,7 +82,7 @@ const Sidebar = () => {
               </li>
              
               <li>
-                <Link className="text-[#333] text-sm flex items-center hover:text-[#67C3A2] transition-all" to={'Progress-mon'}>
+                <Link className="text-[#333] text-sm flex items-center hover:text-[#67C3A2] transition-all" to={'Progress-track'}>
                   <FaBarsProgress className="w-7 h-5 " />
                   <span> Progress Tracker</span>
                 </Link>
