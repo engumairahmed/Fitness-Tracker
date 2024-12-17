@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useFormik } from "formik";
@@ -15,12 +15,15 @@ import { toast, ToastContainer } from "react-toastify";
 import { GoogleUserProfile } from "../../utils/Types";
 import { useGoogleLogin } from "@react-oauth/google";
 import { FcGoogle } from "react-icons/fc";
+import { SyncLoader } from "react-spinners";
 
 export const SignUp = () => {
 
   const URL = import.meta.env.VITE_SERVER_URL;
 
   const navigate = useNavigate();
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const googleLogin = useGoogleLogin({
     onSuccess: async (codeResponse) => {
@@ -60,7 +63,6 @@ export const SignUp = () => {
         .catch(
           (err) => {
             console.log(err);
-
             toast.error("Google login failed. Please try again.", { theme: "dark" });
           }
         );
@@ -99,15 +101,18 @@ export const SignUp = () => {
         .required("Password is required"),
     }),
     onSubmit: (values) => {
+      setIsLoading(true);
       axios
         .post(`${URL}/auth/register`, values)
         .then(() => {
           toast.success("Success Notification !", { delay: 2000 });
+
           setTimeout(() => {
             navigate("/login");
           }, 1000);
         })
         .catch((error) => {
+          setIsLoading(false);
           if (error.response) {
             formik.setErrors({
               ...formik.errors,
@@ -271,7 +276,7 @@ export const SignUp = () => {
                 type="submit"
                 className="rounded-[2.375rem] border-2 border-seagreen px-14 py-3 text-sm font-semibold text-green hover:bg-green-300 hover:text-white"
               >
-                Sign Up
+                 {isLoading ? <SyncLoader size={12} /> : "SIGN IN"}
               </button>
             </motion.div>
           </motion.form>
