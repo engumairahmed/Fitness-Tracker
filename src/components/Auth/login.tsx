@@ -46,7 +46,7 @@ export const Login = () => {
         try {
             const { name, email, picture } = codeResponse;
             console.log(codeResponse)
-            const response = await axios.post(`${URL}auth/register-with-google`, { name, email, password: "dummyPassword", role: "user", picture })
+            const response = await axios.post(`${URL}/auth/register-with-google`, { name, email, password: "dummyPassword", role: "user", picture })
                 .then(
                     (res) => {
                         console.log(res)
@@ -101,7 +101,7 @@ export const Login = () => {
         console.log("Form Submitted", values);
         setIsLoading(true);
         axios
-            .post(`${URL}auth/login`, values)
+            .post(`${URL}/auth/login`, values)
             .then((result) => {
                 const token = result.data.token;
                 console.log(token)

@@ -29,7 +29,7 @@ export default function EmailVerification() {
         onSubmit: async (values) => {
             console.log(values.email);
             
-            await axios.post(`${URL}auth/new-verification-link`, values)
+            await axios.post(`${URL}/auth/new-verification-link`, values)
                 .then(
                     (res) => {
                         toast.success('Verification link has been sent to your email', { autoClose: 2000 })

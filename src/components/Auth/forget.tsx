@@ -22,7 +22,7 @@ export const ForgotPassword = () => {
     // Handle form submission
     const handleFormSubmit = async (values: { email: string }) => {
         // alert(`Password reset link sent to: ${values.email}`);
-        await axios.post(`${URL}auth/forgot-password`,values)
+        await axios.post(`${URL}/auth/forgot-password`,values)
         .then((response)=>{
             toast.success(`Password reset link sent to: ${response.data.msg}`)
         })

@@ -48,7 +48,7 @@ export const Contactus = () => {
     },
     validationSchema: schema,
     onSubmit: (values, {resetForm }) => {
-      axios.post(`${URL}contact-us`, {
+      axios.post(`${URL}/contact-us`, {
         ...values,
       }).then(() => {
         toast.success("Message Sent Successfully");

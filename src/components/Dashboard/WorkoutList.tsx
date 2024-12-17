@@ -29,7 +29,7 @@ const WorkoutList = () => {
   useEffect(() => {
     const fetchWorkouts = async () => {
       try {
-        const response = await axios.get(`${URL}workouts/workouts`, {
+        const response = await axios.get(`${URL}/workouts/workouts`, {
           headers: {
             Authorization: `Bearer ${Cookies.get('authToken')}`,
           },
@@ -49,7 +49,7 @@ const WorkoutList = () => {
   const handleFollowWorkout = async (workoutId: string) => {
     try {
       const response = await axios.post(
-        `${URL}workouts/workouts/follow`,
+        `${URL}/workouts/workouts/follow`,
         { workoutId },
         {
           headers: {
@@ -72,7 +72,7 @@ const WorkoutList = () => {
   const handleUnfollowWorkout = async (workoutId: string) => {
     try {
       const response = await axios.post(
-        `${URL}workouts/workouts/unfollow/${workoutId}`,
+        `${URL}/workouts/workouts/unfollow/${workoutId}`,
         {},
         {
           headers: {
