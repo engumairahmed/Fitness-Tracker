@@ -40,22 +40,21 @@ export interface DecodedToken {
     weight: number;
   }
   
-  
-interface Food {
-    name: string;
-    calories?: number;
-    fats?: number;
-    protein?: number;
-    carbs?: number;
-    sodium?: number;
-    sugar?: number;
-    cholesterol?: number;
-    vitamins?: string[];
-    minerals?: string[];
-}
-
- export interface State {
-    meal: string;
-    food: Food;
-    index: number;
-}
+  export interface Progress {
+    _id?: string;
+    bodyMeasurements?: {
+      weight?: number;
+      weightUnit?: string;
+      chest?: number;
+      chestUnit?: string;
+      waist?: number;
+      waistUnit?: string;
+    };
+    createdAt: string;
+    performanceMetrics?: {
+      runTime?: number;
+      runTimeUnit?: string;
+      liftingWeight?: number;
+      liftingWeightUnit?: string;
+    };
+  }

@@ -1,12 +1,22 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Formik, Field, Form, ErrorMessage } from "formik";
+import { Formik, Field, Form, ErrorMessage, useFormikContext } from "formik";
 import * as Yup from "yup";
+import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function ResetPassword() {
+
+    const URL = import.meta.env.VITE_SERVER_URL;
+
+    const navigate = useNavigate();
+
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
+
+    const { token } = useParams();
 
     const togglePasswordVisibility = () => setPasswordVisible((prev) => !prev);
     const toggleConfirmPasswordVisibility = () =>
@@ -33,8 +43,7 @@ export default function ResetPassword() {
 
     return (
         <div
-            className="flex items-center justify-center min-h-screen px-4"
-            style={{ backgroundColor: "#53d7af" }}
+            className="flex items-center justify-center min-h-screen px-4 bg-[#67C3A2]"
         >
             <motion.div
                 initial="hidden"
@@ -61,9 +70,21 @@ export default function ResetPassword() {
                         confirmPassword: "",
                     }}
                     validationSchema={validationSchema}
-                    onSubmit={(values) => {
-                        alert("Password reset successfully!");
-                        console.log("Form Data", values);
+                    onSubmit={async (values) => {
+                        await axios.put(`${URL}/auth/reset-password/${token}`, values)
+                            .then(()=>{
+                                toast.success("Password updated successfully");
+                                setTimeout(() => {
+                                    navigate("/login");
+                                  }, 1000);
+                            })
+                            .catch((error)=>{
+                                if (error.request) {
+                                  toast.error('No response received from the server.', { theme: 'dark' });
+                                } else {
+                                  toast.error('Something went wrong.', { theme: 'dark' });
+                                }
+                            })
                     }}
                 >
                     {({ touched, errors }) => (
@@ -157,6 +178,7 @@ export default function ResetPassword() {
                     )}
                 </Formik>
             </motion.div>
+            <ToastContainer/>
         </div>
     );
 }

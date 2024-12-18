@@ -72,7 +72,7 @@ const FollowedWorkouts = () => {
   }
 
   return (
-    <div className="bg-green-50 p-6 rounded-lg shadow-lg max-w-4xl mx-auto mt-2">
+    <div className="bg-green-50 p-6 rounded-lg shadow-lg max-w-4xl mx-auto mt-2 ml-9">
       <h2 className="text-lg font-bold text-center text-green-600 mb-6">Workouts I'm Following</h2>
       {followedWorkouts.length === 0 ? (
         <p className="text-center text-gray-500">No followed workouts yet.</p>
@@ -118,13 +118,7 @@ const FollowedWorkouts = () => {
                 </ul>
               </div>
 
-              {/* Unfollow Button */}
-              <button
-                onClick={() => handleUnfollowWorkout(workout._id)}
-                className="mt-4 w-full bg-red-500 text-white p-2 rounded-lg hover:bg-red-600 text-sm"
-              >
-                Unfollow
-              </button>
+            
             </div>
           ))}
         </div>
