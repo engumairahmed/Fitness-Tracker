@@ -26,15 +26,16 @@ import MessageVerification from './components/Auth/msg'
 
 import WorkoutForm from './components/Dashboard/WorkoutForm'
 import Profile from './components/Dashboard/Profile'
-// import { Analytics } from './components/Dashboard/Analytics'
+import { Analytics } from './components/Dashboard/Analytics'
 import ProtectedRoute from './utils/ProtectedRoutes'
 import { injectStyle } from "react-toastify/dist/inject-style";
 import DashboardLayout from './components/Dashboard/Layout'
-// import PrivacyPolicy from './components/Interface/PrivacyPolicy'
+import PrivacyPolicy from './components/Interface/PrivacyPolicy'
 
 import WorkoutsList from './components/Dashboard/WorkoutList'
 import { Workout } from './components/Interface/Workout'
 import FollowedWorkouts from './components/Dashboard/FollowedWorkouts'
+import SettingsComponent from './components/Dashboard/Settings'
 import WorkoutDay from './components/Dashboard/WorkoutsPerDay'
 // import ProgressMonitor from './components/Dashboard/ProgressMonitor'
 // import BodyPartButtons from './components/Dashboard/BodyShape'
@@ -54,7 +55,7 @@ function App() {
         <Route path='/sign' element={<SignUp></SignUp>}></Route>
         <Route path='/login' element={<Login></Login>}></Route>
         <Route path='/forget-password' element={<ForgotPassword></ForgotPassword>}></Route>
-        <Route path='/reset-password' element={<ResetPassword></ResetPassword>}></Route>
+        <Route path='/reset-password/:token' element={<ResetPassword></ResetPassword>}></Route>
         <Route path='/email-verification' element={<EmailVerification></EmailVerification>}></Route>
         <Route path='/msg' element={<MessageVerification></MessageVerification>}></Route>
 
@@ -69,7 +70,7 @@ function App() {
           <Route path='/nutrition' element={<Nutrition></Nutrition>}></Route>
           <Route path='/team' element={<Teams></Teams>}></Route>
           <Route path='/faq' element={<FAQ></FAQ>}></Route>
-          {/* <Route path='/privacypolicy' element={<PrivacyPolicy></PrivacyPolicy>}></Route> */}
+          <Route path='/privacypolicy' element={<PrivacyPolicy></PrivacyPolicy>}></Route>
           <Route path='/workout' element={<Workout></Workout>}></Route>
           <Route path='/contactus' element={<Contactus></Contactus>}></Route>
           
@@ -90,12 +91,12 @@ function App() {
           <Route path='workoutdays' element ={<WorkoutDay/>}></Route>
          
           <Route path='profile' element={<Profile></Profile>}></Route>
+          <Route path='settings' element={<SettingsComponent/>}></Route>
           {/* <Route path="update-food" element={<UpdateFoodForm />}></Route> */}
-          {/* <Route path='Progress-mon' element={<ProgressMonitor/>}/> */}
-          {/* <Route path='Progress-mon' element={<ProgressMonitor/>}/> */}
+          {/* <Route path='progress-track' element={<ProgressMonitor/>}/> */}
           {/* <Route path='body-measure' element={<BodyPartButtons/>}></Route> */}
          
-          {/* <Route path='analytics' element={<Analytics></Analytics>}></Route> */}
+          <Route path='analytics' element={<Analytics></Analytics>}></Route>
         </Route>
 
       </Routes>
