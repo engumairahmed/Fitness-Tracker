@@ -3,17 +3,15 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { RxCross1 } from "react-icons/rx";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
-import * as jwtdecode from "jwt-decode"
+import * as jwtdecode from "jwt-decode";
 import { DecodedToken } from "../../utils/Types";
 import { useAuth } from "../Auth/AuthContext";
 
-
 export const Navbar = () => {
-  const {logout} = useAuth();
+  const { logout } = useAuth();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [User, setUser] = useState<DecodedToken>();
-
 
   const toggleMenu = () => {
     setMenuOpen((prev) => !prev);
@@ -23,14 +21,14 @@ export const Navbar = () => {
     setIsLoggedIn(false);
     logout();
   };
-useEffect(() => {
-  const token = Cookies.get('authToken');
+  useEffect(() => {
+    const token = Cookies.get("authToken");
     if (token) {
-      const decoded:DecodedToken = jwtdecode.jwtDecode(token);
+      const decoded: DecodedToken = jwtdecode.jwtDecode(token);
       setUser(decoded);
-      setIsLoggedIn(true);      
+      setIsLoggedIn(true);
     }
-},[])
+  }, []);
   return (
     <header className="shadow-md py-3 px-5 sm:px-10 bg-white font-[sans-serif] min-h-[60px] tracking-wide relative z-50 border-b border-gray-200">
       <div className="flex items-center justify-between w-full">
@@ -208,6 +206,46 @@ useEffect(() => {
               Contact
             </Link>
           </nav>
+          {/* Buttons */}
+          <div className="fixed bottom-0 left-0 w-full bg-white p-4 shadow-md border-t border-gray-300 flex flex-col items-center space-y-4">
+            {isLoggedIn ? (
+              <>
+                <Link
+                  to="/dashboard"
+                  className="w-3/4 px-4 py-2 text-white bg-[#31C48D] rounded-md shadow-md hover:bg-[#28A374] transition-all duration-300 text-sm text-center"
+                  onClick={toggleMenu}
+                >
+                  Dashboard
+                </Link>
+                <button
+                  onClick={() => {
+                    handleSignOut();
+                    toggleMenu();
+                  }}
+                  className="w-3/4 px-4 py-2 text-white bg-red-500 rounded-md shadow-md hover:bg-red-600 transition-all duration-300 text-sm text-center"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  to="/login"
+                  className="w-3/4 px-4 py-2 text-white bg-[#31C48D] rounded-md shadow-md hover:bg-[#28A374] transition-all duration-300 text-sm text-center"
+                  onClick={toggleMenu}
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/sign"
+                  className="w-3/4 px-4 py-2 text-white bg-[#31C48D] rounded-md shadow-md hover:bg-[#28A374] transition-all duration-300 text-sm text-center"
+                  onClick={toggleMenu}
+                >
+                  Sign Up
+                </Link>
+              </>
+            )}
+          </div>
         </div>
       )}
     </header>

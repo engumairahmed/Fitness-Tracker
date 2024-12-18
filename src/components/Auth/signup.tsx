@@ -16,32 +16,35 @@ import { GoogleUserProfile } from "../../utils/Types";
 import { useGoogleLogin } from "@react-oauth/google";
 import { FcGoogle } from "react-icons/fc";
 import { SyncLoader } from "react-spinners";
+import { TbEyeClosed, TbEyeFilled } from "react-icons/tb";
 
 export const SignUp = () => {
-
   const URL = import.meta.env.VITE_SERVER_URL;
 
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
+  const [passwordsVisible, setPasswordsVisible] = useState(false);
 
   const googleLogin = useGoogleLogin({
     onSuccess: async (codeResponse) => {
-
-      console.log(codeResponse)
+      console.log(codeResponse);
 
       try {
-        const response = await axios.get<GoogleUserProfile>('https://www.googleapis.com/oauth2/v3/userinfo', {
-          headers: {
-            Authorization: `Bearer ${codeResponse.access_token}`,
-          },
-        });
+        const response = await axios.get<GoogleUserProfile>(
+          "https://www.googleapis.com/oauth2/v3/userinfo",
+          {
+            headers: {
+              Authorization: `Bearer ${codeResponse.access_token}`,
+            },
+          }
+        );
 
         const userProfile: GoogleUserProfile = response.data;
-        console.log('User Profile:', userProfile);
-        handleGoogleLogin(userProfile)
+        console.log("User Profile:", userProfile);
+        handleGoogleLogin(userProfile);
       } catch (error) {
-        console.error('Error fetching user profile:', error);
+        console.error("Error fetching user profile:", error);
       }
     },
     onError: () => console.log("Login Failed"),
@@ -50,23 +53,27 @@ export const SignUp = () => {
   const handleGoogleLogin = async (codeResponse: GoogleUserProfile) => {
     try {
       const { name, email, picture } = codeResponse;
-      console.log(codeResponse)
-      const response = await axios.post(`${URL}/auth/register-with-google`, { name, email, password: "dummyPassword", role: "user", picture })
-        .then(
-          (res) => {
-            console.log(res)
-            Cookies.set("authToken", res.data.token, { expires: 1 });
-            toast.success("Google login successful!");
-            navigate("/dashboard");
-          }
-        )
-        .catch(
-          (err) => {
-            console.log(err);
-            toast.error("Google login failed. Please try again.", { theme: "dark" });
-          }
-        );
-
+      console.log(codeResponse);
+      const response = await axios
+        .post(`${URL}/auth/register-with-google`, {
+          name,
+          email,
+          password: "dummyPassword",
+          role: "user",
+          picture,
+        })
+        .then((res) => {
+          console.log(res);
+          Cookies.set("authToken", res.data.token, { expires: 1 });
+          toast.success("Google login successful!");
+          navigate("/dashboard");
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error("Google login failed. Please try again.", {
+            theme: "dark",
+          });
+        });
     } catch (error) {
       handleError(error);
     }
@@ -138,7 +145,7 @@ export const SignUp = () => {
     if (Cookies.get("authToken")) {
       navigate("/dashboard");
     }
-  })
+  });
 
   return (
     <div className="flex min-h-screen flex-col lg:flex-row justify-center bg-white-500 m-0">
@@ -158,11 +165,15 @@ export const SignUp = () => {
           transition={{ duration: 1 }}
           className="relative z-10"
         >
-          <h1 className="text-5xl font-bold text-white" style={{ lineHeight: "2rem" }}>
+          <h1
+            className="text-5xl font-bold text-white"
+            style={{ lineHeight: "2rem" }}
+          >
             Welcome Back
           </h1>
           <p className="text-lg text-white">
-            To keep connected with us please <br /> login with your personal info.
+            To keep connected with us please <br /> login with your personal
+            info.
           </p>
           <motion.button
             whileHover={buttonHover}
@@ -178,17 +189,17 @@ export const SignUp = () => {
       <ToastContainer position="top-left" />
       {/* Form Section */}
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 m-0">
-        <Link className="flex justify-center mb-8" to={'/'}>
-          <img
-            src="/FitClave.png"
-            alt="Logo"
-            className="h-14 w-auto"
-          />
+        <Link className="flex justify-center mb-8" to={"/"}>
+          <img src="/FitClave.png" alt="Logo" className="h-14 w-auto" />
         </Link>
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2
             className="text-center font-bold tracking-tight text-gray-900"
-            style={{ fontSize: "2.5rem", lineHeight: "2rem", color: "green-300" }}
+            style={{
+              fontSize: "2.5rem",
+              lineHeight: "2rem",
+              color: "green-300",
+            }}
           >
             Create Account
           </h2>
@@ -233,7 +244,9 @@ export const SignUp = () => {
                 className="block w-full border-gray-300 py-4 pl-10 pr-3 text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none sm:text-sm bg-gray-100"
               />
               {formik.touched.name && formik.errors.name && (
-                <p className="text-red-500 text-sm mt-1">{formik.errors.name}</p>
+                <p className="text-red-500 text-sm mt-1">
+                  {formik.errors.name}
+                </p>
               )}
             </motion.div>
             <motion.div whileHover={{ scale: 1.05 }} className="relative mt-2">
@@ -249,15 +262,29 @@ export const SignUp = () => {
                 className="block w-full border-gray-300 py-4 pl-10 pr-3 text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none sm:text-sm bg-gray-100"
               />
               {formik.touched.email && formik.errors.email && (
-                <p className="text-red-500 text-sm mt-1">{formik.errors.email}</p>
+                <p className="text-red-500 text-sm mt-1">
+                  {formik.errors.email}
+                </p>
               )}
             </motion.div>
             <motion.div whileHover={{ scale: 1.05 }} className="relative mt-2">
-              <BsPersonLock className="absolute inset-y-4 left-3 flex items-center text-gray-500 text-lg" />
+              {passwordsVisible ? (
+                <TbEyeFilled
+                  className="w-[18px] h-[18px] absolute inset-y-4 left-3 cursor-pointer mt-1"
+                  onClick={() => setPasswordsVisible(!passwordsVisible)}
+                  style={{ color: "#9CA3AF" }}
+                />
+              ) : (
+                <TbEyeClosed
+                  className="w-[18px] h-[18px] absolute inset-y-4 left-3 cursor-pointer mt-1"
+                  onClick={() => setPasswordsVisible(!passwordsVisible)}
+                  style={{ color: "#9CA3AF" }} 
+                />
+              )}
               <input
                 id="password"
                 name="password"
-                type="password"
+                type={passwordsVisible ? "text" : "password"}
                 placeholder="Enter your password"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
@@ -265,7 +292,9 @@ export const SignUp = () => {
                 className="block w-full border-gray-300 py-4 pl-10 pr-3 text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none sm:text-sm bg-gray-100"
               />
               {formik.touched.password && formik.errors.password && (
-                <p className="text-red-500 text-sm mt-1">{formik.errors.password}</p>
+                <p className="text-red-500 text-sm mt-1">
+                  {formik.errors.password}
+                </p>
               )}
             </motion.div>
             <motion.div
