@@ -147,7 +147,7 @@ export const SignUp = () => {
         className="relative lg:w-2/5 flex flex-col justify-center items-center p-6 rounded-lg text-center space-y-4 bg-cover bg-center m-0"
         style={{
           backgroundImage:
-            "url('Tablet login-bro.png')",
+            "url('Tablet login-bro-mirror.png')",
           color: "#67C3A2"
         }}
       >
@@ -276,7 +276,7 @@ export const SignUp = () => {
                 type="submit"
                 className="rounded-[2.375rem] border-2 border-seagreen px-14 py-3 text-sm font-semibold text-green hover:bg-green-300 hover:text-white"
               >
-                 {isLoading ? <SyncLoader size={12} /> : "SIGN IN"}
+                 {isLoading ? <SyncLoader size={12} /> : "SIGN UP"}
               </button>
             </motion.div>
           </motion.form>

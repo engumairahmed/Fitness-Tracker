@@ -32,7 +32,7 @@ const WorkoutDay = () => {
   useEffect(() => {
     const fetchWorkoutsByDay = async () => {
       try {
-        const response = await axios.get(`${URL}workouts/workouts/day/${currentDay}`, {
+        const response = await axios.get(`${URL}/workouts/workouts/day/${currentDay}`, {
           headers: {
             Authorization: `Bearer ${Cookies.get('authToken')}`,
           },

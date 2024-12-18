@@ -40,3 +40,21 @@ export interface DecodedToken {
     weight: number;
   }
   
+  export interface Progress {
+    _id?: string;
+    bodyMeasurements?: {
+      weight?: number;
+      weightUnit?: string;
+      chest?: number;
+      chestUnit?: string;
+      waist?: number;
+      waistUnit?: string;
+    };
+    createdAt: string;
+    performanceMetrics?: {
+      runTime?: number;
+      runTimeUnit?: string;
+      liftingWeight?: number;
+      liftingWeightUnit?: string;
+    };
+  }
