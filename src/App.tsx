@@ -34,7 +34,6 @@ import DashboardLayout from './components/Dashboard/Layout'
 
 import WorkoutsList from './components/Dashboard/WorkoutList'
 import { Workout } from './components/Interface/Workout'
-import FoodManagement from './components/Dashboard/FoodManagement'
 import FollowedWorkouts from './components/Dashboard/FollowedWorkouts'
 // import ProgressMonitor from './components/Dashboard/ProgressMonitor'
 // import BodyPartButtons from './components/Dashboard/BodyShape'

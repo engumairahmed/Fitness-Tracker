@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-const UpdateFoodForm: React.FC = () => {
+const UpdateFoodForm = ({ onClose }: { onClose: () => void }) => {
     const { state } = useLocation();
     const { meal, food, index } = state || {};
     const [updatedFood, setUpdatedFood] = useState({ ...food });
@@ -16,7 +16,6 @@ const UpdateFoodForm: React.FC = () => {
             alert('Food name cannot be empty');
             return;
         }
-
         // Save changes and redirect back to the main page
         navigate('/dashboard/nutri-mon', { state: { updatedMeal: meal, updatedFood, foodIndex: index } });
     };
@@ -165,8 +164,7 @@ const UpdateFoodForm: React.FC = () => {
                             <span>{vitamin}</span>
                             <button
                                 onClick={() => handleRemoveVitamin(vitamin)}
-                                className="text-red-500 hover:underline"
-                            >
+                                className="text-red-500 hover:underline">
                                 Remove
                             </button>
                         </li>
@@ -182,12 +180,10 @@ const UpdateFoodForm: React.FC = () => {
                         placeholder="Add Mineral"
                         value={newMineral}
                         onChange={(e) => setNewMineral(e.target.value)}
-                        className="border rounded px-2 py-1 w-full"
-                    />
+                        className="border rounded px-2 py-1 w-full"/>
                     <button
                         onClick={handleAddMineral}
-                        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-                    >
+                        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
                         Add
                     </button>
                 </div>
@@ -197,8 +193,7 @@ const UpdateFoodForm: React.FC = () => {
                             <span>{mineral}</span>
                             <button
                                 onClick={() => handleRemoveMineral(mineral)}
-                                className="text-red-500 hover:underline"
-                            >
+                                className="text-red-500 hover:underline">
                                 Remove
                             </button>
                         </li>

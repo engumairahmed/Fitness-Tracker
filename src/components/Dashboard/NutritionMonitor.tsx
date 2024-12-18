@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 import BreadCrumb from './BreadCrumb';
 import { useNavigate } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
 import UpdateFoodForm from './UpdateFoodForm';
 import { Nutrition } from '../../utils/Types';
-import FoodManagement from './FoodManagement';
+import axios from 'axios';
+import { toast } from "react-toastify";
 
 const predefinedFoods: Nutrition[] = [
   {
@@ -86,10 +86,9 @@ const NutritionMonitor: React.FC = () => {
         foodInput.cholesterol === 0
       )
     ) {
-      alert("Please enter a valid food name and at least one non-zero nutritional value.");
+      toast.error("Enter a food name and nutritional values.");
       return;
     }
-
     const newFood = { ...foodInput };
 
     if (selectedMeal === 'breakfast') setBreakfast([...breakfast, newFood]);
@@ -193,8 +192,7 @@ const NutritionMonitor: React.FC = () => {
                 setFoodInput({ ...foodInput, name: e.target.value });
               }
             }}
-            className="border rounded px-2 py-1 w-full"
-          >
+            className="border rounded px-2 py-1 w-full">
             <option value="">-- Select a Food or Write --</option>
             {predefinedFoods.map((food) => (
               <option key={food.name} value={food.name}>
@@ -259,8 +257,7 @@ const NutritionMonitor: React.FC = () => {
             onChange={(e) =>
               setFoodInput({ ...foodInput, calories: parseFloat(e.target.value) || 0 })
             }
-            className="border rounded px-2 py-1 w-full"
-          />
+            className="border rounded px-2 py-1 w-full"/>
         </div>
 
         <div>
@@ -274,8 +271,7 @@ const NutritionMonitor: React.FC = () => {
             onChange={(e) =>
               setFoodInput({ ...foodInput, carbs: parseFloat(e.target.value) || 0 })
             }
-            className="border rounded px-2 py-1 w-full"
-          />
+            className="border rounded px-2 py-1 w-full"/>
         </div>
 
         <div>
@@ -289,8 +285,7 @@ const NutritionMonitor: React.FC = () => {
             onChange={(e) =>
               setFoodInput({ ...foodInput, fats: parseFloat(e.target.value) || 0 })
             }
-            className="border rounded px-2 py-1 w-full"
-          />
+            className="border rounded px-2 py-1 w-full"/>
         </div>
 
         <div>
@@ -304,8 +299,7 @@ const NutritionMonitor: React.FC = () => {
             onChange={(e) =>
               setFoodInput({ ...foodInput, protein: parseFloat(e.target.value) || 0 })
             }
-            className="border rounded px-2 py-1 w-full"
-          />
+            className="border rounded px-2 py-1 w-full"/>
         </div>
 
         <div>
@@ -319,8 +313,7 @@ const NutritionMonitor: React.FC = () => {
             onChange={(e) =>
               setFoodInput({ ...foodInput, sodium: parseFloat(e.target.value) || 0 })
             }
-            className="border rounded px-2 py-1 w-full"
-          />
+            className="border rounded px-2 py-1 w-full"/>
         </div>
 
         <div>
@@ -334,8 +327,7 @@ const NutritionMonitor: React.FC = () => {
             onChange={(e) =>
               setFoodInput({ ...foodInput, sugar: parseFloat(e.target.value) || 0 })
             }
-            className="border rounded px-2 py-1 w-full"
-          />
+            className="border rounded px-2 py-1 w-full"/>
         </div>
 
         <div>
@@ -349,11 +341,8 @@ const NutritionMonitor: React.FC = () => {
             onChange={(e) =>
               setFoodInput({ ...foodInput, cholesterol: parseFloat(e.target.value) || 0 })
             }
-            className="border rounded px-2 py-1 w-full"
-          />
+            className="border rounded px-2 py-1 w-full"/>
         </div>
-
-
 
         {/* Vitamins */}
         <div className="col-span-2 grid grid-cols-2 gap-4">
@@ -373,16 +362,14 @@ const NutritionMonitor: React.FC = () => {
                       const updatedVitamins = { ...foodInput.vitamins, [vitamin]: Math.max(0, Number(e.target.value)) };
                       setFoodInput({ ...foodInput, vitamins: updatedVitamins });
                     }}
-                    className="border rounded px-2 py-1 w-20"
-                  />
+                    className="border rounded px-2 py-1 w-20"/>
                   <button
                     onClick={() => {
                       const updatedVitamins = { ...foodInput.vitamins };
                       delete updatedVitamins[vitamin];
                       setFoodInput({ ...foodInput, vitamins: updatedVitamins });
                     }}
-                    className="text-red-500 hover:underline"
-                  >
+                    className="text-red-500 hover:underline">
                     Remove
                   </button>
                 </div>
@@ -398,8 +385,7 @@ const NutritionMonitor: React.FC = () => {
                   }
                   e.target.value = '';
                 }}
-                className="border rounded px-2 py-1 w-full"
-              >
+                className="border rounded px-2 py-1 w-full">
                 <option value="">-- Add a Vitamin --</option>
                 {['Vitamin A', 'Vitamin C', 'Vitamin D', 'Vitamin E', 'Vitamin K', 'Vitamin B12'].map((vitamin) => (
                   <option key={vitamin} value={vitamin}>
@@ -427,16 +413,14 @@ const NutritionMonitor: React.FC = () => {
                       const updatedMinerals = { ...foodInput.minerals, [mineral]: Math.max(0, Number(e.target.value)) };
                       setFoodInput({ ...foodInput, minerals: updatedMinerals });
                     }}
-                    className="border rounded px-2 py-1 w-20"
-                  />
+                    className="border rounded px-2 py-1 w-20"/>
                   <button
                     onClick={() => {
                       const updatedMinerals = { ...foodInput.minerals };
                       delete updatedMinerals[mineral];
                       setFoodInput({ ...foodInput, minerals: updatedMinerals });
                     }}
-                    className="text-red-500 hover:underline"
-                  >
+                    className="text-red-500 hover:underline">
                     Remove
                   </button>
                 </div>
@@ -452,8 +436,7 @@ const NutritionMonitor: React.FC = () => {
                   }
                   e.target.value = '';
                 }}
-                className="border rounded px-2 py-1 w-full"
-              >
+                className="border rounded px-2 py-1 w-full">
                 <option value="">-- Add a Mineral --</option>
                 {['Iron', 'Calcium', 'Magnesium', 'Zinc', 'Potassium', 'Phosphorus'].map((mineral) => (
                   <option key={mineral} value={mineral}>
@@ -464,17 +447,14 @@ const NutritionMonitor: React.FC = () => {
             </div>
           </div>
         </div>
-
         <button
           onClick={handleAddFood}
-          className="bg-blue-500 text-white px-4 py-2 rounded-full mt-4 shadow-lg hover:bg-blue-600 transition-all"
-        >
+          className="bg-blue-500 text-white px-4 py-2 rounded-full mt-4 shadow-lg hover:bg-blue-600 transition-all">
           Add Food
         </button>
       </div>
     </div>
   );
-
   const updateNutritionalValues = (weight: number, _quantity: number) => {
     const scalingFactor = weight / foodInput.weight;
 
@@ -490,8 +470,6 @@ const NutritionMonitor: React.FC = () => {
     });
   };
 
-  
-
   const navigateToUpdatePage = (meal: string, food: Nutrition, index: number) => {
     navigate('/dashboard/update-food', {
       state: {
@@ -501,40 +479,39 @@ const NutritionMonitor: React.FC = () => {
       },
     });
   };
+      const [isModalOpen, setIsModalOpen] = useState(false);
+      const handleOpenModal = () => setIsModalOpen(true);
+      const handleCloseModal = () => setIsModalOpen(false);
+      
 
   return (
     <>
       <BreadCrumb name="Your Personalized Nutrition Guide" route='/dashboard/nutri-mon' nestedRoute={{ name: "test", route: "test" }} />
       <div className="max-w-4xl mt-10 mx-auto bg-white p-6 rounded shadow">
         <h1 className="text-lg text-center font-bold mb-4">Nutrition Monitor</h1>
-
         <select
           value={selectedMeal}
           onChange={(e) => setSelectedMeal(e.target.value)}
-          className="border rounded px-2 py-1 w-full mb-4"
-        >
+          className="border rounded px-2 py-1 w-full mb-4">
           <option value="">-- Select a Meal --</option>
           <option value="breakfast">Breakfast</option>
           <option value="lunch">Lunch</option>
           <option value="dinner">Dinner</option>
           <option value="snacks">Snacks</option>
         </select>
-
         {selectedMeal && (
           <div>
             <h2 className="text-lg font-semibold capitalize">{selectedMeal} Form</h2>
             {renderForm()}
           </div>
         )}
-
         {['breakfast', 'lunch', 'dinner', 'snacks'].map((meal) => (
           <div key={meal}>
             <h3 className="text-xl font-semibold mt-6">{meal.charAt(0).toUpperCase() + meal.slice(1)}</h3>
             <button
               onClick={() => handleClearMeal(meal)}
               className="text-white px-4 py-2 rounded-full mt-2 shadow-lg hover:opacity-90 transition-all"
-              style={{ backgroundColor: "#66C4A4" }}
-            >
+              style={{ backgroundColor: "#66C4A4" }}>
               Clear {meal.charAt(0).toUpperCase() + meal.slice(1)}
             </button>
 
@@ -553,23 +530,19 @@ const NutritionMonitor: React.FC = () => {
                       <tr
                         key={index}
                         className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'
-                          } hover:bg-gray-100 transition-all`}
-                      >
+                          } hover:bg-gray-100 transition-all`}>
                         <td className="border border-gray-300 px-4 py-2">{food.name}</td>
                         <td className="border border-gray-300 px-4 py-2">{food.calories}</td>
                         <td className="border border-gray-300 px-4 py-2">
                           <div className="flex space-x-2">
                             <button
-                              onClick={() => navigateToUpdatePage(meal, food, index)}
-                              className="text-blue-500 hover:text-blue-700 transition-all flex items-center space-x-1 px-3 py-1 rounded-full border border-blue-300 hover:bg-blue-100 shadow-sm"
-                            >
+                              className="text-blue-500 hover:text-blue-700 transition-all flex items-center space-x-1 px-3 py-1 rounded-full border border-blue-300 hover:bg-blue-100 shadow-sm">
                               <FaEdit />
-                              <span>Update</span>
+                              <span onClick={()=>{setIsModalOpen(true)}}>Update</span>
                             </button>
                             <button
                               onClick={() => handleDeleteFood(meal, index)}
-                              className="text-red-500 hover:text-red-700 transition-all flex items-center space-x-1 px-3 py-1 rounded-full border border-red-300 hover:bg-red-100 shadow-sm"
-                            >
+                              className="text-red-500 hover:text-red-700 transition-all flex items-center space-x-1 px-3 py-1 rounded-full border border-red-300 hover:bg-red-100 shadow-sm">
                               <FaTrashAlt />
                               <span>Delete</span>
                             </button>
@@ -628,9 +601,21 @@ const NutritionMonitor: React.FC = () => {
           </tbody>
         </table>
       </div>
-      <FoodManagement></FoodManagement>
-    </>
-  );
-};
+        {/* Modal */}
+        {isModalOpen && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="bg-white p-6 rounded-lg shadow-lg max-w-4xl w-full relative">
+                        {/* Close Button */}
+                        <button
+                            onClick={handleCloseModal}
+                            className="absolute top-2 right-2 text-gray-600 hover:text-gray-900">
+                            ✕</button>
+                        {/* UpdateFoodForm */}
+                        <UpdateFoodForm onClose={handleCloseModal}/>
 
+                    </div>
+                </div>
+            )}
+    </>
+  );};
 export default NutritionMonitor;

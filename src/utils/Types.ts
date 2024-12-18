@@ -40,3 +40,22 @@ export interface DecodedToken {
     weight: number;
   }
   
+  
+interface Food {
+    name: string;
+    calories?: number;
+    fats?: number;
+    protein?: number;
+    carbs?: number;
+    sodium?: number;
+    sugar?: number;
+    cholesterol?: number;
+    vitamins?: string[];
+    minerals?: string[];
+}
+
+ export interface State {
+    meal: string;
+    food: Food;
+    index: number;
+}
