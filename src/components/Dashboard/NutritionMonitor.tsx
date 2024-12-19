@@ -74,7 +74,86 @@ const NutritionMonitor: React.FC = () => {
     weight: 0,
   });
 
-  const handleAddFood = () => {
+  // const handleAddFood = async () => {
+  //   try {
+  //     const response = await fetch('http://localhost:5000/nutrition/food', {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json' },
+  //       body: JSON.stringify(foodInput),
+  //     });
+  
+  //     if (response.ok) {
+  //       const newFood = await response.json();
+  //       alert('Food added successfully!');
+  //       // Optionally update the UI or state with the new food
+  //       setFoodInput({
+  //         name: '',
+  //         calories: 0,
+  //         carbs: 0,
+  //         fats: 0,
+  //         protein: 0,
+  //         sodium: 0,
+  //         sugar: 0,
+  //         cholesterol: 0,
+  //         vitamins: {},
+  //         minerals: {},
+  //         quantity: 1,
+  //         weight: 0,
+  //       });
+  //     } else {
+  //       const error = await response.json();
+  //       alert(`Failed to add food: ${error.error}`);
+  //     }
+  //   } catch (err) {
+  //     console.error('Error adding food:', err);
+  //     alert('An error occurred while adding the food.');
+  //   }
+  // };
+
+
+
+
+
+
+  // const handleAddFood = async () => {
+  //   try {
+  //     const response = await fetch('http://localhost:5000/foods', {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json' },
+  //       body: JSON.stringify(foodInput),
+  //     });
+  
+  //     if (response.ok) {
+  //       const newFood = await response.json();
+  //       toast.success('Food added successfully!');
+  //       setFoodInput({
+  //         name: '',
+  //         calories: 0,
+  //         carbs: 0,
+  //         fats: 0,
+  //         protein: 0,
+  //         sodium: 0,
+  //         sugar: 0,
+  //         cholesterol: 0,
+  //         vitamins: {},
+  //         minerals: {},
+  //         quantity: 1,
+  //         weight: 0,
+  //       });
+  //     } else {
+  //       const error = await response.json();
+  //       toast(`Failed to add food: ${error.error}`);
+  //     }
+  //   } catch (err) {
+  //     console.error('Error adding food:', err);
+  //     toast('An error occurred while adding the food.');
+  //   }
+  // };
+  
+
+const serverURL= import.meta.env.VITE_SERVER_URL;
+
+  const handleAddFood = async() => {
     if (
       !foodInput.name.trim() ||
       (foodInput.calories === 0 &&
@@ -96,6 +175,14 @@ const NutritionMonitor: React.FC = () => {
     if (selectedMeal === 'dinner') setDinner([...dinner, newFood]);
     if (selectedMeal === 'snacks') setSnacks([...snacks, newFood]);
 
+      await axios.post(`${serverURL}/food/foods`,{foodInput,selectedMeal})
+        .then(()=>{
+          toast.success("Success")
+        })
+        .catch(()=>{
+          toast.error("Error")
+        })
+
     // Reset the input fields
     setFoodInput({
       name: '',
@@ -113,6 +200,10 @@ const NutritionMonitor: React.FC = () => {
     });
   };
 
+
+
+
+
   const handleClearMeal = (meal: string) => {
     if (meal === 'breakfast') setBreakfast([]);
     if (meal === 'lunch') setLunch([]);
@@ -120,21 +211,25 @@ const NutritionMonitor: React.FC = () => {
     if (meal === 'snacks') setSnacks([]);
   };
 
-  const handleDeleteFood = (meal: string, index: number) => {
-    if (meal === 'breakfast') {
-      setBreakfast(breakfast.filter((_, i) => i !== index));
-    }
-    if (meal === 'lunch') {
-      setLunch(lunch.filter((_, i) => i !== index));
-    }
-    if (meal === 'dinner') {
-      setDinner(dinner.filter((_, i) => i !== index));
-    }
-    if (meal === 'snacks') {
-      setSnacks(snacks.filter((_, i) => i !== index));
+  const handleDeleteFood = async (foodId: any) => {
+    try {
+      const response = await fetch(`http://localhost:5000/foods/${foodId}`, {
+        method: 'DELETE',
+      });
+  
+      if (response.ok) {
+        alert('Food deleted successfully!');
+        // Optionally update the UI or state to reflect the deletion
+      } else {
+        const error = await response.json();
+        alert(`Failed to delete food: ${error.error}`);
+      }
+    } catch (err) {
+      console.error('Error deleting food:', err);
+      alert('An error occurred while deleting the food.');
     }
   };
-
+  
   const calculateTotal = (field: keyof Nutrition): number => {
     const sumField = (meals: Nutrition[]) =>
       meals.reduce((sum, food) => {
@@ -485,7 +580,21 @@ const NutritionMonitor: React.FC = () => {
       const handleOpenModal = () => setIsModalOpen(true);
       const handleCloseModal = () => setIsModalOpen(false);
       
-
+      const fetchFoods = async (meal: any) => {
+        try {
+          const response = await fetch(`http://localhost:5000/foods/${meal}`);
+          if (response.ok) {
+            const foods = await response.json();
+            // Update your state with the fetched foods
+            console.log('Fetched foods:', foods);
+          } else {
+            alert('Failed to fetch foods.');
+          }
+        } catch (err) {
+          console.error('Error fetching foods:', err);
+        }
+      };
+      
   return (
     <>
       <BreadCrumb name="Your Personalized Nutrition Guide" route='/dashboard/nutri-mon' nestedRoute={{ name: "test", route: "test" }} />
@@ -543,7 +652,7 @@ const NutritionMonitor: React.FC = () => {
                               <span onClick={()=>{setIsModalOpen(true)}}>Update</span>
                             </button>
                             <button
-                              onClick={() => handleDeleteFood(meal, index)}
+                              onClick={() => handleDeleteFood(food)}
                               className="text-red-500 hover:text-red-700 transition-all flex items-center space-x-1 px-3 py-1 rounded-full border border-red-300 hover:bg-red-100 shadow-sm">
                               <FaTrashAlt />
                               <span>Delete</span>

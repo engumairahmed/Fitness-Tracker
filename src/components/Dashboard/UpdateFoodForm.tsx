@@ -10,15 +10,27 @@ const UpdateFoodForm = ({ }: { onClose: () => void }) => {
 
     const navigate = useNavigate();
 
-    const handleUpdate = () => {
-        // Validate input
-        if (!updatedFood.name.trim()) {
-            alert('Food name cannot be empty');
-            return;
+    const handleUpdateFood = async (foodId: any) => {
+        try {
+          const response = await fetch(`http://localhost:5000/foods/${foodId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(foodId),
+          });
+      
+          if (response.ok) {
+            const updatedFood = await response.json();
+            alert('Food updated successfully!');
+            // Optionally update the UI or state with the updated food
+          } else {
+            const error = await response.json();
+            alert(`Failed to update food: ${error.error}`);
+          }
+        } catch (err) {
+          console.error('Error updating food:', err);
+          alert('An error occurred while updating the food.');
         }
-        // Save changes and redirect back to the main page
-        navigate('/dashboard/nutri-mon', { state: { updatedMeal: meal, updatedFood, foodIndex: index } });
-    };
+      };
 
     const handleAddVitamin = () => {
         if (newVitamin.trim()) {
@@ -201,12 +213,8 @@ const UpdateFoodForm = ({ }: { onClose: () => void }) => {
                 </ul>
             </div>
 
-            <button
-                onClick={handleUpdate}
-                className="bg-green-500 text-white px-4 py-2 rounded-full mt-4 hover:bg-green-600 transition-all"
-            >
-                Save Changes
-            </button>
+            <button onClick={() => handleUpdateFood(food)}>Update Food</button>
+
         </div>
     );
 };
