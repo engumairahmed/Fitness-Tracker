@@ -273,7 +273,7 @@ export const Teams = () => {
 
               <div className="p-6">
                 <h4 className="text-gray-800 text-base font-extrabold">
-                  Hamza Adnan
+                  Muhammad Hamza
                 </h4>
                 <p className="text-gray-600 text-xs mt-1"></p>
                 <p className="text-gray-600 mt-4 text-sm">
