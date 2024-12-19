@@ -95,10 +95,17 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }: SidebarProps) => {
   return (
     <>
     {isModalOpen && <LogoutModal onClose={closeModal} />}
-      <nav id="sidebar" className={`lg:w-[270px] ${isSidebarOpen ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"}max-lg:fixed transition-all duration-500 shrink-0 z-[100]`}>
-        <div id="sidebar-collapse-menu"
-          className={`bg-white shadow-lg h-screen fixed ${isSidebarOpen ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"
-            } top-0 left-0 overflow-auto overflow-x-hidden z-[99] lg:w-[270px] transition-all duration-500`}>
+    <nav id="sidebar" className={`lg:w-[270px] 
+  ${isSidebarOpen ? "w-[270px] visible opacity-100" : "w-[32px] hidden opacity-0"} 
+  max-lg:fixed 
+  transition-[width,opacity] 
+  duration-500 
+  shrink-0 
+  z-[100]`}>
+  <div id="sidebar-collapse-menu"
+    className={`bg-white ${isSidebarOpen ? "w-[270px] visible" : "w-[32px] hidden"} 
+      shadow-lg h-screen fixed top-0 left-0 overflow-auto overflow-x-hidden z-[99] 
+      lg:w-[270px] max-lg:w-[270px] transition-all duration-500`}>
           <div className={`bg-white flex items-center gap-4 pt-6 pb-2 px-4 top-0 min-h-[64px] z-[100] `}>
             <Link to={"/"} className="flex items-center gap-2">
               <img src="/FitClave.png" alt="logo"
