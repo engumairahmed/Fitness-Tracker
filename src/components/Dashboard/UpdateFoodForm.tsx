@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-const UpdateFoodForm = ({ onClose }: { onClose: () => void }) => {
+const UpdateFoodForm = ({ }: { onClose: () => void }) => {
     const { state } = useLocation();
     const { meal, food, index } = state || {};
     const [updatedFood, setUpdatedFood] = useState({ ...food });
