@@ -1,4 +1,3 @@
-
 import { MdDashboard, MdAnalytics } from "react-icons/md";
 import { IoMdFitness, IoMdNutrition } from "react-icons/io";
 import { FaArrowLeft, FaBarsProgress } from "react-icons/fa6";
@@ -93,20 +92,21 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }: SidebarProps) => {
 
   return (
     <>
-      <nav id="sidebar" className={`lg:w-[270px] ${isSidebarOpen ? "block":"hidden"} max-lg:fixed transition-all duration-500 shrink-0 z-[100]`}>
+      <nav id="sidebar" className={`lg:w-[270px] ${isSidebarOpen ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"}max-lg:fixed transition-all duration-500 shrink-0 z-[100]`}>
         <div id="sidebar-collapse-menu"
-          className="bg-white shadow-lg h-screen fixed top-0 left-0 overflow-auto overflow-x-hidden z-[99] lg:w-[270px] max-lg:w-0 max-lg:invisible transition-all duration-500">
-          <div className="bg-white flex items-center gap-4 pt-6 pb-2 px-4 top-0 min-h-[64px] z-[100]">
+          className={`bg-white shadow-lg h-screen fixed ${isSidebarOpen ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"
+            } top-0 left-0 overflow-auto overflow-x-hidden z-[99] lg:w-[270px] transition-all duration-500`}>
+          <div className={`bg-white flex items-center gap-4 pt-6 pb-2 px-4 top-0 min-h-[64px] z-[100] `}>
             <Link to={"/"} className="flex items-center gap-2">
               <img src="/FitClave.png" alt="logo"
                 className='w-[150px] inline' />
             </Link>
 
-             <button id="close-sidebar" className='ml-auto' onClick={toggleSidebar}>
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 fill-gray-300" viewBox="0 0 20 20">
-                <path fill-rule="evenodd"
+            <button id="close-sidebar" className='ml-auto' onClick={toggleSidebar}>
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 fill-gray-600 hover:fill-gray-400 transition-all duration-150" viewBox="0 0 20 20">
+                <path fillRule="evenodd"
                   d="M.13 17.05a1.41 1.41 0 0 1 1.41-1.41H10a1.41 1.41 0 1 1 0 2.82H1.54a1.41 1.41 0 0 1-1.41-1.41zm0-14.1a1.41 1.41 0 0 1 1.41-1.41h16.92a1.41 1.41 0 1 1 0 2.82H1.54A1.41 1.41 0 0 1 .13 2.95zm0 7.05a1.41 1.41 0 0 1 1.41-1.41h16.92a1.41 1.41 0 1 1 0 2.82H1.54A1.41 1.41 0 0 1 .13 10z"
-                  clip-rule="evenodd" data-original="#000000" />
+                  clipRule="evenodd" data-original="#000000" />
               </svg>
             </button>
           </div>
@@ -185,4 +185,3 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }: SidebarProps) => {
 }
 
 export default Sidebar
-

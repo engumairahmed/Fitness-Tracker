@@ -42,6 +42,7 @@ export interface DecodedToken {
   
   export interface Progress {
     _id?: string;
+    bmi:number;
     bodyMeasurements?: {
       weight?: number;
       weightUnit?: string;
@@ -58,3 +59,5 @@ export interface DecodedToken {
       liftingWeightUnit?: string;
     };
   }
+
+export type UnitType = "kg" | "lbs" | "cm" | "ft-in";

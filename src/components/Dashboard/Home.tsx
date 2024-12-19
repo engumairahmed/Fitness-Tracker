@@ -54,7 +54,7 @@ const DashboardHome = () => {
 
  
 
-    <div className="p-10 mt-9 mx-4 lg:mx-12 bg-[#31C48D] text-white rounded-lg shadow-lg">
+    <div className="p-10 mt-9 mx-4 lg:mx-12 bg-[#67C3A2] text-white rounded-lg shadow-lg">
       <h1 className="text-xl md:text-2xl lg:text-3xl font-bold">
         Welcome to Your Dashboard—Your Fitness Story Begins Now! 💪
       </h1>

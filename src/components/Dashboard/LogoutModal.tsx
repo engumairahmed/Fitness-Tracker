@@ -14,7 +14,7 @@ export const LogoutModal = ({ onClose }: { onClose: () => void }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-center items-center bg-[rgba(0,0,0,0.5)]">
+    <div className="fixed inset-0 z-50 flex justify-center items-center bg-[rgba(0,0,0,0)]">
      
       <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-6 relative">
    

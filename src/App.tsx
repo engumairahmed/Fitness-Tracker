@@ -37,7 +37,7 @@ import { Workout } from './components/Interface/Workout'
 import FollowedWorkouts from './components/Dashboard/FollowedWorkouts'
 import SettingsComponent from './components/Dashboard/Settings'
 import WorkoutDay from './components/Dashboard/WorkoutsPerDay'
-// import ProgressMonitor from './components/Dashboard/ProgressMonitor'
+import ProgressMonitor from './components/Dashboard/ProgressMonitor'
 // import BodyPartButtons from './components/Dashboard/BodyShape'
 
 
@@ -93,7 +93,7 @@ function App() {
           <Route path='profile' element={<Profile></Profile>}></Route>
           <Route path='settings' element={<SettingsComponent/>}></Route>
           {/* <Route path="update-food" element={<UpdateFoodForm />}></Route> */}
-          {/* <Route path='progress-track' element={<ProgressMonitor/>}/> */}
+          <Route path='progress-track' element={<ProgressMonitor/>}/>
           {/* <Route path='body-measure' element={<BodyPartButtons/>}></Route> */}
          
           <Route path='analytics' element={<Analytics></Analytics>}></Route>

@@ -66,7 +66,7 @@ const SettingsComponent = () => {
                                 value={formik.values.oldPassword}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                className={`mt-2 w-full p-2 pr-10 border rounded-lg focus:ring-2 focus:ring-[#31C48D] focus:outline-none ${formik.errors.oldPassword && formik.touched.oldPassword ? "border-red-500" : ""}`}
+                                className={`mt-2 w-full p-2 pr-10 border rounded-lg focus:ring-2 focus:ring-[#31C48D] focus:outline-none `}
                             />
                             <button
                                 type="button"
@@ -89,7 +89,7 @@ const SettingsComponent = () => {
                                 value={formik.values.newPassword}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                className={`mt-2 w-full p-2 pr-10 border rounded-lg focus:ring-2 focus:ring-[#31C48D] focus:outline-none ${formik.errors.newPassword && formik.touched.newPassword ? "border-red-500" : ""}`}
+                                className={`mt-2 w-full p-2 pr-10 border rounded-lg focus:ring-2 focus:ring-[#31C48D] focus:outline-none `}
                             />
                             <button
                                 type="button"
@@ -112,7 +112,7 @@ const SettingsComponent = () => {
                                 value={formik.values.confirmPassword}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
-                                className={`mt-2 w-full p-2 pr-10 border rounded-lg focus:ring-2 focus:ring-[#31C48D] focus:outline-none ${formik.errors.confirmPassword && formik.touched.confirmPassword ? "border-red-500" : ""}`}
+                                className={`mt-2 w-full p-2 pr-10 border rounded-lg focus:ring-2 focus:ring-[#31C48D] focus:outline-none`}
                             />
                             <button
                                 type="button"

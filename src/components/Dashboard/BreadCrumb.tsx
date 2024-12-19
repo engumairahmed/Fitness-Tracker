@@ -11,7 +11,7 @@ interface props {
 
 const BreadCrumb = (props: props) => {
   return (
-    <div className="p-10 mt-9 mx-4 lg:mx-12 bg-[#31C48D] text-white rounded-lg shadow-lg">
+    <div className="p-10 mt-9 bg-[#67C3A2] text-white rounded-lg shadow-lg">
       <div className="text-2xl md:text-3xl font-bold">
         <h1>Track your workouts, monitor nutrition, and achieve your goals—all in one place.</h1>
       </div>
