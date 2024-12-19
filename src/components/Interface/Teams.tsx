@@ -126,7 +126,7 @@ export const Teams = () => {
             >
               <div className="bg-[#31c48d] h-32"></div>
               <img
-                src="https://readymadeui.com/team-2.webp"
+                src="https://readymadeui.com/team-3.webp"
                 className="w-36 h-36 border-4 border-white rounded-full -mt-[72px] shadow-xl inline-block"
               />
 
@@ -139,10 +139,9 @@ export const Teams = () => {
                   Frontend Developer
                 </p>
                 <p className="text-gray-600 mt-4 text-sm">
-                  member of our frontend team, working to implement
-                  user-friendly interfaces and features. Shee focuses on writing
-                  clean, efficient code to ensure the app looks great and
-                  functions smoothly across all devices.
+                  She was tasked with designing the authentication pages, and while the work was completed successfully, 
+                  it required extra guidance. Her efforts are appreciated, and it’s hoped she will take a more proactive approach in the 
+                  future to contribute more effectively to the team.
                 </p>
 
                 <div className="space-x-4 mt-6">
@@ -184,14 +183,12 @@ export const Teams = () => {
                   Palwasha Qasim
                 </h4>
                 <p className="text-gray-600 text-xs mt-1">
-                  Dashboard UI Developer
+                  Dashboard UI Designer
                 </p>
                 <p className="text-gray-600 mt-4 text-sm">
-                  Responsible for designing and developing the dashboard UI,
-                  ensuring it's both user-friendly and visually appealing. She
-                  focuses on creating a seamless, intuitive experience for users
-                  to track their data and interact with the app’s features
-                  effectively.
+                She was assigned to design and develop the dashboard UI but failed to complete the task, 
+                causing delays and extra effort for the team. This highlighted her lack of commitment to creating a seamless, 
+                intuitive user experience.
                 </p>
 
                 <div className="space-x-4 mt-6">
@@ -233,14 +230,11 @@ export const Teams = () => {
                   Ayan Najam
                 </h4>
                 <p className="text-gray-600 text-xs mt-1">
-                  Quality Assurance Developer
                 </p>
                 <p className="text-gray-600 mt-4 text-sm">
-                  Responsible for quality assurance processes and ensures that
-                  all features and functionalities of the fitness tracker app
-                  are rigorously tested. He works closely with developers and
-                  designers to identify potential issues before they reach the
-                  user, ensuring that FitClave runs smoothly for everyone.
+                He has the skills for both frontend and backend tasks but showed a lack of responsibility and commitment. 
+                His work, while not erroneous, lacked the quality and attention to detail expected, reflecting disinterest and 
+                hindering the team's progress. This approach was disappointing and below the standards of effective collaboration.
                 </p>
 
                 <div className="space-x-4 mt-6">
@@ -283,9 +277,9 @@ export const Teams = () => {
                 </h4>
                 <p className="text-gray-600 text-xs mt-1"></p>
                 <p className="text-gray-600 mt-4 text-sm">
-                  Ensures that the fitness tracker is bug-free and functions
-                  smoothly. Responsible for rigorous testing of every feature to
-                  guarantee a seamless user experience and high reliability.
+                He showed a lack of initiative and accountability, delaying his tasks until the project’s success was at risk. 
+                Starting in the final week without proper preparation, his work lacked depth and added unnecessary strain on the team. 
+                This behavior fell far short of expectations.
                 </p>
 
                 <div className="space-x-4 mt-6">
@@ -317,7 +311,7 @@ export const Teams = () => {
             >
               <div className="bg-[#31c48d] h-32"></div>
               <img
-                src="https://readymadeui.com/team-2.webp"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJdeTnZsjXpwZL9NNELSkDEv9mEpnxWbThXS_N21pOeAEfymWC2FZBidBOp1AawK2ZBUk&usqp=CAU"
                 className="w-36 h-36 border-4 border-white rounded-full -mt-[72px] shadow-xl inline-block"
               />
 
@@ -325,11 +319,13 @@ export const Teams = () => {
                 <h4 className="text-gray-800 text-base font-extrabold">
                   Ashir
                 </h4>
-                <p className="text-gray-600 text-xs mt-1"></p>
+                <p className="text-gray-600 text-xs mt-1">Jack of All Master of None</p>
                 <p className="text-gray-600 mt-4 text-sm">
-                  Ensures that the fitness tracker is bug-free and functions
-                  smoothly. Responsible for rigorous testing of every feature to
-                  guarantee a seamless user experience and high reliability.
+                He displayed a complete lack of involvement and understanding regarding the project. 
+                He failed to comprehend even the basics of the project's objectives or the technologies required, 
+                such as Node.js for the backend and React for the frontend. His lack of effort and disinterest not only hindered his 
+                own growth but also added unnecessary pressure on the rest of the team. This level of neglect is unacceptable in a 
+                collaborative environment and reflects poorly on his commitment to the project.
                 </p>
 
                 <div className="space-x-4 mt-6">

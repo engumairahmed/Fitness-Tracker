@@ -254,12 +254,12 @@ const ProgressMonitor = () => {
 
                             {/* Run Time Input */}
                             <div className="flex flex-col">
-                                <label className="mb-2 text-gray-700 font-medium">Run Time</label>
+                                <label className="mb-2 text-gray-700 font-medium">Running Time</label>
                                 <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-2">
                                     <Field
                                         type="number"
                                         name="runTime"
-                                        placeholder={`Run Time (${runTimeUnit})`}
+                                        placeholder={`Running Time (${runTimeUnit})`}
                                         className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-400 focus:outline-none"
                                     />
                                     <select
@@ -349,7 +349,7 @@ const ProgressMonitor = () => {
                                 <th className="px-4 py-2 text-left">Weight</th>
                                 <th className="px-4 py-2 text-left">Chest</th>
                                 <th className="px-4 py-2 text-left">Waist</th>
-                                <th className="px-4 py-2 text-left">Run Time</th>
+                                <th className="px-4 py-2 text-left">Running Time</th>
                                 <th className="px-4 py-2 text-left">Lifting Weight</th>
                             </tr>
                         </thead>

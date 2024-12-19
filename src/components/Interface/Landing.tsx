@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { About } from "./About";
 import { Features } from "./Features";
 import { Footer } from "./Footer";
@@ -36,12 +37,11 @@ export const Landing = () => {
               Your all-in-one solution for workouts, nutrition, and progress
               tracking....
             </p>
-            <a
-              href="#getStarted"
+            <Link to={'/login'}
               className="inline-block mt-8 px-8 py-3 text-white border-2 border-[#67C3A2] bg-transparent rounded-full text-lg shadow-lg hover:bg-[#31C48D] hover:shadow-xl transition-all duration-300"
             >
               Get Started
-            </a>
+            </Link>
       </div>
       </div>
     </div>
