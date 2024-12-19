@@ -87,8 +87,6 @@ function App() {
           <Route path='nutri-mon' element={<NutritionMonitor/>}></Route>
           <Route path='workoutform' element ={<WorkoutForm/>}></Route>
           <Route path='workoutlist' element ={<WorkoutsList/>}></Route>
-          <Route path='followedworkout' element ={<FollowedWorkouts/>}></Route>
-          <Route path='workoutdays' element ={<WorkoutDay/>}></Route>
          
           <Route path='profile' element={<Profile></Profile>}></Route>
           <Route path='settings' element={<SettingsComponent/>}></Route>

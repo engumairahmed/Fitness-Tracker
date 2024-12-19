@@ -5,6 +5,7 @@ import axios from "axios";
 import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 
+
 type Exercise = {
   exercise_name: string;
   sets: number;
@@ -343,6 +344,7 @@ const WorkoutForm = () => {
           </form>
         </div>
       </div>
+     
     </>
   );
 };
