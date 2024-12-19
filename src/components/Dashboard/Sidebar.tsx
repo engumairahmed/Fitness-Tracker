@@ -40,7 +40,9 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }: SidebarProps) => {
 
   const [isModalOpen, setModalOpen] = useState(false);
   const openModal = () => setModalOpen(true);
-  const closeModal = () => setModalOpen(false);
+  const closeModal = () => {setModalOpen(false);
+    toggleSidebar();
+  }
 
   type NavItem = {
     to: string;
@@ -85,13 +87,14 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }: SidebarProps) => {
       icon: <MdAnalytics className="w-[22px] h-[22px] mr-3" />,
     },
   ];
-
+  
   useEffect(() => {
     getPicture()
   }, [])
-
+  
   return (
     <>
+    {isModalOpen && <LogoutModal onClose={closeModal} />}
       <nav id="sidebar" className={`lg:w-[270px] ${isSidebarOpen ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"}max-lg:fixed transition-all duration-500 shrink-0 z-[100]`}>
         <div id="sidebar-collapse-menu"
           className={`bg-white shadow-lg h-screen fixed ${isSidebarOpen ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"
@@ -150,12 +153,11 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }: SidebarProps) => {
                   </Link>
                 </li>
                 <li>
-                  <button onClick={openModal}
+                  <button onClick={()=>{openModal();toggleSidebar();}}
                     className="text-gray-900 text-sm flex items-center cursor-pointer hover:bg-gray-200 rounded-md px-3 py-2.5 transition-all duration-300">
                     <IoLogOut className="w-[22px] h-[22px] mr-3" />
                     <span>Logout</span>
                   </button>
-                  {isModalOpen && <LogoutModal onClose={closeModal} />}
 
                 </li>
               </ul>
