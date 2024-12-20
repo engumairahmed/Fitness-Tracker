@@ -165,7 +165,7 @@ export const Login = () => {
       {/* Form Section */}
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 m-0 ">
         <Link className="flex justify-center mb-8 " to={"/"}>
-          <img src="/FitClave.png" alt="Logo" className="h-14 w-auto" />
+          <img src="/public/FitClave.png" alt="Logo" className="h-14 w-auto" />
         </Link>
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2

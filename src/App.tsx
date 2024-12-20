@@ -14,7 +14,6 @@ import InterfaceLayout from './pages/Interface/Layout'
 import NotFound from './pages/Notfound'
 import DashboardHome from './pages/Dashboard/Home'
 import NutritionMonitor from './pages/Dashboard/NutritionMonitor'
-// import UpdateFoodForm from './pages/Dashboard/UpdateFoodForm';
 import { Nutrition } from './pages/Interface/Nutrition'
 
 import { FAQ } from './pages/Interface/Faq'
@@ -35,11 +34,9 @@ import PrivacyPolicy from './pages/Interface/PrivacyPolicy'
 
 import WorkoutsList from './pages/Dashboard/WorkoutList'
 import { Workout } from './pages/Interface/Workout'
-import FollowedWorkouts from './pages/Dashboard/FollowedWorkouts'
 import SettingsComponent from './pages/Dashboard/Settings'
 import WorkoutDay from './pages/Dashboard/WorkoutsPerDay'
 import ProgressMonitor from './pages/Dashboard/ProgressMonitor'
-// import BodyPartButtons from './pages/Dashboard/BodyShape'
 
 
 
@@ -92,9 +89,7 @@ function App() {
          
           <Route path='profile' element={<Profile></Profile>}></Route>
           <Route path='settings' element={<SettingsComponent/>}></Route>
-          {/* <Route path="update-food" element={<UpdateFoodForm />}></Route> */}
           <Route path='progress-track' element={<ProgressMonitor/>}/>
-          {/* <Route path='body-measure' element={<BodyPartButtons/>}></Route> */}
          
           <Route path='analytics' element={<Analytics></Analytics>}></Route>
         </Route>
