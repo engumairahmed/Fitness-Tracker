@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import * as jwtdecode from "jwt-decode";
 import { DecodedToken } from "../../utils/Types";
-import { useAuth } from "../Auth/AuthContext";
+import { useAuth } from "../../utils/AuthContext";
 
 export const Navbar = () => {
   const { logout } = useAuth();

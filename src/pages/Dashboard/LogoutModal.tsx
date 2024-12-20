@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../Auth/AuthContext";
+import { useAuth } from "../../utils/AuthContext";
 import { AiOutlineCloseCircle } from "react-icons/ai"; 
 import { BiLogOut } from "react-icons/bi";
 

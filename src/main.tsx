@@ -4,7 +4,7 @@ import './index.css'
 import App from './App.tsx'
 import { BrowserRouter } from 'react-router-dom'
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import { AuthProvider } from './components/Auth/AuthContext.tsx'
+import { AuthProvider } from './utils/AuthContext.tsx'
 
 const clientId = import.meta.env.VITE_CLIENT_ID
 

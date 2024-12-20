@@ -1,10 +1,10 @@
 import React from 'react'
-import { Navbar } from './Interface/Navbar'
-import { Footer } from './Interface/Footer'
+import { Navbar } from './Navbar'
+import { Footer } from './Footer'
 import { Outlet } from 'react-router-dom'
-import { Landing } from './Interface/Landing'
+import { Landing } from './Landing'
 
-const Home = () => {
+const InterfaceLayout = () => {
     return (
         <>
             <Navbar></Navbar>
@@ -14,4 +14,4 @@ const Home = () => {
     )
 }
 
-export default Home
+export default InterfaceLayout

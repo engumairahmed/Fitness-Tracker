@@ -6,7 +6,7 @@ import { BsPersonBoundingBox } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import Home from "./Home";
 import Profile from "./Profile";
-import { useAuth } from "../Auth/AuthContext";
+import { useAuth } from "../../utils/AuthContext";
 import { useEffect, useRef, useState } from "react";
 import { LogoutModal } from "./LogoutModal";
 import { ToastContainer } from "react-toastify";
@@ -103,7 +103,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }: SidebarProps) => {
   shrink-0 
   z-[100]`}>
   <div id="sidebar-collapse-menu"
-    className={`bg-white ${isSidebarOpen ? "w-[270px] visible" : "w-[32px] hidden"} 
+    className={`bg-white ${isSidebarOpen ? "w-[270px] visible" : "w-1 hidden"} 
       shadow-lg h-screen fixed top-0 left-0 overflow-auto overflow-x-hidden z-[99] 
       lg:w-[270px] max-lg:w-[270px] transition-all duration-500`}>
           <div className={`bg-white flex items-center gap-4 pt-6 pb-2 px-4 top-0 min-h-[64px] z-[100] `}>

@@ -106,9 +106,10 @@ const ProgressMonitor = () => {
             <BreadCrumb name="Progress Tracker" route="progress-track" />
 
             <div className="max-w-3xl mx-auto p-6 mt-8 bg-gray-100 rounded-lg shadow-md">
-                {/* Add Progress Form */}
+                
                 <BMICalculator setBmi={setBmi} />
 
+                {/* Add Progress Form */}
 
                 <Formik
                     initialValues={{
